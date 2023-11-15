@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "93821656244",
+    "project_id": "smatrackxapp",
+    "storage_bucket": "smatrackxapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93821656244:android:55a94123a6e74a38e00be1",
+        "android_client_info": {
+          "package_name": "com.alamsyah.smatrackx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdrEFiuZccbqDqVcHndteT_RkypJLZCDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93821656244:android:2f528bc3b5d8d8f1e00be1",
+        "android_client_info": {
+          "package_name": "com.example.smatrackz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdrEFiuZccbqDqVcHndteT_RkypJLZCDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
