@@ -1,3 +1,45 @@
 export 'firebase_options.dart';
 export 'package:flutter/material.dart';
 export 'package:firebase_core/firebase_core.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:equatable/equatable.dart';
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:firebase_storage/firebase_storage.dart';
+export 'package:uuid/uuid.dart';
+export 'package:intl/intl.dart' show DateFormat;
+export 'package:flutter_animate/flutter_animate.dart';
+export 'package:dartz/dartz.dart' show Either, Right, Left;
+export 'package:get_it/get_it.dart';
+export 'package:lottie/lottie.dart' show Lottie;
+export 'package:provider/provider.dart';
+export 'package:iconly/iconly.dart';
+
+export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
+export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
+export 'package:smatrackz/src/modules/auth/data/repositories/auth_repo_impl.dart';
+export 'package:smatrackz/src/modules/auth/domain/entities/user.dart';
+export 'package:smatrackz/src/modules/auth/domain/repositories/auth_repo.dart';
+export 'package:smatrackz/src/modules/auth/domain/use_cases/use_cases.dart';
+export 'package:smatrackz/src/modules/auth/presentation/bloc/auth_bloc.dart';
+export 'package:smatrackz/src/modules/auth/presentation/views/views.dart';
+export 'package:smatrackz/src/modules/auth/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/providers/bottom_nav_controller.dart';
+export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/views/bottom_navigation.dart';
+
+export 'package:smatrackz/core/common/app/providers/providers.dart';
+export 'package:smatrackz/core/common/views/views.dart';
+export 'package:smatrackz/core/common/widgets/widgets.dart';
+export 'package:smatrackz/core/enums/enums.dart';
+export 'package:smatrackz/core/errors/errors.dart';
+export 'package:smatrackz/core/extensions/extensions.dart';
+export 'package:smatrackz/core/res/res.dart';
+export 'package:smatrackz/core/services/injection_container.dart';
+export 'package:smatrackz/core/services/router.dart';
+export 'package:smatrackz/core/use_cases/use_cases.dart';
+export 'package:smatrackz/core/utils/utils.dart';
+
+export 'package:flutter/services.dart';
+export 'dart:async';
+export 'dart:convert';
+export 'dart:io';
