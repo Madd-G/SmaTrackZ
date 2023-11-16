@@ -14,6 +14,7 @@ export 'package:get_it/get_it.dart';
 export 'package:lottie/lottie.dart' show Lottie;
 export 'package:provider/provider.dart';
 export 'package:iconly/iconly.dart';
+export 'package:ionicons/ionicons.dart';
 
 export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
 export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
@@ -26,6 +27,8 @@ export 'package:smatrackz/src/modules/auth/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/auth/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/providers/bottom_nav_controller.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/views/bottom_navigation.dart';
+export 'package:smatrackz/src/modules/hrd/home/presentation/views/home_screen.dart';
+export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 
 export 'package:smatrackz/core/common/app/providers/providers.dart';
 export 'package:smatrackz/core/common/views/views.dart';

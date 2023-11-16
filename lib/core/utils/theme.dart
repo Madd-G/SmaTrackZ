@@ -11,6 +11,7 @@ class AppTheme {
       color: Colors.transparent,
     ),
     colorScheme: ColorScheme.fromSwatch(
+      backgroundColor: AppColors.whiteColor,
       accentColor: AppColors.primaryColor,
     ),
   );

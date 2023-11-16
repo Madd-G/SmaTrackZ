@@ -9,9 +9,6 @@ class AppColors {
   /// #E5EEF9
   static const secondaryColor = Color(0xFFE5EEF9);
 
-  /// BACKGROUND
-  static const backgroundColor = Color(0xFFFAFAFF);
-
   /// APP TEXT COLOR
   static const textColor = Color(0xFF949DA9);
 
@@ -35,4 +32,8 @@ class AppColors {
   /// YELLOW
   static const yellowColor = Color(0xFFEBB957);
   static const yellowSecondaryColor = Color(0xFFFBF3E2);
+
+  /// PURPLE
+  static const purpleColor = Color(0xFF6774D5);
+  static const purpleSecondaryColor = Color(0xFF9986E2);
 }

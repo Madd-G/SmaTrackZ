@@ -30,50 +30,58 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 index: controller.currentIndex,
                 children: controller.screens,
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: controller.currentIndex,
-                showSelectedLabels: true,
-                backgroundColor: Colors.white,
-                elevation: 8,
-                onTap: controller.changeIndex,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      controller.currentIndex == 0
-                          ? IconlyBold.home
-                          : IconlyLight.home,
-                      color: controller.currentIndex == 0
-                          ? AppColors.primaryColor
-                          : Colors.grey,
-                    ),
-                    label: 'Home',
-                    backgroundColor: Colors.white,
+              bottomNavigationBar: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.whiteColor,
+                  border: Border(
+                    top: BorderSide(width: 0.3, color: AppColors.greyColor),
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      controller.currentIndex == 1
-                          ? IconlyBold.chart
-                          : IconlyLight.chart,
-                      color: controller.currentIndex == 1
-                          ? AppColors.primaryColor
-                          : Colors.grey,
+                ),
+                child: BottomNavigationBar(
+                  currentIndex: controller.currentIndex,
+                  showSelectedLabels: true,
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  onTap: controller.changeIndex,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        controller.currentIndex == 0
+                            ? IconlyBold.home
+                            : IconlyLight.home,
+                        color: controller.currentIndex == 0
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                      ),
+                      label: 'Home',
+                      backgroundColor: Colors.white,
                     ),
-                    label: 'Attendances',
-                    backgroundColor: Colors.white,
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      controller.currentIndex == 2
-                          ? IconlyBold.profile
-                          : IconlyLight.profile,
-                      color: controller.currentIndex == 2
-                          ? AppColors.primaryColor
-                          : Colors.grey,
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        controller.currentIndex == 1
+                            ? IconlyBold.chart
+                            : IconlyLight.chart,
+                        color: controller.currentIndex == 1
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                      ),
+                      label: 'Attendances',
+                      backgroundColor: Colors.white,
                     ),
-                    label: 'Profile',
-                    backgroundColor: Colors.white,
-                  ),
-                ],
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        controller.currentIndex == 2
+                            ? IconlyBold.profile
+                            : IconlyLight.profile,
+                        color: controller.currentIndex == 2
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                      ),
+                      label: 'Profile',
+                      backgroundColor: Colors.white,
+                    ),
+                  ],
+                ),
               ),
             );
           },
