@@ -32,4 +32,32 @@ extension StringExt on String {
       return 0.0;
     }
   }
+
+  Icon toStatusIcon() {
+    switch (toLowerCase()) {
+      case 'leave':
+        return const Icon(
+          Ionicons.today,
+          color: AppColors.greenColor,
+          size: 25.0,
+        );
+      case 'sick':
+        return const Icon(
+          Icons.local_hospital_rounded,
+          color: AppColors.greenColor,
+          size: 25.0,
+        );
+      case 'no permission':
+        return const Icon(
+          CupertinoIcons.clear_circled_solid,
+          color: AppColors.redColor,
+        );
+      default:
+        return const Icon(
+          Icons.error_outlined,
+          color: AppColors.yellowColor,
+          size: 25.0,
+        );
+    }
+  }
 }

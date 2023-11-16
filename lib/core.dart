@@ -1,5 +1,6 @@
 export 'firebase_options.dart';
 export 'package:flutter/material.dart';
+export 'package:flutter/cupertino.dart' show CupertinoIcons;
 export 'package:firebase_core/firebase_core.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:equatable/equatable.dart';
@@ -31,6 +32,8 @@ export 'package:smatrackz/src/modules/hrd/home/presentation/views/home_screen.da
 export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/views/profile_screen.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/hrd/teams/presentation/views/teams_screen.dart';
+export 'package:smatrackz/src/modules/hrd/teams/presentation/widgets/widgets.dart';
 
 export 'package:smatrackz/core/common/app/providers/providers.dart';
 export 'package:smatrackz/core/common/views/views.dart';

@@ -178,28 +178,28 @@ class CustomTextStyle {
 
   static const TextStyle headingRegular = TextStyle(
     fontWeight: FontWeight.w400,
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: AppFont.poppins,
     letterSpacing: -0.03,
   );
 
   static const TextStyle headingMedium = TextStyle(
     fontWeight: FontWeight.w500,
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: AppFont.poppins,
     letterSpacing: -0.03,
   );
 
   static const TextStyle headingSemiBold = TextStyle(
     fontWeight: FontWeight.w600,
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: AppFont.poppins,
     letterSpacing: -0.03,
   );
 
   static const TextStyle headingBold = TextStyle(
     fontWeight: FontWeight.w700,
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: AppFont.poppins,
     letterSpacing: -0.03,
   );

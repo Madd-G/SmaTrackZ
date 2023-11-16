@@ -32,15 +32,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               bottomNavigationBar: Container(
                 decoration: const BoxDecoration(
-                  color: AppColors.whiteColor,
+                  color: AppColors.redColor,
                   border: Border(
                     top: BorderSide(width: 0.3, color: AppColors.greyColor),
                   ),
                 ),
                 child: BottomNavigationBar(
                   currentIndex: controller.currentIndex,
-                  showSelectedLabels: true,
-                  backgroundColor: Colors.white,
+                  showSelectedLabels: false,
+                  backgroundColor: AppColors.redColor,
                   elevation: 0,
                   onTap: controller.changeIndex,
                   items: [
@@ -54,31 +54,39 @@ class _BottomNavigationState extends State<BottomNavigation> {
                             : Colors.grey,
                       ),
                       label: 'Home',
-                      backgroundColor: Colors.white,
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
                         controller.currentIndex == 1
-                            ? IconlyBold.chart
-                            : IconlyLight.chart,
+                            ? CupertinoIcons.person_2_fill
+                            : CupertinoIcons.person_2,
                         color: controller.currentIndex == 1
                             ? AppColors.primaryColor
                             : Colors.grey,
                       ),
-                      label: 'Attendances',
-                      backgroundColor: Colors.white,
+                      label: 'Teams',
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
                         controller.currentIndex == 2
-                            ? IconlyBold.profile
-                            : IconlyLight.profile,
+                            ? IconlyBold.chart
+                            : IconlyLight.chart,
                         color: controller.currentIndex == 2
                             ? AppColors.primaryColor
                             : Colors.grey,
                       ),
+                      label: 'Attendances',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        controller.currentIndex == 3
+                            ? IconlyBold.profile
+                            : IconlyLight.profile,
+                        color: controller.currentIndex == 3
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                      ),
                       label: 'Profile',
-                      backgroundColor: Colors.white,
                     ),
                   ],
                 ),
