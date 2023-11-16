@@ -32,6 +32,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             create: (_) => sl<AuthBloc>(), child: const SignUpScreen()),
         settings: settings,
       );
+    case BottomNavigation.routeName:
+      return _pageBuilder(
+        (_) => const BottomNavigation(),
+        settings: settings,
+      );
     default:
       return _pageBuilder(
         (_) => const ErrorScreen(),

@@ -5,7 +5,7 @@ class BottomNavController extends ChangeNotifier {
   final List<Widget> _screens = [
     ChangeNotifierProvider(
       create: (_) => TabNavigator(
-        TabItem(child: const Scaffold(body: HomeScreen())),
+        TabItem(child: const HomeScreen()),
       ),
       child: const PersistentView(),
     ),
@@ -18,7 +18,7 @@ class BottomNavController extends ChangeNotifier {
     ),
     ChangeNotifierProvider(
       create: (_) => TabNavigator(
-        TabItem(child: const Scaffold(body: ProfileScreen())),
+        TabItem(child: const ProfileScreen()),
       ),
       child: const PersistentView(),
     ),
