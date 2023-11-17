@@ -10,10 +10,10 @@ class SignUpForm extends StatefulWidget {
     super.key,
   });
 
+  final TextEditingController fullNameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  final TextEditingController fullNameController;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -23,6 +23,15 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
+
+  @override
+  void dispose() {
+    widget.fullNameController.dispose();
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
+    widget.confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

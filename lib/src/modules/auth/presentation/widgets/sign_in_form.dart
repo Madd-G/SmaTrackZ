@@ -20,6 +20,13 @@ class _SignInFormState extends State<SignInForm> {
   bool obscurePassword = true;
 
   @override
+  void dispose() {
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: widget.formKey,
