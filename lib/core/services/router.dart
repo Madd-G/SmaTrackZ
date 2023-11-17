@@ -1,5 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/teams/presentation/views/office_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -36,6 +35,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case OfficeScreen.routeName:
       return _pageBuilder(
         (_) => const OfficeScreen(),
+        settings: settings,
+      );
+    case EmployeeListScreen.routeName:
+      return _pageBuilder(
+        (_) => const EmployeeListScreen(),
         settings: settings,
       );
     case BottomNavigation.routeName:

@@ -18,6 +18,7 @@ class TeamsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 10.0),
                   const Text('My Team', style: CustomTextStyle.headingSemiBold),
                   const SizedBox(height: 25.0),
                   const AbsenceCard(),
@@ -52,7 +53,10 @@ class TeamsScreen extends StatelessWidget {
                         color: AppColors.blueColor,
                       ),
                       TeamCard(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, EmployeeListScreen.routeName);
+                        },
                         icon: Icons.people_rounded,
                         title: 'Employees',
                         color: AppColors.purpleColor,

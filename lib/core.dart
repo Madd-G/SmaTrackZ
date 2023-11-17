@@ -33,13 +33,15 @@ export 'package:smatrackz/src/modules/auth/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/auth/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/providers/bottom_nav_controller.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/views/bottom_navigation.dart';
-export 'package:smatrackz/src/modules/hrd/home/presentation/views/home_screen.dart';
+export 'package:smatrackz/src/modules/hrd/employees/presentation/views/views.dart';
+export 'package:smatrackz/src/modules/hrd/office/presentation/views/views.dart';
+export 'package:smatrackz/src/modules/hrd/home/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/views/profile_screen.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/widgets/widgets.dart';
-export 'package:smatrackz/src/modules/hrd/teams/presentation/views/views.dart';
-export 'package:smatrackz/src/modules/hrd/teams/presentation/widgets/widgets.dart';
-export 'package:smatrackz/src/modules/hrd/teams/services/services.dart';
+export 'package:smatrackz/src/modules/hrd/team_dashboard/presentation/views/views.dart';
+export 'package:smatrackz/src/modules/hrd/team_dashboard/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/hrd/team_dashboard/services/services.dart';
 
 export 'package:smatrackz/core/common/app/providers/providers.dart';
 export 'package:smatrackz/core/common/views/views.dart';
@@ -58,4 +60,3 @@ export 'package:flutter/foundation.dart';
 export 'dart:async';
 export 'dart:convert';
 export 'dart:io';
-
