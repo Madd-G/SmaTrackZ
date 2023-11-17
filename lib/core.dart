@@ -16,6 +16,11 @@ export 'package:lottie/lottie.dart' show Lottie;
 export 'package:provider/provider.dart';
 export 'package:iconly/iconly.dart';
 export 'package:ionicons/ionicons.dart';
+export 'package:geolocator/geolocator.dart';
+export 'package:permission_handler/permission_handler.dart' show Permission;
+export 'package:dio/dio.dart';
+export 'package:flutter_map/flutter_map.dart';
+export 'package:latlong2/latlong.dart' show LatLng;
 
 export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
 export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
@@ -32,8 +37,9 @@ export 'package:smatrackz/src/modules/hrd/home/presentation/views/home_screen.da
 export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/views/profile_screen.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/widgets/widgets.dart';
-export 'package:smatrackz/src/modules/hrd/teams/presentation/views/teams_screen.dart';
+export 'package:smatrackz/src/modules/hrd/teams/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/teams/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/hrd/teams/services/services.dart';
 
 export 'package:smatrackz/core/common/app/providers/providers.dart';
 export 'package:smatrackz/core/common/views/views.dart';
@@ -48,6 +54,8 @@ export 'package:smatrackz/core/use_cases/use_cases.dart';
 export 'package:smatrackz/core/utils/utils.dart';
 
 export 'package:flutter/services.dart';
+export 'package:flutter/foundation.dart';
 export 'dart:async';
 export 'dart:convert';
 export 'dart:io';
+
