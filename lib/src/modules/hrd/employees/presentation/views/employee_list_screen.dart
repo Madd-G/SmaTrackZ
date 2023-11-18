@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/employees/presentation/views/add_employee_screen.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   const EmployeeListScreen({super.key});
@@ -146,7 +147,9 @@ class EmployeeListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AddEmployeeScreen.routeName);
+        },
       ),
     );
   }

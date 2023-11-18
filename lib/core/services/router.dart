@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/employees/presentation/views/add_employee_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -20,6 +21,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         },
         settings: settings,
       );
+
+    case AddEmployeeScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+              create: (_) => sl<AddEmployeeBloc>(),
+              child: const AddEmployeeScreen());
+        },
+        settings: settings,
+      );
+
     case SignInScreen.routeName:
       return _pageBuilder(
         (_) => BlocProvider(
@@ -42,6 +54,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (_) => const EmployeeListScreen(),
         settings: settings,
       );
+
     case BottomNavigation.routeName:
       return _pageBuilder(
         (_) => const BottomNavigation(),

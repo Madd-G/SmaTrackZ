@@ -3,7 +3,16 @@ import 'package:smatrackz/core.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  await _initFirebaseInstances();
   await _initAuth();
+  await _initAddEmployee();
+}
+
+Future<void> _initFirebaseInstances() async {
+  sl
+    ..registerLazySingleton(() => FirebaseAuth.instance)
+    ..registerLazySingleton(() => FirebaseFirestore.instance)
+    ..registerLazySingleton(() => FirebaseStorage.instance);
 }
 
 Future<void> _initAuth() async {
@@ -27,8 +36,23 @@ Future<void> _initAuth() async {
         cloudStoreClient: sl(),
         dbClient: sl(),
       ),
+    );
+}
+
+Future<void> _initAddEmployee() async {
+  sl
+    ..registerFactory(
+      () => AddEmployeeBloc(
+        addEmployee: sl(),
+      ),
     )
-    ..registerLazySingleton(() => FirebaseAuth.instance)
-    ..registerLazySingleton(() => FirebaseFirestore.instance)
-    ..registerLazySingleton(() => FirebaseStorage.instance);
+    ..registerLazySingleton(() => AddEmployee(sl()))
+    ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
+    ..registerLazySingleton<EmployeeRemoteDataSource>(
+      () => EmployeeRemoteDataSourceImpl(
+        authClient: sl(),
+        cloudStoreClient: sl(),
+        dbClient: sl(),
+      ),
+    );
 }
