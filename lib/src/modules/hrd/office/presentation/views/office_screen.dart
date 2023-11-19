@@ -1,10 +1,15 @@
 import 'package:smatrackz/core.dart';
 
-class OfficeScreen extends StatelessWidget {
-  const OfficeScreen({super.key});
+class OfficeScreen extends StatefulWidget {
+  const OfficeScreen({Key? key}) : super(key: key);
 
   static const routeName = '/office';
 
+  @override
+  State<OfficeScreen> createState() => _OfficeScreenState();
+}
+
+class _OfficeScreenState extends State<OfficeScreen> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -12,94 +17,78 @@ class OfficeScreen extends StatelessWidget {
     String? address;
     double? latitude;
     double? longitude;
-    Map<String, dynamic>? currentData;
-    doSave() async {
-      bool isValid = formKey.currentState!.validate();
-      if (!isValid) {
-        showInfoDialog("Please fill required fields");
-        return;
-      }
-
-      await CompanyService().update(
-        companyName: companyName ?? currentData?["company_name"],
-        address: address ?? currentData?["address"],
-        latitude: latitude ?? currentData?["latitude"],
-        longitude: longitude ?? currentData?["longitude"],
-      );
-
-      Get.back();
-    }
 
     return Scaffold(
-      body: BackgroundImage(
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 16.0, top: 16.0, right: 16.0, bottom: 24.0),
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                child: StreamBuilder<QuerySnapshot>(
-                    stream: CompanyService().companySnapshot(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) return const Text("Error");
-                      if (snapshot.data == null) return Container();
-
-                      Map<String, dynamic> currentData = {};
-                      if (snapshot.data!.docs.isNotEmpty) {
-                        currentData = snapshot.data!.docs.first.data()
-                            as Map<String, dynamic>;
-                        currentData = currentData;
-                      }
-                      return Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            QTextField(
-                              label: "Company name",
-                              validator: Validator.required,
-                              value: currentData["company_name"],
-                              onChanged: (value) {
-                                companyName = value;
-                              },
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 16.0, top: 16.0, right: 16.0, bottom: 24.0),
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              child: BlocBuilder<CompanyBloc, CompanyState>(
+                builder: (context, state) {
+                  if (state is CompanyLoadedState) {
+                    return Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: "Company name",
                             ),
-                            QMemoField(
-                              label: "Address",
-                              validator: Validator.required,
-                              value: currentData["address"],
-                              onChanged: (value) {
-                                address = value;
-                              },
+                            initialValue: state.companyData["company_name"],
+                            onChanged: (value) {
+                              companyName = value;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: "Address",
                             ),
-                            QLocationPicker(
-                              id: "location",
-                              label: "Location",
-                              latitude: currentData["latitude"],
-                              longitude: currentData["longitude"],
-                              onChanged: (latitude, longitude) {
-                                latitude = latitude;
-                                longitude = longitude;
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
+                            initialValue: state.companyData["address"],
+                            onChanged: (value) {
+                              address = value;
+                            },
+                          ),
+                          LocationPicker(
+                            id: "location",
+                            label: "Location",
+                            latitude: state.companyData["latitude"],
+                            longitude: state.companyData["longitude"],
+                            onChanged: (newLatitude, newLongitude) {
+                                latitude = newLatitude;
+                                longitude = newLongitude;
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (state is CompanyErrorState) {
+                    return Text("Error: ${state.errorMessage}");
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
               ),
             ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomActionButton(
-        icon: Icons.save,
-        label: "Save",
-        onPressed: () {
-          print('companyName: $companyName');
-          print('address: $address');
-          print('latitude: $latitude');
-          print('longitude: $longitude');
-          doSave();
-        },
+      bottomNavigationBar: BottomAppBar(
+        child: ElevatedButton(
+          onPressed: () {
+            context.read<CompanyBloc>().add(
+                  UpdateCompanyEvent(
+                    companyName: companyName!,
+                    address: address!,
+                    latitude: latitude ?? 0.0,
+                    longitude: longitude ?? 0.0,
+                  ),
+                );
+          },
+          child: const Text('Save'),
+        ),
       ),
     );
   }

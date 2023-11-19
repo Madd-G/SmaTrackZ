@@ -2,7 +2,6 @@ export 'firebase_options.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter/cupertino.dart' show CupertinoIcons;
 export 'package:firebase_core/firebase_core.dart';
-// export 'package:firebase_app_check/firebase_app_check.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:firebase_storage/firebase_storage.dart';
@@ -21,7 +20,10 @@ export 'package:geolocator/geolocator.dart';
 export 'package:permission_handler/permission_handler.dart' show Permission;
 export 'package:dio/dio.dart';
 export 'package:flutter_map/flutter_map.dart';
+
 export 'package:latlong2/latlong.dart' show LatLng;
+export 'package:google_maps_flutter/google_maps_flutter.dart'
+    show GoogleMapController, GoogleMap, CameraPosition, CameraUpdate;
 
 export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
 export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
@@ -40,7 +42,9 @@ export 'package:smatrackz/src/modules/hrd/employees/presentation/views/views.dar
 export 'package:smatrackz/src/modules/hrd/employees/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/blocs/blocs.dart';
 export 'package:smatrackz/src/modules/hrd/employees/services/services.dart';
+export 'package:smatrackz/src/modules/hrd/office/presentation/blocs/blocs.dart';
 export 'package:smatrackz/src/modules/hrd/office/presentation/views/views.dart';
+export 'package:smatrackz/src/modules/hrd/office/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/views/profile_screen.dart';

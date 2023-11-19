@@ -18,8 +18,7 @@ class ExLocationPickerMapView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  ExLocationPickerMapViewState createState() =>
-      ExLocationPickerMapViewState();
+  ExLocationPickerMapViewState createState() => ExLocationPickerMapViewState();
 }
 
 class ExLocationPickerMapViewState extends State<ExLocationPickerMapView> {
@@ -305,6 +304,12 @@ class LocationPickerMapState extends State<LocationPickerMap> {
                                     debugPrint(
                                         "currentLongitude : $currentLongitude");
 
+                                    context.read<CompanyBloc>().add(
+                                      UpdateLocationEvent(
+                                        latitude: currentLatitude,
+                                        longitude: currentLongitude
+                                      ),
+                                    );
                                     Navigator.pop(context);
 
                                     widget.onChanged(

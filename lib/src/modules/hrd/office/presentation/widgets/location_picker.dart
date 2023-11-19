@@ -1,7 +1,7 @@
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smatrackz/core.dart';
 
-class QLocationPicker extends StatefulWidget {
+class LocationPicker extends StatefulWidget {
   final String id;
   final String? label;
   final String? hint;
@@ -11,7 +11,7 @@ class QLocationPicker extends StatefulWidget {
   final Function(double latitude, double longitude) onChanged;
   final bool enableEdit;
 
-  const QLocationPicker({
+  const LocationPicker({
     Key? key,
     required this.id,
     this.label,
@@ -24,10 +24,10 @@ class QLocationPicker extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  QLocationPickerState createState() => QLocationPickerState();
+  LocationPickerState createState() => LocationPickerState();
 }
 
-class QLocationPickerState extends State<QLocationPicker> {
+class LocationPickerState extends State<LocationPicker> {
   double? latitude;
   double? longitude;
   bool loading = true;
