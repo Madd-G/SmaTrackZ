@@ -17,15 +17,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
 
   @override
-  void dispose() {
-    emailController.dispose();
-    fullNameController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,6 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               context
                   .read<UserProvider>()
                   .initUser(state.user as LocalUserModel);
+
               /// TODO:
               Navigator.pushReplacementNamed(
                   context, BottomNavigation.routeName);
