@@ -66,15 +66,23 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     Form(
                       key: formKey,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const Text('Full Name',
+                              style: CustomTextStyle.textRegular),
+                          const SizedBox(height: 10.0),
                           CustomTextField(
                             controller: fullNameController,
-                            hintText: 'Full Name',
+                            // hintText: 'Full Name',
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 15.0),
+                          const Text('Email',
+                              style: CustomTextStyle.textRegular),
+                          const SizedBox(height: 10.0),
                           CustomTextField(
                             controller: emailController,
-                            hintText: 'Email',
+                            // hintText: 'Email',
                             keyboardType: TextInputType.name,
                           ),
                           QDropdownField(
@@ -96,12 +104,12 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     FocusManager.instance.primaryFocus?.unfocus();
                     if (formKey.currentState!.validate()) {
                       context.read<AddEmployeeBloc>().add(
-                        AddEmployeeEvent(
-                          email: emailController.text.trim(),
-                          name: fullNameController.text,
-                          password: emailController.text.trim(),
-                        ),
-                      );
+                            AddEmployeeEvent(
+                              email: emailController.text.trim(),
+                              name: fullNameController.text,
+                              password: emailController.text.trim(),
+                            ),
+                          );
                       Navigator.pushReplacementNamed(
                           context, EmployeeListScreen.routeName);
                     }
