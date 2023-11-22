@@ -119,26 +119,32 @@ class LocationPickerState extends State<LocationPicker> {
                     borderRadius: const BorderRadius.all(
                       Radius.circular(12.0),
                     ),
-                    child: GoogleMap(
-                      mapType: MapType.hybrid,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(latitude!, longitude!),
-                        zoom: 20.0,
-                      ),
-                      onMapCreated: (GoogleMapController controller) {},
-                      circles: circles,
-                      myLocationButtonEnabled: false,
-                      myLocationEnabled: false,
-                      zoomControlsEnabled: false,
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("source"),
-                          icon: locationIcon,
-                          position: LatLng(latitude!, longitude!),
-                          // position: dummy,
-                        ),
-                      },
-                    ),
+                    child: loading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.orange,
+                            ),
+                          )
+                        : GoogleMap(
+                            mapType: MapType.hybrid,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(latitude!, longitude!),
+                              zoom: 20.0,
+                            ),
+                            onMapCreated: (GoogleMapController controller) {},
+                            circles: circles,
+                            myLocationButtonEnabled: false,
+                            myLocationEnabled: false,
+                            zoomControlsEnabled: false,
+                            markers: {
+                              Marker(
+                                markerId: const MarkerId("source"),
+                                icon: locationIcon,
+                                position: LatLng(latitude!, longitude!),
+                                // position: dummy,
+                              ),
+                            },
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -262,45 +268,6 @@ class LocationPickerState extends State<LocationPicker> {
                               ),
                             ),
                           ),
-                        // SizedBox(
-                        //   height: 30,
-                        //   width: context.width * 0.45,
-                        //   child: ElevatedButton.icon(
-                        //     icon: const Icon(
-                        //       Icons.location_on,
-                        //       color: Colors.white,
-                        //     ),
-                        //     label: Text(
-                        //       widget.enableEdit ? "Change" : "View",
-                        //       style: const TextStyle(
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //     style: ElevatedButton.styleFrom(
-                        //       backgroundColor: Colors.black,
-                        //     ),
-                        //     onPressed: () async {
-                        //       await Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => MapScreen(
-                        //             position: LatLng(
-                        //                 widget.latitude!, widget.longitude!),
-                        //           ),
-                        //         ),
-                        //       );
-                        //
-                        //       loading = true;
-                        //       setState(() {});
-                        //
-                        //       await Future.delayed(
-                        //           const Duration(milliseconds: 200));
-                        //
-                        //       loading = false;
-                        //       setState(() {});
-                        //     },
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

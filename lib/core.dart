@@ -64,5 +64,6 @@ export 'package:smatrackz/core/utils/utils.dart';
 export 'package:flutter/services.dart';
 export 'package:flutter/foundation.dart';
 export 'dart:async';
-export 'dart:convert';
+export 'dart:convert' hide Codec;
 export 'dart:io';
+export 'dart:ui' show Codec, instantiateImageCodec, FrameInfo, ImageByteFormat;

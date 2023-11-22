@@ -8,6 +8,7 @@ class AppMedia {
   // static const backgroundImage = '$_baseImage/bg-image.png';
   static const backgroundImage = '$_baseImage/background.png';
   static const vacationIcon = '$_baseImage/vacation-icon.png';
+  static const markerIcon = '$_baseImage/marker.png';
 
   static const errorAnimation = '$_baseLottie/error-animation.json';
 }
