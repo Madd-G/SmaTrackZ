@@ -79,6 +79,16 @@ class LocationPickerState extends State<LocationPicker> {
 
   @override
   Widget build(BuildContext context) {
+    BitmapDescriptor locationIcon = BitmapDescriptor.defaultMarker;
+    Set<Circle> circles = {
+      Circle(
+        circleId: const CircleId('map'),
+        center: LatLng(latitude!, longitude!),
+        radius: 10,
+        fillColor: Colors.red.withOpacity(0.4),
+        strokeColor: Colors.red.withOpacity(0.1),
+      )
+    };
     return FormField(
       initialValue: false,
       validator: (value) {
@@ -87,7 +97,6 @@ class LocationPickerState extends State<LocationPicker> {
         }
         return null;
       },
-      // validator: (value) => validate(items),
       enabled: true,
       builder: (FormFieldState<bool> field) {
         return InputDecorator(
@@ -104,22 +113,32 @@ class LocationPickerState extends State<LocationPicker> {
             child: Row(
               children: [
                 SizedBox(
-                  width: 120.0,
-                  height: 120.0,
+                  width: 150.0,
+                  height: 150.0,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(12.0),
                     ),
-                    child: loading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.orange,
-                            ),
-                          )
-                        : MapViewer(
-                            latitude: latitude,
-                            longitude: longitude,
-                          ),
+                    child: GoogleMap(
+                      mapType: MapType.hybrid,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(latitude!, longitude!),
+                        zoom: 20.0,
+                      ),
+                      onMapCreated: (GoogleMapController controller) {},
+                      circles: circles,
+                      myLocationButtonEnabled: false,
+                      myLocationEnabled: false,
+                      zoomControlsEnabled: false,
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId("source"),
+                          icon: locationIcon,
+                          position: LatLng(latitude!, longitude!),
+                          // position: dummy,
+                        ),
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -127,39 +146,42 @@ class LocationPickerState extends State<LocationPicker> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    height: 140,
+                    height: 128,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Latitude:",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        Text(
-                          "$latitude",
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4.0,
-                        ),
-                        const Text(
-                          "Longitude:",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        Text(
-                          "$longitude",
-                          style: const TextStyle(
-                            fontSize: 12.0,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16.0,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Latitude:",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            Text(
+                              "$latitude",
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 4.0,
+                            ),
+                            const Text(
+                              "Longitude:",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            Text(
+                              "$longitude",
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ],
                         ),
                         if (!isLocationPicked())
                           ElevatedButton.icon(
@@ -182,64 +204,103 @@ class LocationPickerState extends State<LocationPicker> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ExLocationPickerMapView(
-                                    id: widget.id,
-                                    latitude: latitude,
-                                    longitude: longitude,
-                                    enableEdit: widget.enableEdit,
-                                    onChanged: widget.onChanged,
-                                  ),
+                                  builder: (context) => MapScreen(
+                                      position: LatLng(
+                                          widget.latitude!, widget.longitude!)),
                                 ),
                               );
-
                               setState(() {});
                             },
                           ),
                         if (isLocationPicked())
-                          Transform.scale(
-                            scale: 0.6,
-                            alignment: Alignment.topLeft,
-                            child: ElevatedButton.icon(
-                              icon: const Icon(
-                                Icons.location_on,
-                                color: Colors.white,
-                              ),
-                              label: Text(
-                                widget.enableEdit ? "Change" : "View",
-                                style: const TextStyle(
-                                  color: Colors.white,
+                          GestureDetector(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MapScreen(
+                                    position: LatLng(
+                                        widget.latitude!, widget.longitude!),
+                                  ),
+                                ),
+                              );
+
+                              loading = true;
+                              setState(() {});
+
+                              await Future.delayed(
+                                  const Duration(milliseconds: 200));
+
+                              loading = false;
+                              setState(() {});
+                            },
+                            child: RoundedContainer(
+                              containerColor: AppColors.blackColor,
+                              radius: 10.0,
+                              width: context.width * 0.45,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      color: AppColors.whiteColor,
+                                      size: 20.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 5.0,
+                                    ),
+                                    Text(
+                                      'Change',
+                                      style: CustomTextStyle.textBigSemiBold
+                                          .copyWith(
+                                              color: AppColors.whiteColor),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                              ),
-                              onPressed: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ExLocationPickerMapView(
-                                      id: widget.id,
-                                      latitude: latitude,
-                                      longitude: longitude,
-                                      enableEdit: widget.enableEdit,
-                                      onChanged: widget.onChanged,
-                                    ),
-                                  ),
-                                );
-
-                                loading = true;
-                                setState(() {});
-
-                                await Future.delayed(
-                                    const Duration(milliseconds: 200));
-
-                                loading = false;
-                                setState(() {});
-                              },
                             ),
                           ),
-                        const Spacer(),
+                        // SizedBox(
+                        //   height: 30,
+                        //   width: context.width * 0.45,
+                        //   child: ElevatedButton.icon(
+                        //     icon: const Icon(
+                        //       Icons.location_on,
+                        //       color: Colors.white,
+                        //     ),
+                        //     label: Text(
+                        //       widget.enableEdit ? "Change" : "View",
+                        //       style: const TextStyle(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     style: ElevatedButton.styleFrom(
+                        //       backgroundColor: Colors.black,
+                        //     ),
+                        //     onPressed: () async {
+                        //       await Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //           builder: (context) => MapScreen(
+                        //             position: LatLng(
+                        //                 widget.latitude!, widget.longitude!),
+                        //           ),
+                        //         ),
+                        //       );
+                        //
+                        //       loading = true;
+                        //       setState(() {});
+                        //
+                        //       await Future.delayed(
+                        //           const Duration(milliseconds: 200));
+                        //
+                        //       loading = false;
+                        //       setState(() {});
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

@@ -19,11 +19,7 @@ export 'package:ionicons/ionicons.dart';
 export 'package:geolocator/geolocator.dart';
 export 'package:permission_handler/permission_handler.dart' show Permission;
 export 'package:dio/dio.dart';
-export 'package:flutter_map/flutter_map.dart';
-
-export 'package:latlong2/latlong.dart' show LatLng;
-export 'package:google_maps_flutter/google_maps_flutter.dart'
-    show GoogleMapController, GoogleMap, CameraPosition, CameraUpdate;
+export 'package:google_maps_flutter/google_maps_flutter.dart';
 
 export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
 export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
