@@ -14,6 +14,15 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   Marker _marker = const Marker(markerId: MarkerId('markerId'));
   LatLng? currentPosition;
+  MapType _mapType = MapType.normal;
+
+  void _changeMapStyle() {
+    setState(() {
+      _mapType = _mapType == MapType.normal
+          ? MapType.hybrid
+          : MapType.normal;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +41,10 @@ class _MapScreenState extends State<MapScreen> {
       body: Stack(
         children: [
           GoogleMap(
-            mapType: MapType.hybrid,
+            mapType: _mapType,
             initialCameraPosition: CameraPosition(
               target: widget.position,
-              zoom: 50.0,
+              zoom: (_mapType == MapType.normal) ? 18.0 : 50.0,
             ),
             onMapCreated: (GoogleMapController controller) {
               _updateMarker(widget.position);
@@ -60,10 +69,23 @@ class _MapScreenState extends State<MapScreen> {
           Positioned(
             top: 50.0,
             right: 10.0,
-            child: Text(
-              'Curent latitude: ${currentPosition?.latitude} \n Curent longitude: ${currentPosition?.longitude}',
-              style: CustomTextStyle.textMediumSemiBold
-                  .copyWith(color: AppColors.whiteColor),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  'Curent latitude: ${currentPosition?.latitude} \n Curent longitude: ${currentPosition?.longitude}',
+                  style: CustomTextStyle.textMediumSemiBold
+                      .copyWith(color: AppColors.whiteColor),
+                ),
+                FloatingActionButton(
+                  backgroundColor: AppColors.greenColor,
+                  onPressed: _changeMapStyle,
+                  child: const Icon(
+                    Icons.map,
+                    size: 30.0,
+                  ),
+                )
+              ],
             ),
           )
         ],
