@@ -46,9 +46,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case OfficeScreen.routeName:
       return _pageBuilder(
-        (_) => BlocProvider(
-            create: (_) => CompanyBloc()..add(LoadCompanyEvent()),
-            child: const OfficeScreen()),
+        (_) => const OfficeScreen(),
         settings: settings,
       );
     case EmployeeListScreen.routeName:

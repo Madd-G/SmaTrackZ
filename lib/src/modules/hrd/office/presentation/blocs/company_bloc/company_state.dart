@@ -17,7 +17,6 @@ class CompanyErrorState extends CompanyState {
   CompanyErrorState({required this.errorMessage});
 }
 
-// Tambahkan state baru untuk pembaruan lokasi
 class LocationUpdatedState extends CompanyState {
   final double latitude;
   final double longitude;

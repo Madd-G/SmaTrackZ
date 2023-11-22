@@ -19,7 +19,6 @@ class UpdateCompanyEvent extends CompanyEvent {
   });
 }
 
-// Tambahkan event baru untuk pembaruan lokasi
 class UpdateLocationEvent extends CompanyEvent {
   final double latitude;
   final double longitude;
