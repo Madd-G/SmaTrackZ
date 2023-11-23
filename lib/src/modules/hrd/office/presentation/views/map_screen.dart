@@ -13,21 +13,21 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   Marker _marker = const Marker(markerId: MarkerId('markerId'));
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   LatLng? currentPosition;
   MapType _mapType = MapType.normal;
+  GoogleMapController? googleMapController;
 
   void _changeMapStyle() {
     setState(() {
-      _mapType = _mapType == MapType.normal
-          ? MapType.hybrid
-          : MapType.normal;
+      _mapType = _mapType == MapType.normal ? MapType.hybrid : MapType.normal;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     BitmapDescriptor locationIcon = BitmapDescriptor.defaultMarker;
-
     Set<Circle> circles = {
       Circle(
         circleId: const CircleId('map'),
@@ -48,11 +48,10 @@ class _MapScreenState extends State<MapScreen> {
             ),
             onMapCreated: (GoogleMapController controller) {
               _updateMarker(widget.position);
+              _controller.complete(controller);
             },
             onCameraMove: (CameraPosition cp) {
-              LatLng center = cp.target;
-              debugPrint(center.toString());
-              currentPosition = center;
+              currentPosition = cp.target;
               setState(() {});
             },
             circles: circles,
@@ -73,18 +72,38 @@ class _MapScreenState extends State<MapScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  'Curent latitude: ${currentPosition?.latitude} \n Curent longitude: ${currentPosition?.longitude}',
-                  style: CustomTextStyle.textMediumSemiBold
-                      .copyWith(color: AppColors.whiteColor),
+                  'Latitude: ${currentPosition?.latitude} \n Longitude: ${currentPosition?.longitude}',
+                  style: CustomTextStyle.textMediumSemiBold.copyWith(
+                      color: (_mapType == MapType.normal)
+                          ? AppColors.blackColor
+                          : AppColors.whiteColor),
                 ),
-                FloatingActionButton(
-                  backgroundColor: AppColors.greenColor,
-                  onPressed: _changeMapStyle,
-                  child: const Icon(
-                    Icons.map,
-                    size: 30.0,
+                const SizedBox(height: 5.0),
+                SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: FloatingActionButton(
+                    backgroundColor: AppColors.greenColor,
+                    onPressed: _changeMapStyle,
+                    child: const Icon(
+                      Icons.map,
+                      size: 30.0,
+                    ),
                   ),
-                )
+                ),
+                const SizedBox(height: 5.0),
+                SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: FloatingActionButton(
+                    backgroundColor: AppColors.blueColor,
+                    onPressed: _goToDefaultPosition,
+                    child: const Icon(
+                      Icons.home,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
               ],
             ),
           )
@@ -97,5 +116,11 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       _marker = _marker.copyWith(positionParam: position);
     });
+  }
+
+  Future<void> _goToDefaultPosition() async {
+    final GoogleMapController controller = await _controller.future;
+    await controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: widget.position, zoom: 18.0)));
   }
 }
