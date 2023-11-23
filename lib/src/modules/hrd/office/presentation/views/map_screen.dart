@@ -1,3 +1,6 @@
+import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
+import 'package:google_api_headers/google_api_headers.dart';
 import 'package:smatrackz/core.dart';
 
 class MapScreen extends StatefulWidget {
@@ -18,6 +21,8 @@ class _MapScreenState extends State<MapScreen> {
   LatLng? currentPosition;
   MapType _mapType = MapType.normal;
   GoogleMapController? googleMapController;
+  String googleApikey = "AIzaSyCdrEFiuZccbqDqVcHndteT_RkypJLZCDs";
+  String location = "Search Location";
   double _radiusValue = 10;
   bool visible = false;
 
@@ -45,6 +50,7 @@ class _MapScreenState extends State<MapScreen> {
             onMapCreated: (GoogleMapController controller) {
               _updateMarker(widget.position);
               _controller.complete(controller);
+              googleMapController = controller;
             },
             onCameraMove: (CameraPosition cp) {
               currentPosition = cp.target;
@@ -62,18 +68,64 @@ class _MapScreenState extends State<MapScreen> {
             },
           ),
           Positioned(
-            top: 50.0,
+            top: 20.0,
             right: 10.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  'Latitude: ${currentPosition?.latitude} \n Longitude: ${currentPosition?.longitude}',
-                  style: CustomTextStyle.textMediumSemiBold.copyWith(
-                      color: (_mapType == MapType.normal)
-                          ? AppColors.blackColor
-                          : AppColors.whiteColor),
-                ),
+                InkWell(
+                    onTap: () async {
+                      var place = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: googleApikey,
+                        mode: Mode.overlay,
+                        logo: const Text(''),
+                        types: [],
+                        strictbounds: false,
+                        // components: [const Component(Component.country, 'idn')],
+                        onError: (err) {
+                          showInfoDialog(err.errorMessage!);
+                        },
+                      );
+
+                      if (place != null) {
+                        setState(() {
+                          location = place.description.toString();
+                        });
+
+                        final plist = GoogleMapsPlaces(
+                          apiKey: googleApikey,
+                          apiHeaders:
+                              await const GoogleApiHeaders().getHeaders(),
+                        );
+                        String placeId = place.placeId ?? "0";
+                        final detail = await plist.getDetailsByPlaceId(placeId);
+                        final geometry = detail.result.geometry!;
+                        final lat = geometry.location.lat;
+                        final lang = geometry.location.lng;
+                        var newPosition = LatLng(lat, lang);
+
+                        googleMapController?.animateCamera(
+                            CameraUpdate.newCameraPosition(
+                                CameraPosition(target: newPosition, zoom: 17)));
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Card(
+                        child: Container(
+                            padding: const EdgeInsets.all(0),
+                            width: MediaQuery.of(context).size.width - 40,
+                            child: ListTile(
+                              title: Text(
+                                location,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                              trailing: const Icon(Icons.search),
+                              dense: true,
+                            )),
+                      ),
+                    )),
                 const SizedBox(height: 5.0),
                 SizedBox(
                   height: 50.0,
@@ -116,6 +168,8 @@ class _MapScreenState extends State<MapScreen> {
                 Visibility(
                   visible: visible,
                   child: Slider(
+                    inactiveColor: Colors.blue,
+                    activeColor: AppColors.primaryColor,
                     value: _radiusValue,
                     min: 1,
                     max: 250,
