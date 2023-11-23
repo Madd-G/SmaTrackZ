@@ -113,9 +113,9 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
     }
   }
 
-  Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
-    return _cloudStoreClient.collection('employees').doc(uid).get();
-  }
+  // Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
+  //   return _cloudStoreClient.collection('employees').doc(uid).get();
+  // }
 
   Future<void> _setUserData(User user, String fallbackEmail) async {
     await _cloudStoreClient.collection('employees').doc(user.uid).set(

@@ -1,6 +1,5 @@
 import 'package:smatrackz/core.dart';
 
-// office_screen.dart
 class OfficeScreen extends StatelessWidget {
   const OfficeScreen({Key? key}) : super(key: key);
 
@@ -11,8 +10,6 @@ class OfficeScreen extends StatelessWidget {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     String? companyName;
     String? address;
-    double? latitude;
-    double? longitude;
 
     return BlocBuilder<CompanyBloc, CompanyState>(
       builder: (context, state) {
@@ -86,10 +83,11 @@ class OfficeScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<CompanyBloc>().add(
                         UpdateCompanyEvent(
-                          companyName: companyName!,
-                          address: address!,
-                          latitude: latitude ?? 0.0,
-                          longitude: longitude ?? 0.0,
+                          companyName:
+                              companyName ?? state.companyData["company_name"],
+                          address: address ?? state.companyData["address"],
+                          latitude: state.companyData["latitude"] ?? 0.0,
+                          longitude: state.companyData["longitude"] ?? 0.0,
                         ),
                       );
                 },

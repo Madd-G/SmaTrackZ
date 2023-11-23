@@ -27,7 +27,6 @@ class _QMemoFieldState extends State<QMemoField> {
   @override
   void initState() {
     focusNode.addListener(() {
-      print("focusNodeListener");
       if (focusNode.hasFocus) {
         Future.delayed(const Duration(milliseconds: 300), () {
           WidgetsBinding.instance
@@ -44,7 +43,6 @@ class _QMemoFieldState extends State<QMemoField> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild");
     if (focusNode.hasFocus) {
       Future.delayed(const Duration(milliseconds: 300), () {
         WidgetsBinding.instance
