@@ -18,12 +18,8 @@ class _MapScreenState extends State<MapScreen> {
   LatLng? currentPosition;
   MapType _mapType = MapType.normal;
   GoogleMapController? googleMapController;
-
-  void _changeMapStyle() {
-    setState(() {
-      _mapType = _mapType == MapType.normal ? MapType.hybrid : MapType.normal;
-    });
-  }
+  double _radiusValue = 10;
+  bool visible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,7 @@ class _MapScreenState extends State<MapScreen> {
       Circle(
         circleId: const CircleId('map'),
         center: (currentPosition == null) ? widget.position : currentPosition!,
-        radius: 10,
+        radius: _radiusValue,
         fillColor: Colors.red.withOpacity(0.4),
         strokeColor: Colors.red.withOpacity(0.1),
       )
@@ -104,6 +100,34 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 5.0),
+                SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                  child: FloatingActionButton(
+                    backgroundColor: AppColors.redColor,
+                    onPressed: () {
+                      visible = !visible;
+                      setState(() {});
+                    },
+                    child: const Icon(Icons.radar_outlined, size: 30.0),
+                  ),
+                ),
+                Visibility(
+                  visible: visible,
+                  child: Slider(
+                    value: _radiusValue,
+                    min: 1,
+                    max: 250,
+                    divisions: 250,
+                    label: "radius: ${_radiusValue.round().toString()}m",
+                    onChanged: (value) {
+                      setState(() {
+                        _radiusValue = value;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           )
@@ -115,6 +139,12 @@ class _MapScreenState extends State<MapScreen> {
   void _updateMarker(LatLng position) {
     setState(() {
       _marker = _marker.copyWith(positionParam: position);
+    });
+  }
+
+  void _changeMapStyle() {
+    setState(() {
+      _mapType = _mapType == MapType.normal ? MapType.hybrid : MapType.normal;
     });
   }
 
