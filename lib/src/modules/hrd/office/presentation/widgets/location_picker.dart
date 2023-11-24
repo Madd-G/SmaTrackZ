@@ -211,7 +211,7 @@ class LocationPickerState extends State<LocationPicker> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
-                                    create: (context) => CompanyBloc(),
+                                    create: (context) => OfficeBloc(),
                                     child: MapScreen(
                                         position: LatLng(widget.latitude!,
                                             widget.longitude!)),
@@ -228,7 +228,7 @@ class LocationPickerState extends State<LocationPicker> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => BlocProvider(
-                                    create: (context) => CompanyBloc(),
+                                    create: (context) => OfficeBloc(),
                                     child: MapScreen(
                                       position: LatLng(
                                           widget.latitude!, widget.longitude!),

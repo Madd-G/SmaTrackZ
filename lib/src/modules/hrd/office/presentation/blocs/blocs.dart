@@ -1,1 +1,1 @@
-export 'company_bloc/company_bloc.dart';
+export 'office_bloc/office_bloc.dart';

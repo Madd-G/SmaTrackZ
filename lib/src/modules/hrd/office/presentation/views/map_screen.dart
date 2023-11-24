@@ -192,7 +192,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.read<CompanyBloc>().add(
+                      context.read<OfficeBloc>().add(
                             UpdateLocationEvent(
                               latitude: currentPosition!.latitude,
                               longitude: currentPosition!.longitude,

@@ -38,16 +38,15 @@ export 'package:smatrackz/src/modules/hrd/employees/presentation/views/views.dar
 export 'package:smatrackz/src/modules/hrd/employees/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/blocs/blocs.dart';
 export 'package:smatrackz/src/modules/hrd/employees/services/services.dart';
-export 'package:smatrackz/src/modules/hrd/office/presentation/blocs/blocs.dart';
-export 'package:smatrackz/src/modules/hrd/office/presentation/views/views.dart';
-export 'package:smatrackz/src/modules/hrd/office/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/hrd/office/data/data.dart';
+export 'package:smatrackz/src/modules/hrd/office/domain/domain.dart';
+export 'package:smatrackz/src/modules/hrd/office/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/views/profile_screen.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/team_dashboard/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/team_dashboard/presentation/widgets/widgets.dart';
-export 'package:smatrackz/src/modules/hrd/team_dashboard/services/services.dart';
 
 export 'package:smatrackz/core/common/app/providers/providers.dart';
 export 'package:smatrackz/core/common/views/views.dart';

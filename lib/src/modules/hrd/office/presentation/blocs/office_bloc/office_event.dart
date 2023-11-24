@@ -1,25 +1,25 @@
-part of 'company_bloc.dart';
+part of 'office_bloc.dart';
 
 @immutable
-abstract class CompanyEvent {}
+abstract class OfficeEvent {}
 
-class LoadCompanyEvent extends CompanyEvent {}
+class LoadOfficeEvent extends OfficeEvent {}
 
-class UpdateCompanyEvent extends CompanyEvent {
-  final String companyName;
+class UpdateOfficeEvent extends OfficeEvent {
+  final String officeName;
   final String address;
   final double latitude;
   final double longitude;
 
-  UpdateCompanyEvent({
-    required this.companyName,
+  UpdateOfficeEvent({
+    required this.officeName,
     required this.address,
     required this.latitude,
     required this.longitude,
   });
 }
 
-class UpdateLocationEvent extends CompanyEvent {
+class UpdateLocationEvent extends OfficeEvent {
   final double latitude;
   final double longitude;
 

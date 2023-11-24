@@ -23,6 +23,43 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case OfficeScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+            create: (context) => OfficeBloc()..add(LoadOfficeEvent()),
+            child: BlocBuilder<OfficeBloc, OfficeState>(
+              builder: (context, state) {
+                if (state is OfficeInitialState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is OfficeLoadedState) {
+                  final office = OfficeModel(
+                    officeName: state.officeData['office_name'],
+                    address: state.officeData['address'],
+                    latitude: state.officeData['latitude'],
+                    longitude: state.officeData['longitude'],
+                  );
+                  context.officeProvider.initOffice(office);
+                  return const OfficeScreen();
+                } else if (state is OfficeErrorState) {
+                  return Center(child: Text(state.errorMessage));
+                }
+
+                const office = OfficeModel(
+                  officeName: '',
+                  address: '',
+                  latitude: 0.0,
+                  longitude: 0.0,
+                );
+                context.officeProvider.initOffice(office);
+                return const OfficeScreen();
+              },
+            ),
+          );
+        },
+        settings: settings,
+      );
+
     case AddEmployeeScreen.routeName:
       return _pageBuilder(
         (context) {
@@ -45,17 +82,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             create: (_) => sl<AuthBloc>(), child: const SignUpScreen()),
         settings: settings,
       );
-    case OfficeScreen.routeName:
-      return _pageBuilder(
-        (_) => MultiBlocProvider(providers: [
-          BlocProvider(create: (_) => CompanyBloc()..add(LoadCompanyEvent())),
-        ], child: const OfficeScreen()),
-        settings: settings,
-      );
+
     case EditOfficeScreen.routeName:
       return _pageBuilder(
         (_) => MultiBlocProvider(providers: [
-          BlocProvider(create: (_) => CompanyBloc()..add(LoadCompanyEvent())),
+          BlocProvider(create: (_) => OfficeBloc()..add(LoadOfficeEvent())),
         ], child: const EditOfficeScreen()),
         settings: settings,
       );

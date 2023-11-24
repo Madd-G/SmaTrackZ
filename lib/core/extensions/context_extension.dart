@@ -15,6 +15,10 @@ extension ContextExt on BuildContext {
 
   LocalUser? get currentUser => userProvider.user;
 
+  OfficeProvider get officeProvider => read<OfficeProvider>();
+
+  OfficeModel? get office => officeProvider.office;
+
   TabNavigator get tabNavigator => read<TabNavigator>();
 
   void pop() => tabNavigator.pop();

@@ -6,6 +6,7 @@ Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
   await _initAddEmployee();
+  await _initOffice();
 }
 
 Future<void> _initFirebaseInstances() async {
@@ -37,6 +38,14 @@ Future<void> _initAuth() async {
         dbClient: sl(),
       ),
     );
+}
+
+Future<void> _initOffice() async {
+  sl
+    ..registerLazySingleton<OfficeRemoteDataSource>(
+        () => OfficeRemoteDataSource())
+    ..registerLazySingleton<OfficeRepository>(
+        () => OfficeRepositoryImpl(sl<OfficeRemoteDataSource>()));
 }
 
 Future<void> _initAddEmployee() async {

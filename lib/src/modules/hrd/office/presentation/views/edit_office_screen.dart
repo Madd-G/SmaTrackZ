@@ -8,7 +8,7 @@ class EditOfficeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    String? companyName;
+    String? officeName;
     String? address;
 
     return Scaffold(
@@ -22,13 +22,13 @@ class EditOfficeScreen extends StatelessWidget {
                 right: 16.0,
                 bottom: 24.0,
               ),
-              child: BlocBuilder<CompanyBloc, CompanyState>(
+              child: BlocBuilder<OfficeBloc, OfficeState>(
                 builder: (context, state) {
-                  if (state is CompanyInitialState) {
+                  if (state is OfficeInitialState) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is CompanyLoadedState) {
+                  } else if (state is OfficeLoadedState) {
                     return Form(
                       key: formKey,
                       child: Column(
@@ -42,24 +42,24 @@ class EditOfficeScreen extends StatelessWidget {
                             decoration: const InputDecoration(
                               labelText: "Company name",
                             ),
-                            initialValue: state.companyData["company_name"],
+                            initialValue: state.officeData["office_name"],
                             onChanged: (value) {
-                              companyName = value;
+                              officeName = value;
                             },
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
                               labelText: "Address",
                             ),
-                            initialValue: state.companyData["address"],
+                            initialValue: state.officeData["address"],
                             onChanged: (value) {
                               address = value;
                             },
                           ),
                           LocationPicker(
                             id: 'location',
-                            latitude: state.companyData["latitude"],
-                            longitude: state.companyData["longitude"],
+                            latitude: state.officeData["latitude"],
+                            longitude: state.officeData["longitude"],
                             onChanged: (latitude, longitude) {
                               latitude = latitude;
                               longitude = longitude;
@@ -68,7 +68,7 @@ class EditOfficeScreen extends StatelessWidget {
                         ],
                       ),
                     );
-                  } else if (state is CompanyErrorState) {
+                  } else if (state is OfficeErrorState) {
                     return Center(child: Text("Error: ${state.errorMessage}"));
                   } else {
                     return const Center(
@@ -81,19 +81,19 @@ class EditOfficeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BlocBuilder<CompanyBloc, CompanyState>(
+      bottomNavigationBar: BlocBuilder<OfficeBloc, OfficeState>(
         builder: (context, state) {
-          if (state is CompanyLoadedState) {
+          if (state is OfficeLoadedState) {
             return BottomAppBar(
               child: ElevatedButton(
                 onPressed: () {
-                  context.read<CompanyBloc>().add(
-                        UpdateCompanyEvent(
-                          companyName:
-                              companyName ?? state.companyData["company_name"],
-                          address: address ?? state.companyData["address"],
-                          latitude: state.companyData["latitude"] ?? 0.0,
-                          longitude: state.companyData["longitude"] ?? 0.0,
+                  context.read<OfficeBloc>().add(
+                        UpdateOfficeEvent(
+                          officeName:
+                              officeName ?? state.officeData["office_name"],
+                          address: address ?? state.officeData["address"],
+                          latitude: state.officeData["latitude"] ?? 0.0,
+                          longitude: state.officeData["longitude"] ?? 0.0,
                         ),
                       );
                 },

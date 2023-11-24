@@ -11,7 +11,11 @@ class HomeScreen extends StatelessWidget {
       body: BackgroundImage(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [HomeHeader(), CenterSection(), TimeSection()],
+          children: [
+            HomeHeader(),
+            CenterSection(),
+            TimeSection(),
+          ],
         ),
       ),
     );
