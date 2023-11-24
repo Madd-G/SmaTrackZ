@@ -251,25 +251,14 @@ class LocationPickerState extends State<LocationPicker> {
                               radius: 10.0,
                               width: context.width * 0.45,
                               child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.location_on,
-                                      color: AppColors.whiteColor,
-                                      size: 20.0,
-                                    ),
-                                    const SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Text(
-                                      'Change',
-                                      style: CustomTextStyle.textBigSemiBold
-                                          .copyWith(
-                                              color: AppColors.whiteColor),
-                                    ),
-                                  ],
+                                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                                child: Center(
+                                  child: Text(
+                                    'View Map',
+                                    style: CustomTextStyle.textBigSemiBold
+                                        .copyWith(
+                                        color: AppColors.whiteColor),
+                                  ),
                                 ),
                               ),
                             ),

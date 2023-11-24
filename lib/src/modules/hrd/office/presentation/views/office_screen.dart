@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/office/presentation/views/edit_office_screen.dart';
 
 class OfficeScreen extends StatelessWidget {
   const OfficeScreen({Key? key}) : super(key: key);
@@ -7,52 +8,65 @@ class OfficeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    String? companyName;
-    String? address;
-
-    return BlocBuilder<CompanyBloc, CompanyState>(
-      builder: (context, state) {
-        if (state is CompanyLoadedState) {
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 16.0,
-                    top: 16.0,
-                    right: 16.0,
-                    bottom: 24.0,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(20.0),
-                    child: BlocBuilder<CompanyBloc, CompanyState>(
-                      builder: (context, state) {
-                        if (state is CompanyLoadedState) {
-                          return Form(
-                            key: formKey,
+    return Scaffold(
+      body: BackgroundImage(
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                top: 16.0,
+                right: 16.0,
+                bottom: 24.0,
+              ),
+              child: BlocBuilder<CompanyBloc, CompanyState>(
+                builder: (context, state) {
+                  if (state is CompanyInitialState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is CompanyLoadedState) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 25.0),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  '${state.companyData["company_name"]}',
+                                  maxLines: 2,
+                                  style: CustomTextStyle.textLargeSemiBold
+                                      .copyWith(fontSize: 18.0)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15.0),
+                        RoundedContainer(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    labelText: "Company name",
-                                  ),
-                                  initialValue:
-                                      state.companyData["company_name"],
-                                  onChanged: (value) {
-                                    companyName = value;
-                                  },
+                                OfficeInfo(
+                                  icon: Icons.location_on,
+                                  info: state.companyData["address"],
                                 ),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                    labelText: "Address",
-                                  ),
-                                  initialValue: state.companyData["address"],
-                                  onChanged: (value) {
-                                    address = value;
-                                  },
+                                const SizedBox(height: 15.0),
+                                const OfficeInfo(
+                                  icon: Icons.access_time,
+                                  info: '09.00 - 18.00',
                                 ),
+                                const SizedBox(height: 15.0),
+                                const OfficeInfo(
+                                  icon: Icons.phone,
+                                  info: '(0281) 344597',
+                                ),
+                                const SizedBox(height: 15.0),
+                                const OfficeInfo(
+                                  icon: Icons.person,
+                                  info: '581 people',
+                                ),
+                                const SizedBox(height: 15.0),
                                 LocationPicker(
                                   id: 'location',
                                   latitude: state.companyData["latitude"],
@@ -64,47 +78,70 @@ class OfficeScreen extends StatelessWidget {
                                 )
                               ],
                             ),
-                          );
-                        } else if (state is CompanyErrorState) {
-                          return Center(
-                              child: Text("Error: ${state.errorMessage}"));
-                        } else {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
-                  ),
-                ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (state is CompanyErrorState) {
+                    return Center(child: Text("Error: ${state.errorMessage}"));
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ),
-            bottomNavigationBar: BottomAppBar(
+          ),
+        ),
+      ),
+      bottomNavigationBar: BlocBuilder<CompanyBloc, CompanyState>(
+        builder: (context, state) {
+          if (state is CompanyLoadedState) {
+            return BottomAppBar(
               child: ElevatedButton(
                 onPressed: () {
-                  context.read<CompanyBloc>().add(
-                        UpdateCompanyEvent(
-                          companyName:
-                              companyName ?? state.companyData["company_name"],
-                          address: address ?? state.companyData["address"],
-                          latitude: state.companyData["latitude"] ?? 0.0,
-                          longitude: state.companyData["longitude"] ?? 0.0,
-                        ),
-                      );
+                  Navigator.pushNamed(context, EditOfficeScreen.routeName);
                 },
-                child: const Text('Save'),
+                child: const Text('Edit Office'),
               ),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class OfficeInfo extends StatelessWidget {
+  const OfficeInfo({super.key, required this.icon, required this.info});
+
+  final IconData icon;
+  final String info;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          color: AppColors.greyColor,
+          size: 20.0,
+        ),
+        const SizedBox(width: 10.0),
+        Expanded(
+          child: Text(
+            info,
+            maxLines: 2,
+            style: CustomTextStyle.textBigRegular.copyWith(
+              color: AppColors.greyColor,
             ),
-          );
-        } else if (state is CompanyInitialState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+          ),
+        )
+      ],
     );
   }
 }

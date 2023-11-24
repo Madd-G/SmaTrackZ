@@ -1,5 +1,6 @@
 import 'package:smatrackz/core.dart';
 import 'package:smatrackz/src/modules/hrd/employees/presentation/views/add_employee_screen.dart';
+import 'package:smatrackz/src/modules/hrd/office/presentation/views/edit_office_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -49,6 +50,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (_) => MultiBlocProvider(providers: [
           BlocProvider(create: (_) => CompanyBloc()..add(LoadCompanyEvent())),
         ], child: const OfficeScreen()),
+        settings: settings,
+      );
+    case EditOfficeScreen.routeName:
+      return _pageBuilder(
+        (_) => MultiBlocProvider(providers: [
+          BlocProvider(create: (_) => CompanyBloc()..add(LoadCompanyEvent())),
+        ], child: const EditOfficeScreen()),
         settings: settings,
       );
     case EmployeeListScreen.routeName:
