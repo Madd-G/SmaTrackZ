@@ -1,17 +1,22 @@
 import 'package:smatrackz/core.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
-  static const routeName = '/sign-in';
+  static const routeName = '/register';
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
+  final fullNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final companyNameController = TextEditingController();
+  final companyWebsiteController = TextEditingController();
+  final companyAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -24,57 +29,60 @@ class _SignInScreenState extends State<SignInScreen> {
             listener: (_, state) {
               if (state is AuthError) {
                 CoreUtils.showSnackBar(context, state.message);
+              } else if (state is SignedUp) {
+                context.read<AuthBloc>().add(
+                      SignInEvent(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      ),
+                    );
               } else if (state is SignedIn) {
                 context
                     .read<UserProvider>()
                     .initUser(state.user as LocalUserModel);
+
                 Navigator.pushReplacementNamed(
                     context, BottomNavigation.routeName);
               }
             },
             builder: (context, state) {
-              return SafeArea(
-                child: Center(
+              return Center(
+                child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
                         const WelcomeText(
-                          title: 'Sign In',
-                          subtitle:
-                              'Happy to see you again, please login here.',
+                          title: 'Sign Up',
+                          subtitle: 'Let\'s create your account.',
                         ),
-                        const SizedBox(height: 35),
-                        SignInForm(
+                        const SizedBox(height: 25),
+                        SignUpForm(
                           emailController: emailController,
+                          fullNameController: fullNameController,
                           passwordController: passwordController,
+                          confirmPasswordController: confirmPasswordController,
+                          companyNameController: companyNameController,
+                          companyWebsiteController: companyWebsiteController,
+                          companyAddressController: companyAddressController,
                           formKey: formKey,
                         ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Forgot password?',
-                              style: CustomTextStyle.textRegular,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 30),
                         if (state is AuthLoading)
                           const Center(child: CircularProgressIndicator())
                         else
                           RoundedButton(
-                            label: 'LOGIN',
+                            label: 'Create Account',
                             onPressed: () {
                               FocusManager.instance.primaryFocus?.unfocus();
                               FirebaseAuth.instance.currentUser?.reload();
                               if (formKey.currentState!.validate()) {
                                 context.read<AuthBloc>().add(
-                                      SignInEvent(
+                                      SignUpEvent(
                                         email: emailController.text.trim(),
                                         password:
                                             passwordController.text.trim(),
+                                        name: fullNameController.text.trim(),
                                       ),
                                     );
                               }
@@ -84,18 +92,18 @@ class _SignInScreenState extends State<SignInScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              'Don\'t have an account',
+                              'Already have an account?',
                               style: CustomTextStyle.textRegular,
                             ),
                             TextButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
                                   context,
-                                  RegisterScreen.routeName,
+                                  SignInScreen.routeName,
                                 );
                               },
                               child: const Text(
-                                'Register account?',
+                                'Login',
                                 style: CustomTextStyle.textRegular,
                               ),
                             ),

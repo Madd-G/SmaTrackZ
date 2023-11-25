@@ -31,7 +31,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             child: BlocBuilder<OfficeBloc, OfficeState>(
               builder: (context, state) {
                 if (state is OfficeInitialState) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Scaffold(
+                      body: Center(child: CircularProgressIndicator()));
                 } else if (state is OfficeLoadedState) {
                   final office = OfficeModel(
                     officeName: state.officeData['office_name'],
@@ -76,10 +77,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             create: (_) => sl<AuthBloc>(), child: const SignInScreen()),
         settings: settings,
       );
-    case SignUpScreen.routeName:
+    case RegisterScreen.routeName:
       return _pageBuilder(
         (_) => BlocProvider(
-            create: (_) => sl<AuthBloc>(), child: const SignUpScreen()),
+            create: (_) => sl<AuthBloc>(), child: const RegisterScreen()),
         settings: settings,
       );
 
