@@ -39,6 +39,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
+                        const SizedBox(height: 20.0),
                         const WelcomeText(
                           title: 'Sign In',
                           subtitle:
@@ -80,23 +81,26 @@ class _SignInScreenState extends State<SignInScreen> {
                               }
                             },
                           ),
+                        const SizedBox(height: 5.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              'Don\'t have an account',
-                              style: CustomTextStyle.textRegular,
+                              'Don\'t have an account?',
+                              style: CustomTextStyle.textBigRegular,
                             ),
-                            TextButton(
-                              onPressed: () {
+                            const SizedBox(width: 7.0),
+                            GestureDetector(
+                              onTap: () {
                                 Navigator.pushReplacementNamed(
                                   context,
                                   RegisterScreen.routeName,
                                 );
                               },
-                              child: const Text(
-                                'Register account?',
-                                style: CustomTextStyle.textRegular,
+                              child: Text(
+                                'Register',
+                                style: CustomTextStyle.textBigRegular
+                                    .copyWith(color: AppColors.primaryColor),
                               ),
                             ),
                           ],

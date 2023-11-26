@@ -17,9 +17,12 @@ export 'package:provider/provider.dart';
 export 'package:iconly/iconly.dart';
 export 'package:ionicons/ionicons.dart';
 export 'package:geolocator/geolocator.dart';
-export 'package:permission_handler/permission_handler.dart' show Permission;
+export 'package:permission_handler/permission_handler.dart' hide ServiceStatus;
 export 'package:dio/dio.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';
+export 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+export 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
+export 'package:google_api_headers/google_api_headers.dart';
 
 export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
 export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';

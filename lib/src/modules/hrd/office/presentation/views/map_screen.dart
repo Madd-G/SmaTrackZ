@@ -1,6 +1,3 @@
-import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
-import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
-import 'package:google_api_headers/google_api_headers.dart';
 import 'package:smatrackz/core.dart';
 
 class MapScreen extends StatefulWidget {

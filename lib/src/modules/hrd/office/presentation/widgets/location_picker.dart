@@ -1,8 +1,8 @@
-import 'package:permission_handler/permission_handler.dart';
 import 'package:smatrackz/core.dart';
 
 class LocationPicker extends StatefulWidget {
   final String id;
+  final String buttonLabel;
   final String? label;
   final String? hint;
   final double? latitude;
@@ -14,6 +14,7 @@ class LocationPicker extends StatefulWidget {
   const LocationPicker({
     Key? key,
     required this.id,
+    required this.buttonLabel,
     this.label,
     this.hint,
     this.latitude,
@@ -251,13 +252,13 @@ class LocationPickerState extends State<LocationPicker> {
                               radius: 10.0,
                               width: context.width * 0.45,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6.0),
                                 child: Center(
                                   child: Text(
-                                    'View Map',
+                                    widget.buttonLabel,
                                     style: CustomTextStyle.textBigSemiBold
-                                        .copyWith(
-                                        color: AppColors.whiteColor),
+                                        .copyWith(color: AppColors.whiteColor),
                                   ),
                                 ),
                               ),

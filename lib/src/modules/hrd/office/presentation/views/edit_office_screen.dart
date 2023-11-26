@@ -64,6 +64,7 @@ class EditOfficeScreen extends StatelessWidget {
                               latitude = latitude;
                               longitude = longitude;
                             },
+                            buttonLabel: 'Change Location',
                           )
                         ],
                       ),
@@ -94,6 +95,7 @@ class EditOfficeScreen extends StatelessWidget {
                           address: address ?? state.officeData["address"],
                           latitude: state.officeData["latitude"] ?? 0.0,
                           longitude: state.officeData["longitude"] ?? 0.0,
+                          website: state.officeData['website'],
                         ),
                       );
                 },

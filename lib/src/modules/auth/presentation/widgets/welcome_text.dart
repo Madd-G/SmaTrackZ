@@ -16,8 +16,8 @@ class WelcomeText extends StatelessWidget {
       children: [
         Text(
           title,
-          style: CustomTextStyle.textLargeBold
-              .copyWith(fontWeight: FontWeight.w900, fontSize: 36),
+          style: CustomTextStyle.textBigSemiBold
+              .copyWith(fontSize: 36),
         ),
         const SizedBox(
           height: 10.0,

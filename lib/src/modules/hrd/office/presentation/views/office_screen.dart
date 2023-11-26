@@ -8,7 +8,6 @@ class OfficeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final office = context.office;
     return Scaffold(
       body: BackgroundImage(
         child: SingleChildScrollView(
@@ -20,66 +19,69 @@ class OfficeScreen extends StatelessWidget {
                 right: 16.0,
                 bottom: 24.0,
               ),
-              child: Consumer<OfficeProvider>(builder: (_, provider, __) {
-                final office = provider.office!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 25.0),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            office.officeName,
-                            maxLines: 2,
-                            style: CustomTextStyle.textLargeSemiBold.copyWith(
-                              fontSize: 18.0,
+              child: Consumer<OfficeProvider>(
+                builder: (_, provider, __) {
+                  final office = provider.office!;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 25.0),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              office.officeName,
+                              maxLines: 2,
+                              style: CustomTextStyle.textLargeSemiBold.copyWith(
+                                fontSize: 18.0,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20.0),
-                    RoundedContainer(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            OfficeInfo(
-                              icon: Icons.location_on,
-                              info: office.address,
-                            ),
-                            const SizedBox(height: 20.0),
-                            const OfficeInfo(
-                              icon: Icons.access_time,
-                              info: '09.00 - 18.00',
-                            ),
-                            const SizedBox(height: 20.0),
-                            const OfficeInfo(
-                              icon: Icons.phone,
-                              info: '(0281) 344597',
-                            ),
-                            const SizedBox(height: 20.0),
-                            const OfficeInfo(
-                              icon: Icons.person,
-                              info: '581 people',
-                            ),
-                            LocationPicker(
-                              id: 'location',
-                              latitude: office.latitude,
-                              longitude: office.longitude,
-                              onChanged: (latitude, longitude) {
-                                latitude = latitude;
-                                longitude = longitude;
-                              },
-                            )
-                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 20.0),
+                      RoundedContainer(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              OfficeInfo(
+                                icon: Icons.location_on,
+                                info: office.address,
+                              ),
+                              const SizedBox(height: 20.0),
+                              const OfficeInfo(
+                                icon: Icons.access_time,
+                                info: '09.00 - 18.00',
+                              ),
+                              const SizedBox(height: 20.0),
+                              const OfficeInfo(
+                                icon: Icons.phone,
+                                info: '(0281) 344597',
+                              ),
+                              const SizedBox(height: 20.0),
+                              const OfficeInfo(
+                                icon: Icons.person,
+                                info: '581 people',
+                              ),
+                              LocationPicker(
+                                id: 'location',
+                                buttonLabel: 'View Location',
+                                latitude: office.latitude,
+                                longitude: office.longitude,
+                                onChanged: (latitude, longitude) {
+                                  latitude = latitude;
+                                  longitude = longitude;
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              }),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),

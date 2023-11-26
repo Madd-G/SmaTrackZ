@@ -79,16 +79,23 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case RegisterScreen.routeName:
       return _pageBuilder(
-        (_) => BlocProvider(
-            create: (_) => sl<AuthBloc>(), child: const RegisterScreen()),
+        (_) => MultiBlocProvider(providers: [
+          BlocProvider(
+            create: (_) => sl<AuthBloc>(),
+          ),
+          BlocProvider(create: (_) => OfficeBloc()),
+        ], child: const RegisterScreen()),
         settings: settings,
       );
 
     case EditOfficeScreen.routeName:
       return _pageBuilder(
-        (_) => MultiBlocProvider(providers: [
-          BlocProvider(create: (_) => OfficeBloc()..add(LoadOfficeEvent())),
-        ], child: const EditOfficeScreen()),
+        (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => OfficeBloc()..add(LoadOfficeEvent())),
+          ],
+          child: const EditOfficeScreen(),
+        ),
         settings: settings,
       );
     case EmployeeListScreen.routeName:

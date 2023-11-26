@@ -115,7 +115,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 10),
           CustomTextField(
-            controller: widget.fullNameController,
+            controller: widget.companyNameController,
             hintText: 'Company Name',
             keyboardType: TextInputType.name,
           ),
@@ -123,7 +123,7 @@ class _SignUpFormState extends State<SignUpForm> {
           CustomTextField(
             controller: widget.companyWebsiteController,
             hintText: 'Company Website',
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.url,
           ),
           const SizedBox(height: 10),
           CustomTextField(
