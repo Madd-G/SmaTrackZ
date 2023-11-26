@@ -10,6 +10,7 @@ class SignUp extends FutureUseCaseWithParams<void, SignUpParams> {
         email: params.email,
         password: params.password,
         fullName: params.fullName,
+        companyId: params.companyId,
       );
 }
 
@@ -18,14 +19,17 @@ class SignUpParams extends Equatable {
     required this.email,
     required this.password,
     required this.fullName,
+    required this.companyId,
   });
 
-  const SignUpParams.empty() : this(email: '', password: '', fullName: '');
+  const SignUpParams.empty()
+      : this(email: '', password: '', fullName: '', companyId: '');
 
   final String email;
   final String password;
   final String fullName;
+  final String companyId;
 
   @override
-  List<String> get props => [email, password, fullName];
+  List<String> get props => [email, password, fullName, companyId];
 }

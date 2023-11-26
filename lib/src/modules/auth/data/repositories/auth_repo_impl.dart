@@ -37,12 +37,14 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String fullName,
     required String password,
+    required String companyId,
   }) async {
     try {
       await _remoteDataSource.signUp(
         email: email,
         fullName: fullName,
         password: password,
+        companyId: companyId,
       );
       return const Right(null);
     } on ServerException catch (e) {

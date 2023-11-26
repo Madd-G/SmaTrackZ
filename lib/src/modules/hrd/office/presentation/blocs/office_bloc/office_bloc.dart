@@ -37,7 +37,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
   ) async {
     try {
       await FirebaseFirestore.instance.collection("office").doc('abc').set({
-        "office_name": event.officeName,
+        "office_name": event.name,
         "address": event.address,
         "website": event.website,
         "latitude": event.latitude,
@@ -45,7 +45,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
       });
 
       emit(OfficeLoadedState(officeData: {
-        "office_name": event.officeName,
+        "office_name": event.name,
         "address": event.address,
         "website": event.website,
         "latitude": event.latitude,
@@ -62,7 +62,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
   ) async {
     try {
       await FirebaseFirestore.instance.collection("office").doc("abc").update({
-        "office_name": event.officeName,
+        "office_name": event.name,
         "address": event.address,
         "website": event.website,
         "latitude": event.latitude,
@@ -70,7 +70,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
       });
 
       emit(OfficeLoadedState(officeData: {
-        "office_name": event.officeName,
+        "office_name": event.name,
         "address": event.address,
         "website": event.website,
         "latitude": event.latitude,

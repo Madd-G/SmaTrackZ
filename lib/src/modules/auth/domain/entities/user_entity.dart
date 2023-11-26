@@ -1,6 +1,16 @@
 import 'package:smatrackz/core.dart';
 
 class UserEntity extends Equatable {
+  final String uid;
+  final String email;
+  final String? profilePic;
+  final String? bio;
+  final String fullName;
+  final String? workStart;
+  final String? workEnd;
+  final String? created;
+  final String? companyId;
+
   const UserEntity({
     required this.uid,
     required this.email,
@@ -9,6 +19,8 @@ class UserEntity extends Equatable {
     this.workEnd,
     this.profilePic,
     this.bio,
+    this.created,
+    this.companyId,
   });
 
   const UserEntity.empty()
@@ -20,15 +32,9 @@ class UserEntity extends Equatable {
           bio: '',
           workStart: '',
           workEnd: '',
+          created: '',
+          companyId: '',
         );
-
-  final String uid;
-  final String email;
-  final String? profilePic;
-  final String? bio;
-  final String fullName;
-  final String? workStart;
-  final String? workEnd;
 
   bool get isAdmin => email == 'admin@gmail.com';
 
@@ -41,11 +47,13 @@ class UserEntity extends Equatable {
         fullName,
         workStart,
         workEnd,
+        created,
+        companyId,
       ];
 
   @override
   String toString() {
-    return 'LocalUser{uid: $uid, email: $email, bio: '
-        '$bio, fullName: $fullName}, workStart: $workStart, workEnd: $workEnd';
+    return 'LocalUser{uid: $uid, email: $email, created: $created, bio: '
+        '$bio, fullName: $fullName}, workStart: $workStart, workEnd: $workEnd, companyId: $companyId';
   }
 }

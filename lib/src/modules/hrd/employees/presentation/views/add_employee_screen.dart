@@ -83,7 +83,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                           CustomTextField(
                             controller: emailController,
                             // hintText: 'Email',
-                            keyboardType: TextInputType.name,
+                            keyboardType: TextInputType.emailAddress,
                           ),
                           QDropdownField(
                             label: "Position",
@@ -98,32 +98,37 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     ),
                   ],
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    /// TODO: do sign up
-                    FocusManager.instance.primaryFocus?.unfocus();
-                    if (formKey.currentState!.validate()) {
-                      context.read<AddEmployeeBloc>().add(
-                            AddEmployeeEvent(
-                              email: emailController.text.trim(),
-                              name: fullNameController.text,
-                              password: emailController.text.trim(),
-                            ),
-                          );
-                      Navigator.pushReplacementNamed(
-                          context, EmployeeListScreen.routeName);
-                    }
-                  },
-                  child: RoundedContainer(
-                    radius: 10.0,
-                    containerColor: AppColors.primaryColor,
-                    width: context.width,
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Center(child: Text('Save')),
+                Consumer<UserProvider>(builder: (_, provider, __) {
+                  final user = provider.user!;
+                  return GestureDetector(
+                    onTap: () async {
+                      /// TODO: do sign up
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      if (formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                              SignUpEvent(
+                                email: emailController.text.trim(),
+                                name: fullNameController.text,
+                                password: emailController.text.trim(),
+                                created: DateTime.now().toString(),
+                                companyId: user.companyId!,
+                              ),
+                            );
+                        Navigator.pushReplacementNamed(
+                            context, EmployeeListScreen.routeName);
+                      }
+                    },
+                    child: RoundedContainer(
+                      radius: 10.0,
+                      containerColor: AppColors.primaryColor,
+                      width: context.width,
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        child: Center(child: Text('Save')),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           ),

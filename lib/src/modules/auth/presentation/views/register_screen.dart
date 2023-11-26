@@ -57,29 +57,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       FirebaseAuth.instance.currentUser?.reload();
                       if (formKey.currentState!.validate()) {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MultiBlocProvider(
-                                      providers: [
-                                        BlocProvider(
-                                            create: (context) =>
-                                                sl<AuthBloc>()),
-                                        BlocProvider(
-                                            create: (context) => OfficeBloc()),
-                                      ],
-                                      child: RegisterCompanyLocationScreen(
-                                        email: emailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                        name: fullNameController.text.trim(),
-                                        officeName:
-                                            companyNameController.text.trim(),
-                                        address: companyAddressController.text
-                                            .trim(),
-                                        website: companyWebsiteController.text
-                                            .trim(),
-                                      ),
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider(
+                                    create: (context) => sl<AuthBloc>()),
+                                BlocProvider(create: (context) => OfficeBloc()),
+                              ],
+                              child: RegisterCompanyLocationScreen(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                                name: fullNameController.text.trim(),
+                                officeName: companyNameController.text.trim(),
+                                address: companyAddressController.text.trim(),
+                                website: companyWebsiteController.text.trim(),
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     },
                   ),

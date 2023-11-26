@@ -17,10 +17,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<LocalUserModel>(
+    return StreamBuilder<UserModel>(
       stream: UserUtils.userDataStream,
       builder: (_, snapshot) {
-        if (snapshot.hasData && snapshot.data is LocalUserModel) {
+        if (snapshot.hasData && snapshot.data is UserModel) {
           context.read<UserProvider>().user = snapshot.data;
         }
         return Consumer<BottomNavController>(

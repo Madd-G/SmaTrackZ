@@ -9,10 +9,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
             final user = sl<FirebaseAuth>().currentUser!;
-            final localUser = LocalUserModel(
+            final localUser = UserModel(
               uid: user.uid,
               email: user.email ?? '',
               fullName: user.displayName ?? '',
+              created: DateTime.now().toString() ?? '',
+              // companyId: 'a',
             );
             context.userProvider.initUser(localUser);
             return const BottomNavigation();
@@ -65,7 +67,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-              create: (_) => sl<AddEmployeeBloc>(),
+              create: (_) => sl<AuthBloc>(),
               child: const AddEmployeeScreen());
         },
         settings: settings,

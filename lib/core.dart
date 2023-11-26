@@ -34,7 +34,6 @@ export 'package:smatrackz/src/modules/hrd/employees/domain/domain.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/views/views.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/widgets/widgets.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/blocs/blocs.dart';
-export 'package:smatrackz/src/modules/hrd/employees/services/services.dart';
 export 'package:smatrackz/src/modules/hrd/office/data/data.dart';
 export 'package:smatrackz/src/modules/hrd/office/domain/domain.dart';
 export 'package:smatrackz/src/modules/hrd/office/presentation/presentation.dart';

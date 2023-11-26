@@ -94,6 +94,8 @@ class _RegisterCompanyLocationScreenState
         strokeColor: Colors.red.withOpacity(0.1),
       )
     };
+    final String companyId = const Uuid().v8();
+
     return Scaffold(
         body: BlocConsumer<AuthBloc, AuthState>(
       listener: (_, state) {
@@ -107,7 +109,7 @@ class _RegisterCompanyLocationScreenState
                 ),
               );
         } else if (state is SignedIn) {
-          context.read<UserProvider>().initUser(state.user as LocalUserModel);
+          context.read<UserProvider>().initUser(state.user as UserModel);
 
           Navigator.pushReplacementNamed(context, BottomNavigation.routeName);
         }
@@ -274,16 +276,20 @@ class _RegisterCompanyLocationScreenState
                           ),
                           GestureDetector(
                             onTap: () {
+                              print('companyId $companyId');
                               context.read<AuthBloc>().add(
                                     SignUpEvent(
                                       email: widget.email,
                                       password: widget.password,
                                       name: widget.name,
+                                      created: DateTime.now().toString(),
+                                      companyId: companyId,
                                     ),
                                   );
                               context.read<OfficeBloc>().add(
                                     AddOfficeEvent(
-                                      officeName: widget.officeName,
+                                      officeId: companyId,
+                                      name: widget.officeName,
                                       address: widget.address,
                                       website: widget.password,
                                       latitude: currentPosition!.latitude,

@@ -90,8 +90,8 @@ class EditOfficeScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<OfficeBloc>().add(
                         UpdateOfficeEvent(
-                          officeName:
-                              officeName ?? state.officeData["office_name"],
+                          officeId: state.officeData['office_id'],
+                          name: officeName ?? state.officeData["office_name"],
                           address: address ?? state.officeData["address"],
                           latitude: state.officeData["latitude"] ?? 0.0,
                           longitude: state.officeData["longitude"] ?? 0.0,

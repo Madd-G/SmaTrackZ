@@ -5,7 +5,7 @@ abstract class AuthRemoteDataSource {
 
   Future<void> forgotPassword(String email);
 
-  Future<LocalUserModel> signIn({
+  Future<UserModel> signIn({
     required String email,
     required String password,
   });
@@ -14,6 +14,7 @@ abstract class AuthRemoteDataSource {
     required String email,
     required String fullName,
     required String password,
+    required String companyId,
   });
 
   Future<void> updateUser({
@@ -54,7 +55,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<LocalUserModel> signIn({
+  Future<UserModel> signIn({
     required String email,
     required String password,
   }) async {
@@ -75,14 +76,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       var userData = await _getUserData(user.uid);
 
       if (userData.exists) {
-        return LocalUserModel.fromMap(userData.data()!);
+        return UserModel.fromMap(userData.data()!);
       }
 
       // upload the user
       await _setUserData(user, email);
 
       userData = await _getUserData(user.uid);
-      return LocalUserModel.fromMap(userData.data()!);
+      return UserModel.fromMap(userData.data()!);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occurred',
@@ -104,6 +105,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String email,
     required String fullName,
     required String password,
+    required String companyId,
   }) async {
     try {
       final userCred = await _authClient.createUserWithEmailAndPassword(
@@ -113,7 +115,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       await userCred.user?.updateDisplayName(fullName);
       await userCred.user?.updatePhotoURL(kDefaultAvatar);
-      await _setUserData(_authClient.currentUser!, email);
+      await _setUserData(_authClient.currentUser!, email, companyId);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occurred',
@@ -140,7 +142,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           await _updateUserData({'email': userData});
         case UpdateUserAction.displayName:
           await _authClient.currentUser?.updateDisplayName(userData as String);
-          await _updateUserData({'fullName': userData});
+          await _updateUserData({'full_name': userData});
         case UpdateUserAction.profilePic:
           final ref = _dbClient
               .ref()
@@ -149,7 +151,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           await ref.putFile(userData as File);
           final url = await ref.getDownloadURL();
           await _authClient.currentUser?.updatePhotoURL(url);
-          await _updateUserData({'profilePic': url});
+          await _updateUserData({'profile_picture': url});
         case UpdateUserAction.password:
           if (_authClient.currentUser?.email == null) {
             throw const ServerException(
@@ -185,23 +187,26 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
-    return _cloudStoreClient.collection('employees').doc(uid).get();
+    return _cloudStoreClient.collection('users').doc(uid).get();
   }
 
-  Future<void> _setUserData(User user, String fallbackEmail) async {
-    await _cloudStoreClient.collection('employees').doc(user.uid).set(
-          LocalUserModel(
+  Future<void> _setUserData(
+      User user, String fallbackEmail, [String? companyId]) async {
+    await _cloudStoreClient.collection('users').doc(user.uid).set(
+          UserModel(
             uid: user.uid,
             email: user.email ?? fallbackEmail,
             fullName: user.displayName ?? '',
             profilePic: user.photoURL ?? '',
+            created: DateTime.now().toString(),
+            companyId: companyId,
           ).toMap(),
         );
   }
 
   Future<void> _updateUserData(DataMap data) async {
     await _cloudStoreClient
-        .collection('employees')
+        .collection('users')
         .doc(_authClient.currentUser?.uid)
         .update(data);
   }

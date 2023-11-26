@@ -27,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
               } else if (state is SignedIn) {
                 context
                     .read<UserProvider>()
-                    .initUser(state.user as LocalUserModel);
+                    .initUser(state.user as UserModel);
                 Navigator.pushReplacementNamed(
                     context, BottomNavigation.routeName);
               }

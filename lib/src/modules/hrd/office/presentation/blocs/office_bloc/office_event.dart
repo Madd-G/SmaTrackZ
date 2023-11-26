@@ -6,14 +6,16 @@ abstract class OfficeEvent {}
 class LoadOfficeEvent extends OfficeEvent {}
 
 class AddOfficeEvent extends OfficeEvent {
-  final String officeName;
+  final String officeId;
+  final String name;
   final String address;
   final String website;
   final double latitude;
   final double longitude;
 
   AddOfficeEvent({
-    required this.officeName,
+    required this.officeId,
+    required this.name,
     required this.address,
     required this.website,
     required this.latitude,
@@ -22,14 +24,16 @@ class AddOfficeEvent extends OfficeEvent {
 }
 
 class UpdateOfficeEvent extends OfficeEvent {
-  final String officeName;
+  final String officeId;
+  final String name;
   final String address;
   final String website;
   final double latitude;
   final double longitude;
 
   UpdateOfficeEvent({
-    required this.officeName,
+    required this.officeId,
+    required this.name,
     required this.address,
     required this.website,
     required this.latitude,
