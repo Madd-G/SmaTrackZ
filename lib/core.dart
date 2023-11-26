@@ -24,15 +24,9 @@ export 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.
 export 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 export 'package:google_api_headers/google_api_headers.dart';
 
-export 'package:smatrackz/src/modules/auth/data/data_sources/remote/auth_remote_data_source.dart';
-export 'package:smatrackz/src/modules/auth/data/models/user_model.dart';
-export 'package:smatrackz/src/modules/auth/data/repositories/auth_repo_impl.dart';
-export 'package:smatrackz/src/modules/auth/domain/entities/user.dart';
-export 'package:smatrackz/src/modules/auth/domain/repositories/auth_repo.dart';
-export 'package:smatrackz/src/modules/auth/domain/use_cases/use_cases.dart';
-export 'package:smatrackz/src/modules/auth/presentation/bloc/auth_bloc.dart';
-export 'package:smatrackz/src/modules/auth/presentation/views/views.dart';
-export 'package:smatrackz/src/modules/auth/presentation/widgets/widgets.dart';
+export 'package:smatrackz/src/modules/auth/data/data.dart';
+export 'package:smatrackz/src/modules/auth/domain/domain.dart';
+export 'package:smatrackz/src/modules/auth/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/providers/bottom_nav_controller.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/views/bottom_navigation.dart';
 export 'package:smatrackz/src/modules/hrd/employees/data/data.dart';

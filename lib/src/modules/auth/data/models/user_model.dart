@@ -1,6 +1,6 @@
 import 'package:smatrackz/core.dart';
 
-class LocalUserModel extends LocalUser {
+class LocalUserModel extends UserEntity {
   const LocalUserModel({
     required super.uid,
     required super.email,

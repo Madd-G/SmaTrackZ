@@ -5,7 +5,7 @@ abstract class AuthRepo {
 
   ResultFuture<void> forgotPassword(String email);
 
-  ResultFuture<LocalUser> signIn({
+  ResultFuture<UserEntity> signIn({
     required String email,
     required String password,
   });

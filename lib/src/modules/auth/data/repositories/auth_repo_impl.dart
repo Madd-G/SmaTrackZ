@@ -16,7 +16,7 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  ResultFuture<LocalUser> signIn({
+  ResultFuture<UserEntity> signIn({
     required String email,
     required String password,
   }) async {

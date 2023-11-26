@@ -1,7 +1,7 @@
 import 'package:smatrackz/core.dart';
 
-class LocalUser extends Equatable {
-  const LocalUser({
+class UserEntity extends Equatable {
+  const UserEntity({
     required this.uid,
     required this.email,
     required this.fullName,
@@ -11,7 +11,7 @@ class LocalUser extends Equatable {
     this.bio,
   });
 
-  const LocalUser.empty()
+  const UserEntity.empty()
       : this(
           uid: '',
           email: '',

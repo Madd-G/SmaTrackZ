@@ -13,7 +13,7 @@ extension ContextExt on BuildContext {
 
   UserProvider get userProvider => read<UserProvider>();
 
-  LocalUser? get currentUser => userProvider.user;
+  UserEntity? get currentUser => userProvider.user;
 
   OfficeProvider get officeProvider => read<OfficeProvider>();
 

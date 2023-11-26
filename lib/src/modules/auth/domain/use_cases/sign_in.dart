@@ -1,12 +1,12 @@
 import 'package:smatrackz/core.dart';
 
-class SignIn extends FutureUseCaseWithParams<LocalUser, SignInParams> {
+class SignIn extends FutureUseCaseWithParams<UserEntity, SignInParams> {
   const SignIn(this._repo);
 
   final AuthRepo _repo;
 
   @override
-  ResultFuture<LocalUser> call(SignInParams params) => _repo.signIn(
+  ResultFuture<UserEntity> call(SignInParams params) => _repo.signIn(
         email: params.email,
         password: params.password,
       );
