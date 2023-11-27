@@ -46,13 +46,16 @@ Future<void> _initOffice() async {
     ..registerFactory(
       () => OfficeBloc(
         addOffice: sl(),
+        getOffice: sl(),
       ),
     )
     ..registerLazySingleton(() => AddOffice(sl()))
+    ..registerLazySingleton(() => GetOffice(sl()))
     ..registerLazySingleton<OfficeRepository>(() => OfficeRepositoryImpl(sl()))
     ..registerLazySingleton<OfficeRemoteDataSource>(
       () => OfficeRemoteDataSourceImpl(
         cloudStoreClient: sl(),
+        auth: sl(),
       ),
     );
 }

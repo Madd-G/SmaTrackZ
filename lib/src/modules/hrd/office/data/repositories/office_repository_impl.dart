@@ -35,4 +35,19 @@ class OfficeRepositoryImpl implements OfficeRepository {
       ));
     }
   }
+
+  @override
+  ResultFuture<OfficeModel> getOffice({
+    required dynamic officeData,
+  }) async {
+    try {
+      final office = await _remoteDataSource.getOffice();
+      return Right(office);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(
+        message: e.message,
+        statusCode: e.statusCode,
+      ));
+    }
+  }
 }

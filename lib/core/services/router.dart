@@ -1,6 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/employees/presentation/views/add_employee_screen.dart';
-import 'package:smatrackz/src/modules/hrd/office/presentation/views/edit_office_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -14,55 +12,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               email: user.email ?? '',
               fullName: user.displayName ?? '',
               created: DateTime.now().toString(),
-              // companyId: 'a',
             );
             context.userProvider.initUser(localUser);
             return const BottomNavigation();
           }
           return BlocProvider(
               create: (_) => sl<AuthBloc>(), child: const SignInScreen());
-        },
-        settings: settings,
-      );
-
-    case OfficeScreen.routeName:
-      return _pageBuilder(
-        (context) {
-          return BlocProvider(
-            create: (context) => sl<OfficeBloc>()..add(LoadOfficeEvent()),
-            child: BlocBuilder<OfficeBloc, OfficeState>(
-              builder: (context, state) {
-                if (state is OfficeInitialState) {
-                  return const Scaffold(
-                      body: Center(child: CircularProgressIndicator()));
-                } else if (state is OfficeLoadedState) {
-                  final office = OfficeModel(
-                    officeId: state.officeData['office_id'],
-                    officeName: state.officeData['office_name'],
-                    address: state.officeData['address'],
-                    latitude: state.officeData['latitude'],
-                    longitude: state.officeData['longitude'],
-                    website: state.officeData['website'],
-                  );
-                  context.officeProvider.initOffice(office);
-                  return const OfficeScreen();
-                } else if (state is OfficeErrorState) {
-                  return Center(child: Text(state.errorMessage));
-                }
-
-                const office = OfficeModel(
-                  officeId: '',
-                  officeName: '',
-                  address: '',
-                  latitude: 0.0,
-                  longitude: 0.0,
-                  website: '',
-                );
-                context.officeProvider.initOffice(office);
-                return const OfficeScreen();
-              },
-            ),
-          );
         },
         settings: settings,
       );
@@ -84,25 +39,40 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case RegisterScreen.routeName:
       return _pageBuilder(
-        (_) => MultiBlocProvider(providers: [
-          BlocProvider(
-            create: (_) => sl<AuthBloc>(),
-          ),
-          BlocProvider(create: (_) => sl<OfficeBloc>()),
-        ], child: const RegisterScreen()),
+        (_) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<AuthBloc>(),
+            ),
+            BlocProvider(create: (_) => sl<OfficeBloc>()),
+          ],
+          child: const RegisterScreen(),
+        ),
+        settings: settings,
+      );
+
+    case OfficeScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+            create: (context) => sl<OfficeBloc>(),
+            child: const OfficeScreen(),
+          );
+        },
         settings: settings,
       );
 
     case EditOfficeScreen.routeName:
       return _pageBuilder(
-        (_) => MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => sl<OfficeBloc>()..add(LoadOfficeEvent())),
-          ],
-          child: const EditOfficeScreen(),
-        ),
+        (context) {
+          return BlocProvider(
+            create: (context) => sl<OfficeBloc>(),
+            child: const EditOfficeScreen(),
+          );
+        },
         settings: settings,
       );
+
     case EmployeeListScreen.routeName:
       return _pageBuilder(
         (_) => const EmployeeListScreen(),

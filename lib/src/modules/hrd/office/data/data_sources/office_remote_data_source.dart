@@ -3,12 +3,6 @@ import 'package:smatrackz/core.dart';
 abstract class OfficeRemoteDataSource {
   const OfficeRemoteDataSource();
 
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> getOfficeSnapshot(String officeName) {
-  //   return FirebaseFirestore.instance
-  //       .doc('office/$officeName')
-  //       .snapshots();
-  // }
-
   Future<void> addOffice({
     required String officeId,
     required String officeName,
@@ -17,6 +11,8 @@ abstract class OfficeRemoteDataSource {
     required double longitude,
     required String website,
   });
+
+  Future<OfficeModel> getOffice();
 }
 
 class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
@@ -24,6 +20,7 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
 
   const OfficeRemoteDataSourceImpl({
     required FirebaseFirestore cloudStoreClient,
+    required FirebaseAuth auth,
   }) : _cloudStoreClient = cloudStoreClient;
 
   @override
@@ -45,5 +42,29 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
             website: website,
           ).toMap(),
         );
+  }
+
+  @override
+  Future<OfficeModel> getOffice() async {
+    final result =
+        await _cloudStoreClient.collection('office').doc('abc').get();
+    final office = result;
+    if (office == null) {
+      throw const ServerException(
+        message: 'Please try again later',
+        statusCode: 'Unknown Error',
+      );
+    }
+    var officeData = await _getOfficeData('abc');
+
+    if (officeData.exists) {
+      return OfficeModel.fromMap(officeData.data()!);
+    }
+
+    return OfficeModel.fromMap(officeData.data()!);
+  }
+
+  Future<DocumentSnapshot<DataMap>> _getOfficeData(String uid) async {
+    return _cloudStoreClient.collection('office').doc('abc').get();
   }
 }

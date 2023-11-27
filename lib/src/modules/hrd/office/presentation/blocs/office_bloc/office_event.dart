@@ -3,7 +3,10 @@ part of 'office_bloc.dart';
 @immutable
 abstract class OfficeEvent {}
 
-class LoadOfficeEvent extends OfficeEvent {}
+class LoadOfficeEvent extends OfficeEvent {
+  final dynamic officeData;
+  LoadOfficeEvent(this.officeData);
+}
 
 class AddOfficeEvent extends OfficeEvent {
   final String officeId;

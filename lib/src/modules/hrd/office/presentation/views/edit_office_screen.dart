@@ -42,7 +42,7 @@ class EditOfficeScreen extends StatelessWidget {
                             decoration: const InputDecoration(
                               labelText: "Company name",
                             ),
-                            initialValue: state.officeData["office_name"],
+                            initialValue: state.officeData.officeName,
                             onChanged: (value) {
                               officeName = value;
                             },
@@ -51,15 +51,15 @@ class EditOfficeScreen extends StatelessWidget {
                             decoration: const InputDecoration(
                               labelText: "Address",
                             ),
-                            initialValue: state.officeData["address"],
+                            initialValue: state.officeData.address,
                             onChanged: (value) {
                               address = value;
                             },
                           ),
                           LocationPicker(
                             id: 'location',
-                            latitude: state.officeData["latitude"],
-                            longitude: state.officeData["longitude"],
+                            latitude: state.officeData.latitude,
+                            longitude: state.officeData.longitude,
                             onChanged: (latitude, longitude) {
                               latitude = latitude;
                               longitude = longitude;
@@ -88,17 +88,17 @@ class EditOfficeScreen extends StatelessWidget {
             return BottomAppBar(
               child: ElevatedButton(
                 onPressed: () {
-                  context.read<OfficeBloc>().add(
-                        // TODO: Check this
-                        UpdateOfficeEvent(
-                          officeId: state.officeData['office_id'],
-                          name: officeName ?? state.officeData["office_name"],
-                          address: address ?? state.officeData["address"],
-                          latitude: state.officeData["latitude"] ?? 0.0,
-                          longitude: state.officeData["longitude"] ?? 0.0,
-                          website: state.officeData['website'],
-                        ),
-                      );
+                  // context.read<OfficeBloc>().add(
+                  //       // TODO: Check this
+                  //       UpdateOfficeEvent(
+                  //         officeId: state.officeData['office_id'],
+                  //         name: officeName ?? state.officeData["office_name"],
+                  //         address: address ?? state.officeData["address"],
+                  //         latitude: state.officeData["latitude"] ?? 0.0,
+                  //         longitude: state.officeData["longitude"] ?? 0.0,
+                  //         website: state.officeData['website'],
+                  //       ),
+                  //     );
                 },
                 child: const Text('Save'),
               ),

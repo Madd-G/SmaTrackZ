@@ -3,8 +3,6 @@ import 'package:smatrackz/core.dart';
 abstract class OfficeRepository {
   const OfficeRepository();
 
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> getOfficeSnapshot(
-  //     String officeId);
   ResultFuture<void> addOffice({
     required String officeId,
     required String officeName,
@@ -13,4 +11,6 @@ abstract class OfficeRepository {
     required double longitude,
     required String website,
   });
+
+  ResultFuture<OfficeModel> getOffice({required dynamic officeData});
 }

@@ -11,12 +11,13 @@ class OfficeInitialState extends OfficeState {
 }
 
 class OfficeLoadedState extends OfficeState {
-  final Map<String, dynamic> officeData;
+  // final Map<String, dynamic> officeData;
+  final OfficeModel officeData;
 
-  const OfficeLoadedState({required this.officeData});
+  const OfficeLoadedState(this.officeData);
 
   @override
-  List<Object?> get props => [officeData];
+  List<Object?> get props => [];
 }
 
 class AddOfficeState extends OfficeState {
