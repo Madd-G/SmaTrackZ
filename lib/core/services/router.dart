@@ -13,7 +13,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               uid: user.uid,
               email: user.email ?? '',
               fullName: user.displayName ?? '',
-              created: DateTime.now().toString() ?? '',
+              created: DateTime.now().toString(),
               // companyId: 'a',
             );
             context.userProvider.initUser(localUser);
@@ -29,7 +29,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => OfficeBloc()..add(LoadOfficeEvent()),
+            create: (context) => sl<OfficeBloc>()..add(LoadOfficeEvent()),
             child: BlocBuilder<OfficeBloc, OfficeState>(
               builder: (context, state) {
                 if (state is OfficeInitialState) {
@@ -37,10 +37,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                       body: Center(child: CircularProgressIndicator()));
                 } else if (state is OfficeLoadedState) {
                   final office = OfficeModel(
+                    officeId: state.officeData['office_id'],
                     officeName: state.officeData['office_name'],
                     address: state.officeData['address'],
                     latitude: state.officeData['latitude'],
                     longitude: state.officeData['longitude'],
+                    website: state.officeData['website'],
                   );
                   context.officeProvider.initOffice(office);
                   return const OfficeScreen();
@@ -49,10 +51,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 }
 
                 const office = OfficeModel(
+                  officeId: '',
                   officeName: '',
                   address: '',
                   latitude: 0.0,
                   longitude: 0.0,
+                  website: '',
                 );
                 context.officeProvider.initOffice(office);
                 return const OfficeScreen();
@@ -67,8 +71,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-              create: (_) => sl<AuthBloc>(),
-              child: const AddEmployeeScreen());
+              create: (_) => sl<AuthBloc>(), child: const AddEmployeeScreen());
         },
         settings: settings,
       );
@@ -85,7 +88,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           BlocProvider(
             create: (_) => sl<AuthBloc>(),
           ),
-          BlocProvider(create: (_) => OfficeBloc()),
+          BlocProvider(create: (_) => sl<OfficeBloc>()),
         ], child: const RegisterScreen()),
         settings: settings,
       );
@@ -94,7 +97,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (_) => MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => OfficeBloc()..add(LoadOfficeEvent())),
+            BlocProvider(create: (_) => sl<OfficeBloc>()..add(LoadOfficeEvent())),
           ],
           child: const EditOfficeScreen(),
         ),

@@ -5,12 +5,18 @@ part 'office_event.dart';
 part 'office_state.dart';
 
 class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
-  OfficeBloc() : super(OfficeInitialState()) {
+  OfficeBloc({
+    required AddOffice addOffice,
+  })  : _addOffice = addOffice,
+        super(OfficeInitialState()) {
     on<LoadOfficeEvent>(_onLoadOfficeEvent);
     on<UpdateOfficeEvent>(_onUpdateOfficeEvent);
-    on<AddOfficeEvent>(_onAddOfficeEvent);
+    // on<AddOfficeEvent>(_onAddOfficeEvent);
     on<UpdateLocationEvent>(_onUpdateLocationEvent);
+    on<AddOfficeEvent>(_addOfficeHandler);
   }
+
+  final AddOffice _addOffice;
 
   void _onLoadOfficeEvent(
     LoadOfficeEvent event,
@@ -20,14 +26,14 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
       final snapshot = await FirebaseFirestore.instance
           .collection("office")
 
-          /// TODO: set UUID berdasarkan id company
+          // TODO: set UUID berdasarkan id company
           .doc('abc')
           .get();
 
       final officeData = snapshot.data() ?? {};
       emit(OfficeLoadedState(officeData: officeData));
     } catch (e) {
-      emit(OfficeErrorState(errorMessage: 'Error loading office data'));
+      emit(const OfficeErrorState(errorMessage: 'Error loading office data'));
     }
   }
 
@@ -37,6 +43,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
   ) async {
     try {
       await FirebaseFirestore.instance.collection("office").doc('abc').set({
+        "office_id": event.officeId,
         "office_name": event.name,
         "address": event.address,
         "website": event.website,
@@ -45,6 +52,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
       });
 
       emit(OfficeLoadedState(officeData: {
+        "office_id": event.officeId,
         "office_name": event.name,
         "address": event.address,
         "website": event.website,
@@ -52,7 +60,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         "longitude": event.longitude,
       }));
     } catch (e) {
-      emit(OfficeErrorState(errorMessage: 'Error updating office data'));
+      emit(const OfficeErrorState(errorMessage: 'Error updating office data'));
     }
   }
 
@@ -61,7 +69,8 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     Emitter<OfficeState> emit,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection("office").doc("abc").update({
+      await FirebaseFirestore.instance.collection("office").doc('abc').update({
+        "office_id": event.officeId,
         "office_name": event.name,
         "address": event.address,
         "website": event.website,
@@ -70,6 +79,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
       });
 
       emit(OfficeLoadedState(officeData: {
+        "office_id": event.officeId,
         "office_name": event.name,
         "address": event.address,
         "website": event.website,
@@ -77,7 +87,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         "longitude": event.longitude,
       }));
     } catch (e) {
-      emit(OfficeErrorState(errorMessage: 'Error updating office data'));
+      emit(const OfficeErrorState(errorMessage: 'Error updating office data'));
     }
   }
 
@@ -86,7 +96,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     Emitter<OfficeState> emit,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection("office").doc("abc").update({
+      await FirebaseFirestore.instance.collection("office").doc('abc').update({
         "latitude": event.latitude,
         "longitude": event.longitude,
       });
@@ -96,7 +106,24 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         longitude: event.longitude,
       ));
     } catch (e) {
-      emit(OfficeErrorState(errorMessage: 'Error updating location'));
+      emit(const OfficeErrorState(errorMessage: 'Error updating location'));
     }
+  }
+
+  Future<void> _addOfficeHandler(
+    AddOfficeEvent event,
+    Emitter<OfficeState> emit,
+  ) async {
+    final result = await _addOffice(AddOfficeParams(
+        officeId: event.officeId,
+        officeName: event.name,
+        address: event.address,
+        latitude: event.latitude,
+        longitude: event.longitude,
+        website: event.website));
+    result.fold(
+      (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
+      (_) => emit(const AddOfficeState()),
+    );
   }
 }

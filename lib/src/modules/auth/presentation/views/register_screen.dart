@@ -63,7 +63,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               providers: [
                                 BlocProvider(
                                     create: (context) => sl<AuthBloc>()),
-                                BlocProvider(create: (context) => OfficeBloc()),
+                                BlocProvider(
+                                    create: (context) => sl<OfficeBloc>()),
                               ],
                               child: RegisterCompanyLocationScreen(
                                 email: emailController.text.trim(),

@@ -102,7 +102,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   final user = provider.user!;
                   return GestureDetector(
                     onTap: () async {
-                      /// TODO: do sign up
                       FocusManager.instance.primaryFocus?.unfocus();
                       if (formKey.currentState!.validate()) {
                         context.read<AuthBloc>().add(

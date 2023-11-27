@@ -5,8 +5,9 @@ final sl = GetIt.instance;
 Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
-  // await _initAddEmployee();
   await _initOffice();
+  // await _initAddEmployee();
+  // await _initOffice();
 }
 
 Future<void> _initFirebaseInstances() async {
@@ -42,11 +43,27 @@ Future<void> _initAuth() async {
 
 Future<void> _initOffice() async {
   sl
+    ..registerFactory(
+      () => OfficeBloc(
+        addOffice: sl(),
+      ),
+    )
+    ..registerLazySingleton(() => AddOffice(sl()))
+    ..registerLazySingleton<OfficeRepository>(() => OfficeRepositoryImpl(sl()))
     ..registerLazySingleton<OfficeRemoteDataSource>(
-        () => OfficeRemoteDataSource())
-    ..registerLazySingleton<OfficeRepository>(
-        () => OfficeRepositoryImpl(sl<OfficeRemoteDataSource>()));
+      () => OfficeRemoteDataSourceImpl(
+        cloudStoreClient: sl(),
+      ),
+    );
 }
+
+// Future<void> _initOffice() async {
+//   sl
+//     ..registerLazySingleton<OfficeRemoteDataSource>(
+//         () => OfficeRemoteDataSource())
+//     ..registerLazySingleton<OfficeRepository>(
+//         () => OfficeRepositoryImpl(sl<OfficeRemoteDataSource>()));
+// }
 
 // Future<void> _initAddEmployee() async {
 //   sl

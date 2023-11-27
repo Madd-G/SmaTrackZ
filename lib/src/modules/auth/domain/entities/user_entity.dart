@@ -1,6 +1,7 @@
 import 'package:smatrackz/core.dart';
 
 class UserEntity extends Equatable {
+  // TODO: add department id
   final String uid;
   final String email;
   final String? profilePic;

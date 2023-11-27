@@ -1,23 +1,24 @@
 import 'package:smatrackz/core.dart';
 
 class RegisterCompanyLocationScreen extends StatefulWidget {
-  const RegisterCompanyLocationScreen(
-      {super.key,
-      required this.email,
-      required this.password,
-      required this.name,
-      required this.officeName,
-      required this.address,
-      required this.website});
-
-  static const routeName = '/register-company-location';
-
   final String email;
   final String password;
   final String name;
   final String officeName;
   final String address;
   final String website;
+
+  const RegisterCompanyLocationScreen({
+    super.key,
+    required this.email,
+    required this.password,
+    required this.name,
+    required this.officeName,
+    required this.address,
+    required this.website,
+  });
+
+  static const routeName = '/register-company-location';
 
   @override
   State<RegisterCompanyLocationScreen> createState() =>
@@ -276,7 +277,6 @@ class _RegisterCompanyLocationScreenState
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('companyId $companyId');
                               context.read<AuthBloc>().add(
                                     SignUpEvent(
                                       email: widget.email,
@@ -291,7 +291,7 @@ class _RegisterCompanyLocationScreenState
                                       officeId: companyId,
                                       name: widget.officeName,
                                       address: widget.address,
-                                      website: widget.password,
+                                      website: widget.website,
                                       latitude: currentPosition!.latitude,
                                       longitude: currentPosition!.longitude,
                                     ),
