@@ -6,18 +6,31 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
-            final user = sl<FirebaseAuth>().currentUser!;
-            final localUser = UserModel(
-              uid: user.uid,
-              email: user.email ?? '',
-              fullName: user.displayName ?? '',
-              created: DateTime.now().toString(),
+            const localUser = UserModel(
+              uid: '',
+              email: '',
+              fullName: '',
+              bio: '',
+            );
+            const officeData = OfficeModel(
+              officeId: '',
+              officeName: '',
+              address: '',
+              latitude: 0.0,
+              longitude: 0.0,
+              website: '',
             );
             context.userProvider.initUser(localUser);
-            return const BottomNavigation();
+            context.officeProvider.initOffice(officeData);
+            return BlocProvider(
+                create: (_) => sl<OfficeBloc>(),
+                child: const BottomNavigation());
           }
-          return BlocProvider(
-              create: (_) => sl<AuthBloc>(), child: const SignInScreen());
+
+          return MultiBlocProvider(providers: [
+            BlocProvider(create: (_) => sl<AuthBloc>()),
+            BlocProvider(create: (_) => sl<OfficeBloc>()),
+          ], child: const SignInScreen());
         },
         settings: settings,
       );
@@ -81,7 +94,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case BottomNavigation.routeName:
       return _pageBuilder(
-        (_) => const BottomNavigation(),
+        (context) {
+          return BlocProvider(
+            create: (context) => sl<OfficeBloc>(),
+            child: const BottomNavigation(),
+          );
+        },
         settings: settings,
       );
     default:

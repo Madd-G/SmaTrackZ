@@ -14,7 +14,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         _updateOffice = updateOffice,
         super(OfficeInitialState()) {
     on<AddOfficeEvent>(_addOfficeHandler);
-    on<LoadOfficeEvent>(_onLoadOfficeEvent);
+    on<LoadOfficeEvent>(_getOfficeEvent);
     on<UpdateOfficeEvent>(_updateOfficeHandler);
     on<UpdateLocationEvent>(_onUpdateLocationEvent);
     // on<LoadOfficeEvent>(_onLoadOfficeEvent);
@@ -45,12 +45,12 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     );
   }
 
-  Future<void> _onLoadOfficeEvent(
+  Future<void> _getOfficeEvent(
     LoadOfficeEvent event,
     Emitter<OfficeState> emit,
   ) async {
-    final result =
-        await _getOffice(GetOfficeParams(officeData: event.officeData));
+    emit(OfficeInitialState());
+    final result = await _getOffice();
     result.fold(
       (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
       (office) => emit(OfficeLoadedState(office)),
@@ -111,7 +111,7 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     );
     result.fold(
       (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
-      (_) => emit(OfficeUpdatedState()),
+      (_) => emit(const OfficeUpdatedState()),
     );
   }
 }

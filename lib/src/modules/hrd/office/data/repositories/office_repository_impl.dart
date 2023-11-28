@@ -32,9 +32,7 @@ class OfficeRepositoryImpl implements OfficeRepository {
   }
 
   @override
-  ResultFuture<OfficeModel> getOffice({
-    required dynamic officeData,
-  }) async {
+  ResultFuture<OfficeModel> getOffice() async {
     try {
       final office = await _remoteDataSource.getOffice();
       return Right(office);

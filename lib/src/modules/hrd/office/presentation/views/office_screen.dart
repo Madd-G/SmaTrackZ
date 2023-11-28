@@ -8,8 +8,7 @@ class OfficeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          sl<OfficeBloc>()..add(LoadOfficeEvent(context.officeProvider.office)),
+      create: (context) => sl<OfficeBloc>()..add(LoadOfficeEvent()),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: const OfficeAppBar(),

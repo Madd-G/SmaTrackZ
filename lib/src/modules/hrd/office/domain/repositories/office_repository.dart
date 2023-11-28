@@ -12,7 +12,7 @@ abstract class OfficeRepository {
     required String website,
   });
 
-  ResultFuture<OfficeModel> getOffice({required dynamic officeData});
+  ResultFuture<OfficeModel> getOffice();
 
   ResultFuture<void> updateOffice({
     required UpdateOfficeAction action,

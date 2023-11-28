@@ -4,9 +4,7 @@ part of 'office_bloc.dart';
 abstract class OfficeEvent {}
 
 class LoadOfficeEvent extends OfficeEvent {
-  final dynamic officeData;
-
-  LoadOfficeEvent(this.officeData);
+  LoadOfficeEvent();
 }
 
 class AddOfficeEvent extends OfficeEvent {
@@ -27,24 +25,6 @@ class AddOfficeEvent extends OfficeEvent {
   });
 }
 
-// class UpdateOfficeEvent extends OfficeEvent {
-//   final String officeId;
-//   final String name;
-//   final String address;
-//   final String website;
-//   final double latitude;
-//   final double longitude;
-//
-//   UpdateOfficeEvent({
-//     required this.officeId,
-//     required this.name,
-//     required this.address,
-//     required this.website,
-//     required this.latitude,
-//     required this.longitude,
-//   });
-// }
-
 class UpdateOfficeEvent extends OfficeEvent {
   UpdateOfficeEvent({
     required this.action,
@@ -58,7 +38,6 @@ class UpdateOfficeEvent extends OfficeEvent {
   final UpdateOfficeAction action;
   final dynamic officeData;
 
-  @override
   List<Object?> get props => [action, officeData];
 }
 

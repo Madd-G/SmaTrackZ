@@ -75,8 +75,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
       var userData = await _getUserData(user.uid);
 
+      // var dummy = {'office_id': '20231128-0546-8952-b316-aae819cea8bc'};
       if (userData.exists) {
         return UserModel.fromMap(userData.data()!);
+        // return UserModel.fromMap(dummy);
       }
 
       // upload the user
@@ -84,6 +86,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       userData = await _getUserData(user.uid);
       return UserModel.fromMap(userData.data()!);
+      // return UserModel.fromMap(dummy);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occurred',
@@ -190,6 +193,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return _cloudStoreClient.collection('users').doc(uid).get();
   }
 
+  /// get data start from here
   Future<void> _setUserData(
       User user, String fallbackEmail, [String? companyId]) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
@@ -200,6 +204,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             profilePic: user.photoURL ?? '',
             created: DateTime.now().toString(),
             companyId: companyId,
+            bio: '',
+            workStart: '',
+            workEnd: ''
           ).toMap(),
         );
   }
