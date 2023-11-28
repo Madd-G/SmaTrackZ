@@ -195,6 +195,7 @@ class _MapScreenState extends State<MapScreen> {
                               longitude: currentPosition!.longitude,
                             ),
                           );
+                      Navigator.pop(context);
                     },
                     child: RoundedContainer(
                       radius: 10.0,

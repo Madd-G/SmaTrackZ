@@ -7,11 +7,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // await FirebaseAppCheck.instance.activate();
-  // FirebaseAppCheck.instance.onTokenChange.listen((token) {
-  //   print('App Check token refreshed: $token');
-  // });
-
   await init();
 
   SystemChrome.setPreferredOrientations([

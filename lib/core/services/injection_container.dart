@@ -47,10 +47,12 @@ Future<void> _initOffice() async {
       () => OfficeBloc(
         addOffice: sl(),
         getOffice: sl(),
+        updateOffice: sl(),
       ),
     )
     ..registerLazySingleton(() => AddOffice(sl()))
     ..registerLazySingleton(() => GetOffice(sl()))
+    ..registerLazySingleton(() => UpdateOffice(sl()))
     ..registerLazySingleton<OfficeRepository>(() => OfficeRepositoryImpl(sl()))
     ..registerLazySingleton<OfficeRemoteDataSource>(
       () => OfficeRemoteDataSourceImpl(

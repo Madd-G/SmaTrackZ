@@ -1,5 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/employees/presentation/views/add_employee_screen.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   const EmployeeListScreen({super.key});

@@ -13,4 +13,9 @@ abstract class OfficeRepository {
   });
 
   ResultFuture<OfficeModel> getOffice({required dynamic officeData});
+
+  ResultFuture<void> updateOffice({
+    required UpdateOfficeAction action,
+    required dynamic officeData,
+  });
 }

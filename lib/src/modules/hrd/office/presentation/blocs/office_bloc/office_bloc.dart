@@ -8,12 +8,14 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
   OfficeBloc({
     required AddOffice addOffice,
     required GetOffice getOffice,
+    required UpdateOffice updateOffice,
   })  : _addOffice = addOffice,
         _getOffice = getOffice,
+        _updateOffice = updateOffice,
         super(OfficeInitialState()) {
     on<AddOfficeEvent>(_addOfficeHandler);
     on<LoadOfficeEvent>(_onLoadOfficeEvent);
-    // on<UpdateOfficeEvent>(_onUpdateOfficeEvent);
+    on<UpdateOfficeEvent>(_updateOfficeHandler);
     on<UpdateLocationEvent>(_onUpdateLocationEvent);
     // on<LoadOfficeEvent>(_onLoadOfficeEvent);
     // on<AddOfficeEvent>(_onAddOfficeEvent);
@@ -21,18 +23,22 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
 
   final AddOffice _addOffice;
   final GetOffice _getOffice;
+  final UpdateOffice _updateOffice;
 
   Future<void> _addOfficeHandler(
     AddOfficeEvent event,
     Emitter<OfficeState> emit,
   ) async {
-    final result = await _addOffice(AddOfficeParams(
+    final result = await _addOffice(
+      AddOfficeParams(
         officeId: event.officeId,
         officeName: event.name,
         address: event.address,
         latitude: event.latitude,
         longitude: event.longitude,
-        website: event.website));
+        website: event.website,
+      ),
+    );
     result.fold(
       (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
       (_) => emit(const AddOfficeState()),
@@ -51,31 +57,15 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     );
   }
 
-  // void _onLoadOfficeEvent(
-  //   LoadOfficeEvent event,
-  //   Emitter<OfficeState> emit,
-  // ) async {
-  //   try {
-  //     final snapshot = await FirebaseFirestore.instance
-  //         .collection("office")
-  //
-  //         // TODO: set UUID berdasarkan id company
-  //         .doc('abc')
-  //         .get();
-  //
-  //     final officeData = snapshot.data() ?? {};
-  //     emit(OfficeLoadedState(officeData: officeData));
-  //   } catch (e) {
-  //     emit(const OfficeErrorState(errorMessage: 'Error loading office data'));
-  //   }
-  // }
-
   // void _onUpdateOfficeEvent(
   //   UpdateOfficeEvent event,
   //   Emitter<OfficeState> emit,
   // ) async {
   //   try {
-  //     var officeData = await FirebaseFirestore.instance.collection("office").doc('abc').update({
+  //     var officeData = await FirebaseFirestore.instance
+  //         .collection("office")
+  //         .doc('abc')
+  //         .update({
   //       "office_id": event.officeId,
   //       "office_name": event.name,
   //       "address": event.address,
@@ -107,5 +97,21 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     } catch (e) {
       emit(const OfficeErrorState(errorMessage: 'Error updating location'));
     }
+  }
+
+  Future<void> _updateOfficeHandler(
+    UpdateOfficeEvent event,
+    Emitter<OfficeState> emit,
+  ) async {
+    final result = await _updateOffice(
+      UpdateOfficeParams(
+        action: event.action,
+        officeData: event.officeData,
+      ),
+    );
+    result.fold(
+      (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
+      (_) => emit(OfficeUpdatedState()),
+    );
   }
 }

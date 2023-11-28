@@ -17,7 +17,7 @@ extension ContextExt on BuildContext {
 
   OfficeProvider get officeProvider => read<OfficeProvider>();
 
-  OfficeModel? get office => officeProvider.office;
+  OfficeEntity? get office => officeProvider.office;
 
   TabNavigator get tabNavigator => read<TabNavigator>();
 

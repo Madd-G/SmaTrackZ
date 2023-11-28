@@ -5,11 +5,6 @@ class OfficeRepositoryImpl implements OfficeRepository {
 
   OfficeRepositoryImpl(this._remoteDataSource);
 
-  // @override
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> getOfficeSnapshot(String officeId) {
-  //   return _remoteDataSource.getOfficeSnapshot(officeId);
-  // }
-
   @override
   ResultFuture<void> addOffice({
     required String officeId,
@@ -48,6 +43,20 @@ class OfficeRepositoryImpl implements OfficeRepository {
         message: e.message,
         statusCode: e.statusCode,
       ));
+    }
+  }
+
+  @override
+  ResultFuture<void> updateOffice({
+    required UpdateOfficeAction action,
+    required dynamic officeData,
+  }) async {
+    try {
+      await _remoteDataSource.updateOffice(
+          action: action, officeData: officeData);
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
     }
   }
 }

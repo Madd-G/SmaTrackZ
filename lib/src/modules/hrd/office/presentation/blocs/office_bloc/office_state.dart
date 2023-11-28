@@ -11,7 +11,6 @@ class OfficeInitialState extends OfficeState {
 }
 
 class OfficeLoadedState extends OfficeState {
-  // final Map<String, dynamic> officeData;
   final OfficeModel officeData;
 
   const OfficeLoadedState(this.officeData);
@@ -47,4 +46,11 @@ class LocationUpdatedState extends OfficeState {
 
   @override
   List<Object?> get props => [latitude, longitude];
+}
+
+class OfficeUpdatedState extends OfficeState {
+  const OfficeUpdatedState();
+
+  @override
+  List<Object?> get props => [];
 }
