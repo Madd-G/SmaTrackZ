@@ -53,16 +53,7 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
   Future<OfficeModel> getOffice() async {
     final result =
         await _cloudStoreClient.collection('office').doc('abc').get();
-    final office = result.data();
-    var officeData = await _getOfficeData('abc');
-
-    if (officeData.exists) {
-      return OfficeModel.fromMap(officeData.data()!);
-    }
-
-    await _setOfficeData(office);
-    officeData = await _getOfficeData('abc');
-    return OfficeModel.fromMap(officeData.data()!);
+    return OfficeModel.fromMap(result.data()!);
   }
 
   @override
@@ -95,25 +86,6 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
         statusCode: '505',
       );
     }
-  }
-
-  Future<DocumentSnapshot<DataMap>> _getOfficeData(String uid) async {
-    return _cloudStoreClient.collection('office').doc(uid).get();
-  }
-
-  Future<void> _setOfficeData(
-    Map<String, dynamic>? officeModel,
-  ) async {
-    await _cloudStoreClient.collection('office').doc('abc').set(
-          OfficeModel(
-            officeId: officeModel?['office_id'],
-            officeName: officeModel?['office_name'],
-            address: officeModel?['address'],
-            latitude: officeModel?['latitude'],
-            longitude: officeModel?['longitude'],
-            website: officeModel?['website'],
-          ).toMap(),
-        );
   }
 
   Future<void> _updateOfficeData(DataMap data) async {
