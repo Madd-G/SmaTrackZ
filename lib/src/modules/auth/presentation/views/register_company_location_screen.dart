@@ -294,6 +294,9 @@ class _RegisterCompanyLocationScreenState
                                       website: widget.website,
                                       latitude: currentPosition!.latitude,
                                       longitude: currentPosition!.longitude,
+                                      // TODO:
+                                      workingTime: '',
+                                      phoneNumber: '',
                                     ),
                                   );
                             },

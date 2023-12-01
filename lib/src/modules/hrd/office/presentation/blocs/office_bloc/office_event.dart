@@ -4,7 +4,9 @@ part of 'office_bloc.dart';
 abstract class OfficeEvent {}
 
 class LoadOfficeEvent extends OfficeEvent {
-  LoadOfficeEvent();
+  final String officeId;
+
+  LoadOfficeEvent({required this.officeId});
 }
 
 class AddOfficeEvent extends OfficeEvent {
@@ -14,6 +16,8 @@ class AddOfficeEvent extends OfficeEvent {
   final String website;
   final double latitude;
   final double longitude;
+  final String workingTime;
+  final String phoneNumber;
 
   AddOfficeEvent({
     required this.officeId,
@@ -22,6 +26,8 @@ class AddOfficeEvent extends OfficeEvent {
     required this.website,
     required this.latitude,
     required this.longitude,
+    required this.workingTime,
+    required this.phoneNumber,
   });
 }
 

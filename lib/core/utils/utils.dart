@@ -6,7 +6,6 @@ export 'constants.dart';
 export 'core_utils.dart';
 export 'custom_text_style.dart';
 export 'datasource_utils.dart';
-export 'office_utils.dart';
 export 'state_util.dart';
 export 'theme.dart';
 export 'typedefs.dart';

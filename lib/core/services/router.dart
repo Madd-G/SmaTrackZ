@@ -12,16 +12,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               fullName: '',
               bio: '',
             );
-            const officeData = OfficeModel(
-              officeId: '',
-              officeName: '',
-              address: '',
-              latitude: 0.0,
-              longitude: 0.0,
-              website: '',
-            );
+            // const officeData = OfficeModel(
+            //   officeId: '',
+            //   officeName: '',
+            //   address: '',
+            //   latitude: 0.0,
+            //   longitude: 0.0,
+            //   website: '',
+            // );
             context.userProvider.initUser(localUser);
-            context.officeProvider.initOffice(officeData);
+            // context.officeProvider.initOffice(officeData);
             return BlocProvider(
                 create: (_) => sl<OfficeBloc>(),
                 child: const BottomNavigation());
@@ -75,16 +75,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
-    case EditOfficeScreen.routeName:
-      return _pageBuilder(
-        (context) {
-          return BlocProvider(
-            create: (context) => sl<OfficeBloc>(),
-            child: const EditOfficeScreen(),
-          );
-        },
-        settings: settings,
-      );
+    // case EditOfficeScreen.routeName:
+    //   return _pageBuilder(
+    //     (context) {
+    //       return BlocProvider(
+    //         create: (context) => sl<OfficeBloc>(),
+    //         child: const EditOfficeScreen(),
+    //       );
+    //     },
+    //     settings: settings,
+    //   );
 
     case EmployeeListScreen.routeName:
       return _pageBuilder(

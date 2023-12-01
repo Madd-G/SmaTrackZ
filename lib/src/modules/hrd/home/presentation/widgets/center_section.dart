@@ -9,16 +9,16 @@ class CenterSection extends StatelessWidget {
       create: (context) => ClockBloc(),
       child: Column(
         children: [
-          BlocBuilder<ClockBloc, ClockState>(
-            builder: (context, state) {
-              String time = state.time.clockFormat;
-              return Text(
-                time,
-                style: CustomTextStyle.textLargeSemiBold
-                    .copyWith(fontSize: 28.0, color: AppColors.greyColor),
-              );
-            },
-          ),
+          // BlocBuilder<ClockBloc, ClockState>(
+          //   builder: (context, state) {
+          //     String time = state.time.clockFormat;
+          //     return Text(
+          //       time,
+          //       style: CustomTextStyle.textLargeSemiBold
+          //           .copyWith(fontSize: 28.0, color: AppColors.greyColor),
+          //     );
+          //   },
+          // ),
           const SizedBox(height: 20.0),
           Container(
             height: 200.0,

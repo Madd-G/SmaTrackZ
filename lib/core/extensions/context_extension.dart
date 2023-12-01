@@ -15,9 +15,9 @@ extension ContextExt on BuildContext {
 
   UserEntity? get currentUser => userProvider.user;
 
-  OfficeProvider get officeProvider => read<OfficeProvider>();
+  // OfficeProvider get officeProvider => read<OfficeProvider>();
 
-  OfficeEntity? get office => officeProvider.office;
+  // OfficeEntity? get office => officeProvider.office;
 
   TabNavigator get tabNavigator => read<TabNavigator>();
 

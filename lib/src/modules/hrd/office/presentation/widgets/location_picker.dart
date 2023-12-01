@@ -153,125 +153,119 @@ class LocationPickerState extends State<LocationPicker> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    height: 128,
-                    child: Consumer<OfficeProvider>(
-                      builder: (_, provider, __) {
-                        var office = provider.office!;
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Latitude:",
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                  ),
+                      height: 128,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Latitude:",
+                                style: TextStyle(
+                                  fontSize: 12.0,
                                 ),
-                                Text(
-                                  "${office.latitude}",
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                  ),
+                              ),
+                              Text(
+                                latitude.toString(),
+                                style: const TextStyle(
+                                  fontSize: 12.0,
                                 ),
-                                const SizedBox(
-                                  height: 4.0,
+                              ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              const Text(
+                                "Longitude:",
+                                style: TextStyle(
+                                  fontSize: 12.0,
                                 ),
-                                const Text(
-                                  "Longitude:",
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                  ),
+                              ),
+                              Text(
+                                longitude.toString(),
+                                style: const TextStyle(
+                                  fontSize: 12.0,
                                 ),
-                                Text(
-                                  "${office.longitude}",
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            if (!isLocationPicked())
-                              ElevatedButton.icon(
-                                icon: const Icon(Icons.location_on),
-                                label: const Text("Select"),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blueGrey,
-                                ),
-                                onPressed: () async {
-                                  if (!kIsWeb &&
-                                      (Platform.isAndroid || Platform.isIOS)) {
-                                    if (!await Permission.location
-                                        .request()
-                                        .isGranted) {
-                                      return;
-                                    }
+                              ),
+                            ],
+                          ),
+                          if (!isLocationPicked())
+                            ElevatedButton.icon(
+                              icon: const Icon(Icons.location_on),
+                              label: const Text("Select"),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueGrey,
+                              ),
+                              onPressed: () async {
+                                if (!kIsWeb &&
+                                    (Platform.isAndroid || Platform.isIOS)) {
+                                  if (!await Permission.location
+                                      .request()
+                                      .isGranted) {
                                     return;
                                   }
+                                  return;
+                                }
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider(
-                                        create: (context) => sl<OfficeBloc>(),
-                                        child: MapScreen(
-                                            position: LatLng(office.latitude,
-                                                office.longitude)),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BlocProvider(
+                                      create: (context) => sl<OfficeBloc>(),
+                                      child: MapScreen(
+                                          position:
+                                              LatLng(latitude!, longitude!)),
+                                    ),
+                                  ),
+                                );
+                                setState(() {});
+                              },
+                            ),
+                          if (isLocationPicked())
+                            GestureDetector(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BlocProvider(
+                                      create: (context) => sl<OfficeBloc>(),
+                                      child: MapScreen(
+                                        position: LatLng(latitude!, longitude!),
                                       ),
                                     ),
-                                  );
-                                  setState(() {});
-                                },
-                              ),
-                            if (isLocationPicked())
-                              GestureDetector(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider(
-                                        create: (context) => sl<OfficeBloc>(),
-                                        child: MapScreen(
-                                          position: LatLng(
-                                              office.latitude, office.longitude),
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  ),
+                                );
 
-                                  loading = true;
-                                  setState(() {});
+                                loading = true;
+                                setState(() {});
 
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 200));
+                                await Future.delayed(
+                                    const Duration(milliseconds: 200));
 
-                                  loading = false;
-                                  setState(() {});
-                                },
-                                child: RoundedContainer(
-                                  containerColor: AppColors.blackColor,
-                                  radius: 10.0,
-                                  width: context.width * 0.45,
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 6.0),
-                                    child: Center(
-                                      child: Text(
-                                        widget.buttonLabel,
-                                        style: CustomTextStyle.textBigSemiBold
-                                            .copyWith(color: AppColors.whiteColor),
-                                      ),
+                                loading = false;
+                                setState(() {});
+                              },
+                              child: RoundedContainer(
+                                containerColor: AppColors.blackColor,
+                                radius: 10.0,
+                                width: context.width * 0.45,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 6.0),
+                                  child: Center(
+                                    child: Text(
+                                      widget.buttonLabel,
+                                      style: CustomTextStyle.textBigSemiBold
+                                          .copyWith(
+                                              color: AppColors.whiteColor),
                                     ),
                                   ),
                                 ),
                               ),
-                          ],
-                        );
-                      }
-                    ),
-                  ),
+                            ),
+                        ],
+                      )),
                 ),
               ],
             ),

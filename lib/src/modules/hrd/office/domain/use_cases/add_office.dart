@@ -13,6 +13,8 @@ class AddOffice extends FutureUseCaseWithParams<void, AddOfficeParams> {
         latitude: params.latitude,
         longitude: params.longitude,
         website: params.website,
+        workingTime: params.workingTime,
+        phoneNumber: params.phoneNumber,
       );
 }
 
@@ -23,6 +25,8 @@ class AddOfficeParams extends Equatable {
   final double latitude;
   final double longitude;
   final String website;
+  final String workingTime;
+  final String phoneNumber;
 
   const AddOfficeParams({
     required this.officeId,
@@ -31,6 +35,8 @@ class AddOfficeParams extends Equatable {
     required this.latitude,
     required this.longitude,
     required this.website,
+    required this.workingTime,
+    required this.phoneNumber,
   });
 
   const AddOfficeParams.empty()
@@ -41,9 +47,19 @@ class AddOfficeParams extends Equatable {
           latitude: 0.0,
           longitude: 0.0,
           website: '',
+          workingTime: '',
+          phoneNumber: '',
         );
 
   @override
-  List<Object?> get props =>
-      [officeId, officeName, address, latitude, longitude, website];
+  List<Object?> get props => [
+        officeId,
+        officeName,
+        address,
+        latitude,
+        longitude,
+        website,
+        workingTime,
+        phoneNumber
+      ];
 }

@@ -10,9 +10,11 @@ abstract class OfficeRepository {
     required double latitude,
     required double longitude,
     required String website,
+    required String workingTime,
+    required String phoneNumber,
   });
 
-  ResultFuture<OfficeModel> getOffice();
+  ResultFuture<OfficeModel> getOffice(String id);
 
   ResultFuture<void> updateOffice({
     required UpdateOfficeAction action,

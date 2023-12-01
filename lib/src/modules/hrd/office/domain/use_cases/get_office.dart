@@ -1,21 +1,27 @@
 import 'package:smatrackz/core.dart';
 
-class GetOffice extends FutureUseCaseWithoutParams<OfficeModel> {
-  const GetOffice(this._repo);
+class GetOffice extends FutureUseCaseWithParams<void, GetOfficeParams> {
+  const GetOffice(this._officeRepo);
 
-  final OfficeRepository _repo;
+  final OfficeRepository _officeRepo;
 
   @override
-  ResultFuture<OfficeModel> call() async => _repo.getOffice();
+  ResultFuture<OfficeModel> call(GetOfficeParams params) async => _officeRepo.getOffice(params.officeId);
 }
 
 class GetOfficeParams extends Equatable {
-  const GetOfficeParams();
+  final String officeId;
 
-  const GetOfficeParams.empty() : this();
+  const GetOfficeParams({
+    required this.officeId,
+  });
 
-  // final dynamic officeData;
+  const GetOfficeParams.empty()
+      : this(
+    officeId: '',
+  );
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props =>
+      [officeId];
 }

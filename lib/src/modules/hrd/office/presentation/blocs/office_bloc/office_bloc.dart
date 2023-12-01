@@ -37,6 +37,8 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         latitude: event.latitude,
         longitude: event.longitude,
         website: event.website,
+        workingTime: event.workingTime,
+        phoneNumber: event.phoneNumber,
       ),
     );
     result.fold(
@@ -50,9 +52,10 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     Emitter<OfficeState> emit,
   ) async {
     emit(OfficeInitialState());
-    final result = await _getOffice();
+    final result = await _getOffice(GetOfficeParams(officeId: event.officeId));
     result.fold(
       (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
+      // TODO: temporary to get only one data
       (office) => emit(OfficeLoadedState(office)),
     );
   }

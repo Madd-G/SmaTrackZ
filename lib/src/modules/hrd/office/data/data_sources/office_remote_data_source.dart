@@ -10,9 +10,11 @@ abstract class OfficeRemoteDataSource {
     required double latitude,
     required double longitude,
     required String website,
+    required String workingTime,
+    required String phoneNumber,
   });
 
-  Future<OfficeModel> getOffice();
+  Future<OfficeModel> getOffice(String id);
 
   Future<void> updateOffice({
     required UpdateOfficeAction action,
@@ -22,11 +24,13 @@ abstract class OfficeRemoteDataSource {
 
 class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
   final FirebaseFirestore _cloudStoreClient;
+  final FirebaseAuth _auth;
 
   const OfficeRemoteDataSourceImpl({
     required FirebaseFirestore cloudStoreClient,
     required FirebaseAuth auth,
-  }) : _cloudStoreClient = cloudStoreClient;
+  })  : _cloudStoreClient = cloudStoreClient,
+        _auth = auth;
 
   @override
   Future<void> addOffice({
@@ -36,6 +40,8 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
     required double latitude,
     required double longitude,
     required String website,
+    required String workingTime,
+    required String phoneNumber,
   }) async {
     await _cloudStoreClient.collection('office').doc('abc').set(
           OfficeModel(
@@ -45,15 +51,46 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
             latitude: latitude,
             longitude: longitude,
             website: website,
+            workingTime: workingTime,
+            phoneNumber: phoneNumber,
           ).toMap(),
         );
   }
 
+  // @override
+  // Future<OfficeModel> getOffice() async {
+  //   final result =
+  //       await _cloudStoreClient.collection('office').doc('abc').get();
+  //   return OfficeModel.fromMap(result.data()!);
+  // }
+
   @override
-  Future<OfficeModel> getOffice() async {
-    final result =
-        await _cloudStoreClient.collection('office').doc('abc').get();
-    return OfficeModel.fromMap(result.data()!);
+  Future<OfficeModel> getOffice(String id) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) {
+        throw const ServerException(
+          message: 'User is not authenticated',
+          statusCode: '401',
+        );
+      }
+      final result = await _cloudStoreClient.collection('office').doc(id).get();
+      return OfficeModel.fromMap(result.data()!);
+      // return _cloudStoreClient.collection('office').get(id).then(
+      //       (value) => value.docs
+      //           .map((doc) => OfficeModel.fromMap(doc.data()))
+      //           .toList(),
+      //     );
+    } on FirebaseException catch (e) {
+      throw ServerException(
+        message: e.message ?? 'Unknown error occurred',
+        statusCode: e.code,
+      );
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
   }
 
   @override
