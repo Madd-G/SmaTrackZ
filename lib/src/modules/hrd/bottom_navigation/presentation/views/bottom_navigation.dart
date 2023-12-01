@@ -1,5 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/core/utils/office_utils.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
@@ -15,7 +14,7 @@ class BottomNavigation extends StatelessWidget {
           context.read<UserProvider>().user = snapshot.data;
         }
         return StreamBuilder<OfficeModel>(
-            stream: OfficeUtils.officeDataStream,
+            stream: OfficeUtil.officeDataStream,
             builder: (_, snapshot) {
               if (snapshot.hasData && snapshot.data is OfficeModel) {
                 context.read<OfficeProvider>().office = snapshot.data;
@@ -78,9 +77,20 @@ class BottomNavigation extends StatelessWidget {
                           BottomNavigationBarItem(
                             icon: Icon(
                               controller.currentIndex == 3
+                                  ? IconlyBold.chat
+                                  : IconlyLight.chat,
+                              color: controller.currentIndex == 3
+                                  ? AppColors.primaryColor
+                                  : Colors.grey,
+                            ),
+                            label: 'Chat',
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(
+                              controller.currentIndex == 4
                                   ? IconlyBold.profile
                                   : IconlyLight.profile,
-                              color: controller.currentIndex == 3
+                              color: controller.currentIndex == 4
                                   ? AppColors.primaryColor
                                   : Colors.grey,
                             ),

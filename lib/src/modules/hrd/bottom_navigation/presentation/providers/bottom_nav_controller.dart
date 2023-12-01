@@ -11,8 +11,7 @@ class BottomNavController extends ChangeNotifier {
     ),
     ChangeNotifierProvider(
       create: (_) => TabNavigator(
-        TabItem(
-            child: const TeamsScreen()),
+        TabItem(child: const TeamsScreen()),
       ),
       child: const PersistentView(),
     ),

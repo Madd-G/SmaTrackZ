@@ -1,10 +1,7 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/home/presentation/bloc/clock_cubit/clock_cubit.dart';
 
 class CenterSection extends StatelessWidget {
-  const CenterSection({
-    super.key,
-  });
+  const CenterSection({super.key});
 
   @override
   Widget build(BuildContext context) {

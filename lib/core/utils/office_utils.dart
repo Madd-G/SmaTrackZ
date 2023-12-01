@@ -1,7 +1,7 @@
 import 'package:smatrackz/core.dart';
 
-class OfficeUtils {
-  const OfficeUtils._();
+class OfficeUtil {
+  const OfficeUtil._();
 
   static Stream<OfficeModel> get officeDataStream => sl<FirebaseFirestore>()
       .collection('office')
