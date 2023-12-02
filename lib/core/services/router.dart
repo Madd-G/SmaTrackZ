@@ -68,8 +68,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<OfficeBloc>(),
+            create: (context) => sl<OfficeBloc>()
+              ..add(LoadOfficeEvent(
+                  officeId: context.userProvider.user!.companyId!)),
             child: const OfficeScreen(),
+          );
+        },
+        settings: settings,
+      );
+
+    case MapScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+            create: (context) => sl<OfficeBloc>(),
+            child: MapScreen(settings.arguments! as OfficeModel),
           );
         },
         settings: settings,

@@ -1,25 +1,18 @@
 import 'package:smatrackz/core.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({
-    super.key,
-    required this.officeId,
-    required this.latitudeData,
-    required this.longitudeData,
-  });
+  const MapScreen(this.office, {super.key});
 
   static const routeName = '/map';
 
-  final String officeId;
-  final double latitudeData;
-  final double longitudeData;
+  final OfficeModel office;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Marker _marker = const Marker(markerId: MarkerId('markerId'));
+  Marker _marker = const Marker(markerId: MarkerId('map-marker-id'));
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   GlobalKey googleMapContainerKey = GlobalKey();
@@ -42,8 +35,8 @@ class _MapScreenState extends State<MapScreen> {
     if (!isLocationPicked()) {
       getLocation();
     } else {
-      latitude = widget.latitudeData;
-      longitude = widget.longitudeData;
+      latitude = widget.office.latitude;
+      longitude = widget.office.longitude;
       loading = false;
       currentPosition = LatLng(latitude!, longitude!);
     }
@@ -77,7 +70,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   bool isLocationPicked() {
-    if (widget.latitudeData != 0.0 && widget.longitudeData != 0.0) {
+    if (widget.office.latitude != 0.0 && widget.office.longitude != 0.0) {
       return true;
     }
     return false;
@@ -118,10 +111,9 @@ class _MapScreenState extends State<MapScreen> {
               circles: circles,
               markers: {
                 Marker(
-                  markerId: const MarkerId("source"),
+                  markerId: const MarkerId("source-marker-id"),
                   icon: locationIcon,
                   position: (currentPosition == null)
-                      // ? widget.position
                       ? LatLng(latitude!, longitude!)
                       : currentPosition!,
                 ),
@@ -159,8 +151,8 @@ class _MapScreenState extends State<MapScreen> {
 
                               final plist = GoogleMapsPlaces(
                                 apiKey: googleApikey,
-                                apiHeaders:
-                                    await const GoogleApiHeaders().getHeaders(),
+                                apiHeaders: await const GoogleApiHeaders()
+                                    .getHeaders(),
                               );
                               String placeId = place.placeId ?? "0";
                               final detail =
@@ -171,8 +163,9 @@ class _MapScreenState extends State<MapScreen> {
                               var newPosition = LatLng(lat, lang);
 
                               googleMapController?.animateCamera(
-                                  CameraUpdate.newCameraPosition(CameraPosition(
-                                      target: newPosition, zoom: 17)));
+                                  CameraUpdate.newCameraPosition(
+                                      CameraPosition(
+                                          target: newPosition, zoom: 17)));
                             }
                           },
                           child: Card(
@@ -227,7 +220,8 @@ class _MapScreenState extends State<MapScreen> {
                               visible = !visible;
                               setState(() {});
                             },
-                            child: const Icon(Icons.radar_outlined, size: 30.0),
+                            child:
+                                const Icon(Icons.radar_outlined, size: 30.0),
                           ),
                         ),
                         const SizedBox(height: 10.0),
@@ -255,11 +249,12 @@ class _MapScreenState extends State<MapScreen> {
                       onTap: () {
                         context.read<OfficeBloc>().add(
                               UpdateLocationEvent(
-                                officeId: widget.officeId,
+                                officeId: widget.office.officeId,
                                 latitude: currentPosition!.latitude,
                                 longitude: currentPosition!.longitude,
                               ),
                             );
+
                         Navigator.pop(context);
                       },
                       child: RoundedContainer(
@@ -269,8 +264,9 @@ class _MapScreenState extends State<MapScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Center(
                             child: Text(
-                              'Save',
-                              style: CustomTextStyle.textLargeSemiBold.copyWith(
+                              'SET LOCATION',
+                              style:
+                                  CustomTextStyle.textLargeSemiBold.copyWith(
                                 fontSize: 18.0,
                               ),
                             ),

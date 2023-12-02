@@ -2,28 +2,22 @@ import 'package:smatrackz/core.dart';
 
 class LocationPicker extends StatefulWidget {
   final String id;
-  final String officeId;
-  final String buttonLabel;
   final String? label;
   final String? hint;
-  final double? latitude;
-  final double? longitude;
   final String? Function(double? latitude, double? longitude)? validator;
   final Function(double latitude, double longitude) onChanged;
   final bool enableEdit;
+  final OfficeModel office;
 
   const LocationPicker({
     Key? key,
     required this.id,
-    required this.officeId,
-    required this.buttonLabel,
     this.label,
     this.hint,
-    this.latitude,
-    this.longitude,
     this.validator,
     required this.onChanged,
     this.enableEdit = true,
+    required this.office,
   }) : super(key: key);
 
   @override
@@ -42,8 +36,8 @@ class LocationPickerState extends State<LocationPicker> {
       latitude = 0.0;
       longitude = 0.0;
     } else {
-      latitude = widget.latitude;
-      longitude = widget.longitude;
+      latitude = widget.office.latitude;
+      longitude = widget.office.longitude;
       loading = false;
     }
   }
@@ -98,8 +92,7 @@ class LocationPickerState extends State<LocationPicker> {
                             ? Container(
                                 color: AppColors.greyColor.withOpacity(0.7),
                                 child: const Center(
-                                  child: Text(
-                                      'Location information not provided',
+                                  child: Text('LOCATION NOT SET YET',
                                       textAlign: TextAlign.center,
                                       maxLines: 3,
                                       style: CustomTextStyle.textLargeSemiBold),
@@ -109,11 +102,10 @@ class LocationPickerState extends State<LocationPicker> {
                                 mapType: MapType.hybrid,
                                 initialCameraPosition: CameraPosition(
                                   target: LatLng(latitude!, longitude!),
-                                  zoom: 20.0,
+                                  zoom: 18.0,
                                 ),
                                 onMapCreated:
                                     (GoogleMapController controller) {},
-                                // circles: circles,
                                 myLocationButtonEnabled: false,
                                 myLocationEnabled: false,
                                 zoomControlsEnabled: false,
@@ -121,8 +113,10 @@ class LocationPickerState extends State<LocationPicker> {
                                   Marker(
                                     markerId: const MarkerId("source"),
                                     icon: locationIcon,
-                                    position: LatLng(latitude!, longitude!),
-                                    // position: dummy,
+                                    position: LatLng(
+                                      latitude!,
+                                      longitude!,
+                                    ),
                                   ),
                                 },
                               ),
@@ -175,95 +169,37 @@ class LocationPickerState extends State<LocationPicker> {
                           ],
                         ),
                         if (loading) const SizedBox(),
-                        if (!isLocationPicked())
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.location_on),
-                            label: const Text("Select"),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueGrey,
-                            ),
-                            onPressed: () async {
-                              if (!kIsWeb &&
-                                  (Platform.isAndroid || Platform.isIOS)) {
-                                if (!await Permission.location
-                                    .request()
-                                    .isGranted) {
-                                  return;
-                                }
-                                return;
-                              }
-
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BlocProvider(
-                                    create: (context) => sl<OfficeBloc>(),
-                                    child: MapScreen(
-                                      officeId: widget.officeId,
-                                      latitudeData: latitude!,
-                                      longitudeData: longitude!,
-                                      // position: LatLng(latitude!, longitude!),
-                                    ),
-                                  ),
-                                ),
-                              );
-
-                              loading = true;
-                              setState(() {});
-
-                              await Future.delayed(
-                                  const Duration(milliseconds: 200));
-
-                              loading = false;
-                              setState(() {});
-                            },
-                          ),
-                        if (isLocationPicked())
-                          GestureDetector(
-                            onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BlocProvider(
-                                    create: (context) => sl<OfficeBloc>(),
-                                    child: MapScreen(
-                                      officeId: widget.officeId,
-                                      latitudeData: latitude!,
-                                      longitudeData: longitude!,
-                                      // position: LatLng(latitude!, longitude!),
-                                    ),
-                                  ),
-                                ),
-                              );
-
-                              loading = true;
-                              setState(() {});
-
-                              await Future.delayed(
-                                  const Duration(milliseconds: 200));
-
-                              loading = false;
-                              setState(() {});
-                            },
-                            child: RoundedContainer(
-                              containerColor: AppColors.blackColor,
-                              radius: 10.0,
-                              width: context.width * 0.45,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 6.0),
-                                child: Center(
-                                  child: Text(
-                                    widget.buttonLabel,
-                                    style: CustomTextStyle.textBigSemiBold
-                                        .copyWith(
-                                      color: AppColors.whiteColor,
-                                    ),
+                        GestureDetector(
+                          onTap: () async {
+                            await Navigator.of(context)
+                                .pushNamed(MapScreen.routeName,
+                                    arguments: widget.office)
+                                .then((value) => context.read<OfficeBloc>().add(
+                                    LoadOfficeEvent(
+                                        officeId: context
+                                            .userProvider.user!.companyId!)));
+                          },
+                          child: RoundedContainer(
+                            containerColor: AppColors.blackColor,
+                            radius: 10.0,
+                            width: context.width * 0.45,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 6.0),
+                              child: Center(
+                                child: Text(
+                                  (isLocationPicked())
+                                      ? "VIEW LOCATION"
+                                      : "SET LOCATION",
+                                  style:
+                                      CustomTextStyle.textBigSemiBold.copyWith(
+                                    color: AppColors.whiteColor,
                                   ),
                                 ),
                               ),
                             ),
                           ),
+                        ),
                       ],
                     ),
                   ),
