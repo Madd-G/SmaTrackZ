@@ -13,21 +13,21 @@ class AddOfficeEvent extends OfficeEvent {
   final String officeId;
   final String name;
   final String address;
-  final String website;
-  final double latitude;
-  final double longitude;
-  final String workingTime;
-  final String phoneNumber;
+  final String? website;
+  final double? latitude;
+  final double? longitude;
+  final String? workingTime;
+  final String? phoneNumber;
 
   AddOfficeEvent({
     required this.officeId,
     required this.name,
     required this.address,
-    required this.website,
-    required this.latitude,
-    required this.longitude,
-    required this.workingTime,
-    required this.phoneNumber,
+    this.website,
+    this.latitude,
+    this.longitude,
+    this.workingTime,
+    this.phoneNumber,
   });
 }
 
@@ -48,10 +48,12 @@ class UpdateOfficeEvent extends OfficeEvent {
 }
 
 class UpdateLocationEvent extends OfficeEvent {
+  final String officeId;
   final double latitude;
   final double longitude;
 
   UpdateLocationEvent({
+    required this.officeId,
     required this.latitude,
     required this.longitude,
   });

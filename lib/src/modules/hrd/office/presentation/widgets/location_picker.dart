@@ -2,6 +2,7 @@ import 'package:smatrackz/core.dart';
 
 class LocationPicker extends StatefulWidget {
   final String id;
+  final String officeId;
   final String buttonLabel;
   final String? label;
   final String? hint;
@@ -14,6 +15,7 @@ class LocationPicker extends StatefulWidget {
   const LocationPicker({
     Key? key,
     required this.id,
+    required this.officeId,
     required this.buttonLabel,
     this.label,
     this.hint,
@@ -214,6 +216,7 @@ class LocationPickerState extends State<LocationPicker> {
                                     builder: (context) => BlocProvider(
                                       create: (context) => sl<OfficeBloc>(),
                                       child: MapScreen(
+                                          officeId: widget.officeId,
                                           position:
                                               LatLng(latitude!, longitude!)),
                                     ),
@@ -231,6 +234,7 @@ class LocationPickerState extends State<LocationPicker> {
                                     builder: (context) => BlocProvider(
                                       create: (context) => sl<OfficeBloc>(),
                                       child: MapScreen(
+                                        officeId: widget.officeId,
                                         position: LatLng(latitude!, longitude!),
                                       ),
                                     ),

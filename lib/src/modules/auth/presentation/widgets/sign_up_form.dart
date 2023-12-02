@@ -7,9 +7,8 @@ class SignUpForm extends StatefulWidget {
     required this.confirmPasswordController,
     required this.formKey,
     required this.fullNameController,
-    required this.companyNameController,
-    required this.companyWebsiteController,
-    required this.companyAddressController,
+    required this.officeNameController,
+    required this.officeAddressController,
     super.key,
   });
 
@@ -17,9 +16,8 @@ class SignUpForm extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  final TextEditingController companyNameController;
-  final TextEditingController companyWebsiteController;
-  final TextEditingController companyAddressController;
+  final TextEditingController officeNameController;
+  final TextEditingController officeAddressController;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -115,19 +113,13 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: 10),
           CustomTextField(
-            controller: widget.companyNameController,
+            controller: widget.officeNameController,
             hintText: 'Company Name',
             keyboardType: TextInputType.name,
           ),
           const SizedBox(height: 10),
           CustomTextField(
-            controller: widget.companyWebsiteController,
-            hintText: 'Company Website',
-            keyboardType: TextInputType.url,
-          ),
-          const SizedBox(height: 10),
-          CustomTextField(
-            controller: widget.companyAddressController,
+            controller: widget.officeAddressController,
             hintText: 'Company Address',
             keyboardType: TextInputType.name,
           ),

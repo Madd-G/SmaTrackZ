@@ -34,11 +34,11 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
         officeId: event.officeId,
         officeName: event.name,
         address: event.address,
-        latitude: event.latitude,
-        longitude: event.longitude,
-        website: event.website,
-        workingTime: event.workingTime,
-        phoneNumber: event.phoneNumber,
+        latitude: event.latitude ?? 0.0,
+        longitude: event.longitude ?? 0.0,
+        website: event.website ?? "-",
+        workingTime: event.workingTime ?? "-",
+        phoneNumber: event.phoneNumber ?? "-",
       ),
     );
     result.fold(
@@ -55,40 +55,19 @@ class OfficeBloc extends Bloc<OfficeEvent, OfficeState> {
     final result = await _getOffice(GetOfficeParams(officeId: event.officeId));
     result.fold(
       (failure) => emit(OfficeErrorState(errorMessage: failure.errorMessage)),
-      // TODO: temporary to get only one data
       (office) => emit(OfficeLoadedState(office)),
     );
   }
-
-  // void _onUpdateOfficeEvent(
-  //   UpdateOfficeEvent event,
-  //   Emitter<OfficeState> emit,
-  // ) async {
-  //   try {
-  //     var officeData = await FirebaseFirestore.instance
-  //         .collection("office")
-  //         .doc('abc')
-  //         .update({
-  //       "office_id": event.officeId,
-  //       "office_name": event.name,
-  //       "address": event.address,
-  //       "website": event.website,
-  //       "latitude": event.latitude,
-  //       "longitude": event.longitude,
-  //     });
-  //
-  //     emit(OfficeLoadedState(officeData));
-  //   } catch (e) {
-  //     emit(const OfficeErrorState(errorMessage: 'Error updating office data'));
-  //   }
-  // }
 
   void _onUpdateLocationEvent(
     UpdateLocationEvent event,
     Emitter<OfficeState> emit,
   ) async {
     try {
-      await FirebaseFirestore.instance.collection("office").doc('abc').update({
+      await FirebaseFirestore.instance
+          .collection("office")
+          .doc(event.officeId)
+          .update({
         "latitude": event.latitude,
         "longitude": event.longitude,
       });

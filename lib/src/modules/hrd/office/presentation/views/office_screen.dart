@@ -91,6 +91,7 @@ class _OfficeScreenState extends State<OfficeScreen> {
                               LocationPicker(
                                 id: 'officeLocation',
                                 buttonLabel: 'View Location',
+                                officeId: state.officeData.officeId,
                                 latitude: state.officeData.latitude,
                                 longitude: state.officeData.longitude,
                                 onChanged: (latitude, longitude) {

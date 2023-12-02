@@ -1,10 +1,11 @@
 import 'package:smatrackz/core.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key, required this.position});
+  const MapScreen({super.key, required this.officeId, required this.position});
 
   static const routeName = '/map';
 
+  final String officeId;
   final LatLng position;
 
   @override
@@ -191,6 +192,7 @@ class _MapScreenState extends State<MapScreen> {
                     onTap: () {
                       context.read<OfficeBloc>().add(
                             UpdateLocationEvent(
+                              officeId: widget.officeId,
                               latitude: currentPosition!.latitude,
                               longitude: currentPosition!.longitude,
                             ),

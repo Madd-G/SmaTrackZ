@@ -4,4 +4,6 @@ enum UpdateOfficeAction {
   website,
   latitude,
   longitude,
+  workingTime,
+  phoneNumber,
 }

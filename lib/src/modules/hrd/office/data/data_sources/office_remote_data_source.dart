@@ -43,7 +43,7 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
     required String workingTime,
     required String phoneNumber,
   }) async {
-    await _cloudStoreClient.collection('office').doc('abc').set(
+    await _cloudStoreClient.collection('office').doc(officeId).set(
           OfficeModel(
             officeId: officeId,
             officeName: officeName,
@@ -110,6 +110,10 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
           await _updateOfficeData({'latitude': officeData as double});
         case UpdateOfficeAction.longitude:
           await _updateOfficeData({'longitude': officeData as double});
+        case UpdateOfficeAction.workingTime:
+          await _updateOfficeData({'working_time': officeData as double});
+        case UpdateOfficeAction.phoneNumber:
+          await _updateOfficeData({'phone_number': officeData as double});
       }
     } on FirebaseException catch (e) {
       throw ServerException(
@@ -126,6 +130,9 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
   }
 
   Future<void> _updateOfficeData(DataMap data) async {
-    await _cloudStoreClient.collection('office').doc('abc').update(data);
+    await _cloudStoreClient
+        .collection('office')
+        .doc(data['office_id'])
+        .update(data);
   }
 }
