@@ -18,7 +18,7 @@ class _OfficeScreenState extends State<OfficeScreen> {
 
   @override
   void initState() {
-    getOffice();
+    // getOffice();
     super.initState();
   }
 
@@ -98,7 +98,7 @@ class _OfficeScreenState extends State<OfficeScreen> {
                                   latitude = latitude;
                                   longitude = longitude;
                                 },
-                              )
+                              ),
                             ],
                           );
                         }
