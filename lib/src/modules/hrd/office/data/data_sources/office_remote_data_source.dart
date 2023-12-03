@@ -57,13 +57,6 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
         );
   }
 
-  // @override
-  // Future<OfficeModel> getOffice() async {
-  //   final result =
-  //       await _cloudStoreClient.collection('office').doc('abc').get();
-  //   return OfficeModel.fromMap(result.data()!);
-  // }
-
   @override
   Future<OfficeModel> getOffice(String id) async {
     try {
@@ -76,11 +69,6 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
       }
       final result = await _cloudStoreClient.collection('office').doc(id).get();
       return OfficeModel.fromMap(result.data()!);
-      // return _cloudStoreClient.collection('office').get(id).then(
-      //       (value) => value.docs
-      //           .map((doc) => OfficeModel.fromMap(doc.data()))
-      //           .toList(),
-      //     );
     } on FirebaseException catch (e) {
       throw ServerException(
         message: e.message ?? 'Unknown error occurred',
@@ -132,7 +120,7 @@ class OfficeRemoteDataSourceImpl implements OfficeRemoteDataSource {
   Future<void> _updateOfficeData(DataMap data) async {
     await _cloudStoreClient
         .collection('office')
-        .doc(data['office_id'])
+        .doc('20231202-0107-8523-a321-850152440e88')
         .update(data);
   }
 }

@@ -50,8 +50,8 @@ class OfficeScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20.0),
                             OfficeInfo(
-                              icon: Icons.location_on,
-                              info: state.officeData.address,
+                              icon: Ionicons.earth,
+                              info: state.officeData.website,
                             ),
                             const SizedBox(height: 20.0),
                             OfficeInfo(
@@ -68,7 +68,11 @@ class OfficeScreen extends StatelessWidget {
                               icon: Icons.person,
                               info: '581 people',
                             ),
-                            Text('latitude: ${state.officeData.latitude}'),
+                            const SizedBox(height: 20.0),
+                            OfficeInfo(
+                              icon: Icons.location_on,
+                              info: state.officeData.address,
+                            ),
                             LocationPicker(
                               id: 'officeLocation',
                               office: OfficeModel(

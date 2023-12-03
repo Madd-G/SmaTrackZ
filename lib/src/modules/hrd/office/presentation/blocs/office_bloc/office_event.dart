@@ -35,11 +35,12 @@ class UpdateOfficeEvent extends OfficeEvent {
   UpdateOfficeEvent({
     required this.action,
     required this.officeData,
-  }) : assert(
-          officeData is String || officeData is File,
-          '[userData] must be either a String or a File, but '
-          'was ${officeData.runtimeType}',
-        );
+  }) ;
+      // : assert(
+      //     officeData is String || officeData is File,
+      //     '[userData] must be either a String or a File, but '
+      //     'was ${officeData.runtimeType}',
+      //   );
 
   final UpdateOfficeAction action;
   final dynamic officeData;
