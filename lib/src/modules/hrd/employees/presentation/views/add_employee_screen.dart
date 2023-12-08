@@ -33,14 +33,14 @@ class AddEmployeeScreen extends StatefulWidget {
 }
 
 class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
-  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController companyNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
   String? position;
 
   @override
   void dispose() {
-    fullNameController.dispose();
+    companyNameController.dispose();
     emailController.dispose();
     super.dispose();
   }
@@ -72,7 +72,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               style: CustomTextStyle.textRegular),
                           const SizedBox(height: 10.0),
                           CustomTextField(
-                            controller: fullNameController,
+                            controller: companyNameController,
                             // hintText: 'Full Name',
                             keyboardType: TextInputType.name,
                           ),
@@ -104,13 +104,13 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     onTap: () async {
                       FocusManager.instance.primaryFocus?.unfocus();
                       if (formKey.currentState!.validate()) {
+                        // TODO: add office
                         context.read<AuthBloc>().add(
                               SignUpEvent(
                                 email: emailController.text.trim(),
-                                name: fullNameController.text,
                                 password: emailController.text.trim(),
-                                created: DateTime.now().toString(),
-                                companyId: user.companyId!,
+                                name: companyNameController.text.trim(),
+                                companyId: user.companyId,
                               ),
                             );
                         Navigator.pushReplacementNamed(

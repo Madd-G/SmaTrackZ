@@ -26,7 +26,7 @@
 //     final result = await _addEmployee(
 //       AddEmployeeParams(
 //         email: event.email,
-//         fullName: event.name,
+//         companyName: event.name,
 //         password: event.password,
 //       ),
 //     );

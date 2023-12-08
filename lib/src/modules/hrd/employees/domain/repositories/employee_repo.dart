@@ -5,7 +5,7 @@
 //
 //   ResultFuture<void> addEmployee({
 //     required String email,
-//     required String fullName,
+//     required String companyName,
 //     required String password,
 //   });
 // }

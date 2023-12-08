@@ -9,7 +9,7 @@
 //   ResultFuture<void> call(AddEmployeeParams params) => _repo.addEmployee(
 //         email: params.email,
 //         password: params.password,
-//         fullName: params.fullName,
+//         companyName: params.companyName,
 //       );
 // }
 //
@@ -17,15 +17,15 @@
 //   const AddEmployeeParams({
 //     required this.email,
 //     required this.password,
-//     required this.fullName,
+//     required this.companyName,
 //   });
 //
-//   const AddEmployeeParams.empty() : this(email: '', password: '', fullName: '');
+//   const AddEmployeeParams.empty() : this(email: '', password: '', companyName: '');
 //
 //   final String email;
 //   final String password;
-//   final String fullName;
+//   final String companyName;
 //
 //   @override
-//   List<String> get props => [email, password, fullName];
+//   List<String> get props => [email, password, companyName];
 // }

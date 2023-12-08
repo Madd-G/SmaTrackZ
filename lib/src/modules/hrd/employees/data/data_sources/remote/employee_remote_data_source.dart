@@ -5,7 +5,7 @@
 //
 //   Future<void> addEmployee({
 //     required String email,
-//     required String fullName,
+//     required String companyName,
 //     required String password,
 //   });
 //
@@ -31,7 +31,7 @@
 //   @override
 //   Future<void> addEmployee({
 //     required String email,
-//     required String fullName,
+//     required String companyName,
 //     required String password,
 //   }) async {
 //     try {
@@ -40,7 +40,7 @@
 //         password: password,
 //       );
 //
-//       await userCred.user?.updateDisplayName(fullName);
+//       await userCred.user?.updateDisplayName(companyName);
 //       await userCred.user?.updatePhotoURL(kDefaultAvatar);
 //       await _setUserData(_authClient.currentUser!, email);
 //     } on FirebaseAuthException catch (e) {
@@ -69,7 +69,7 @@
 //           await _updateUserData({'email': userData});
 //         case UpdateUserAction.displayName:
 //           await _authClient.currentUser?.updateDisplayName(userData as String);
-//           await _updateUserData({'full_name': userData});
+//           await _updateUserData({'company_name': userData});
 //         case UpdateUserAction.profilePic:
 //           final ref = _dbClient
 //               .ref()
@@ -114,15 +114,15 @@
 //   }
 //
 //   // Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
-//   //   return _cloudStoreClient.collection('users').doc(uid).get();
+//   //   return _cloudStoreClient.collection('company').doc(uid).get();
 //   // }
 //
 //   Future<void> _setUserData(User user, String fallbackEmail) async {
-//     await _cloudStoreClient.collection('users').doc(user.uid).set(
+//     await _cloudStoreClient.collection('company').doc(user.uid).set(
 //           UserModel(
 //             uid: user.uid,
 //             email: user.email ?? fallbackEmail,
-//             fullName: user.displayName ?? '',
+//             companyName: user.displayName ?? '',
 //             profilePic: user.photoURL ?? '',
 //           ).toMap(),
 //         );
@@ -130,7 +130,7 @@
 //
 //   Future<void> _updateUserData(DataMap data) async {
 //     await _cloudStoreClient
-//         .collection('users')
+//         .collection('company')
 //         .doc(_authClient.currentUser?.uid)
 //         .update(data);
 //   }

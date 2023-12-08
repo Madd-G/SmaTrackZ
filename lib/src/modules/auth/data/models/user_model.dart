@@ -2,73 +2,102 @@ import 'package:smatrackz/core.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
-    required super.uid,
+    required super.companyId,
+    required super.companyName,
     required super.email,
-    required super.fullName,
+    required super.address,
+    super.website,
+    super.phoneNumber,
+    super.profilePicture,
+    super.bio,
+    super.latitude,
+    super.longitude,
     super.workStart,
     super.workEnd,
-    super.profilePic,
-    super.bio,
     super.created,
-    super.companyId,
   });
 
   const UserModel.empty()
       : this(
-          uid: '',
+          companyId: '',
+          companyName: '',
           email: '',
-          fullName: '',
+          address: '',
+          website: '',
+          phoneNumber: '',
+          profilePicture: '',
+          bio: '',
+          latitude: 0,
+          longitude: 0,
+          workStart: '',
+          workEnd: '',
           created: '',
         );
 
   UserModel.fromMap(DataMap map)
       : super(
-          uid: map['uid'] as String,
+          companyId: map['company_id'] as String,
+          companyName: map['company_name'] as String,
           email: map['email'] as String,
-          fullName: map['full_name'] as String,
+          address: map['address'] as String,
+          website: map['website'] as String,
+          phoneNumber: map['phone_number'] as String,
+          profilePicture: map['profile_picture'] as String?,
+          bio: map['bio'] as String?,
+          latitude: map['latitude'] as num?,
+          longitude: map['longitude'] as num?,
           workStart: map['work_start'] as String?,
           workEnd: map['work_end'] as String?,
-          profilePic: map['profile_picture'] as String?,
-          bio: map['bio'] as String?,
           created: map['created'] as String?,
-          companyId: map['company_id'] as String?,
         );
 
   UserModel copyWith({
-    String? uid,
+    String? companyId,
+    String? companyName,
     String? email,
-    String? profilePic,
+    String? address,
+    String? website,
+    String? phoneNumber,
+    String? profilePicture,
     String? bio,
-    String? fullName,
+    num? latitude,
+    num? longitude,
     String? workStart,
     String? workEnd,
     String? created,
-    String? companyId,
   }) {
     return UserModel(
-      uid: uid ?? this.uid,
+      companyId: companyId ?? this.companyId,
+      companyName: companyName ?? this.companyName,
       email: email ?? this.email,
-      profilePic: profilePic ?? this.profilePic,
+      address: address ?? this.address,
+      website: website ?? this.website,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      profilePicture: profilePicture ?? this.profilePicture,
       bio: bio ?? this.bio,
-      fullName: fullName ?? this.fullName,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
       workStart: workStart ?? this.workStart,
       workEnd: workEnd ?? this.workEnd,
       created: created ?? this.created,
-      companyId: companyId ?? this.companyId,
     );
   }
 
   DataMap toMap() {
     return {
-      'uid': uid,
+      'company_id': companyId,
+      'company_name': companyName,
       'email': email,
-      'profile_picture': profilePic,
+      'address': address,
+      'website': website,
+      'phone_number': phoneNumber,
+      'profile_picture': profilePicture,
+      'bio': bio,
+      'latitude': latitude,
+      'longitude': longitude,
       'work_start': workStart,
       'work_end': workEnd,
-      'bio': bio,
-      'full_name': fullName,
       'created': created,
-      'company_id': companyId,
     };
   }
 }

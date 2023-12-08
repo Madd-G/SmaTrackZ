@@ -1,7 +1,14 @@
 enum UpdateUserAction {
-  displayName,
+  companyName,
   email,
-  password,
+  address,
+  website,
+  phoneNumber,
+  profilePicture,
   bio,
-  profilePic,
+  latitude,
+  longitude,
+  workStart,
+  workEnd,
+  password,
 }

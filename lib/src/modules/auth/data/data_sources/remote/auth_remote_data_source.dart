@@ -12,9 +12,9 @@ abstract class AuthRemoteDataSource {
 
   Future<void> signUp({
     required String email,
-    required String fullName,
     required String password,
     required String companyId,
+    required String companyName,
   });
 
   Future<void> updateUser({
@@ -75,7 +75,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
       var userData = await _getUserData(user.uid);
 
-      // var dummy = {'office_id': '20231128-0546-8952-b316-aae819cea8bc'};
+      // var dummy = {'company_id': '20231128-0546-8952-b316-aae819cea8bc'};
       if (userData.exists) {
         return UserModel.fromMap(userData.data()!);
         // return UserModel.fromMap(dummy);
@@ -106,7 +106,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> signUp({
     required String email,
-    required String fullName,
+    required String companyName,
     required String password,
     required String companyId,
   }) async {
@@ -116,7 +116,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         password: password,
       );
 
-      await userCred.user?.updateDisplayName(fullName);
+      await userCred.user?.updateDisplayName(companyName);
       await userCred.user?.updatePhotoURL(kDefaultAvatar);
       await _setUserData(_authClient.currentUser!, email, companyId);
     } on FirebaseAuthException catch (e) {
@@ -140,17 +140,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     try {
       switch (action) {
+        case UpdateUserAction.companyName:
+          await _authClient.currentUser?.updateDisplayName(userData as String);
+          await _updateUserData({'company_name': userData});
         case UpdateUserAction.email:
           await _authClient.currentUser?.updateEmail(userData as String);
           await _updateUserData({'email': userData});
-        case UpdateUserAction.displayName:
-          await _authClient.currentUser?.updateDisplayName(userData as String);
-          await _updateUserData({'full_name': userData});
-        case UpdateUserAction.profilePic:
+        case UpdateUserAction.profilePicture:
           final ref = _dbClient
               .ref()
               .child('profile_pics/${_authClient.currentUser?.uid}');
-
           await ref.putFile(userData as File);
           final url = await ref.getDownloadURL();
           await _authClient.currentUser?.updatePhotoURL(url);
@@ -172,8 +171,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           await _authClient.currentUser?.updatePassword(
             newData['newPassword'] as String,
           );
+        case UpdateUserAction.address:
+          await _updateUserData({'address': userData as String});
+        case UpdateUserAction.website:
+          await _updateUserData({'website': userData as String});
+        case UpdateUserAction.phoneNumber:
+          await _updateUserData({'phone_number': userData as String});
         case UpdateUserAction.bio:
           await _updateUserData({'bio': userData as String});
+        case UpdateUserAction.latitude:
+          await _updateUserData({'latitude': userData as num});
+        case UpdateUserAction.longitude:
+          await _updateUserData({'longitude': userData as num});
+        case UpdateUserAction.workStart:
+          await _updateUserData({'work_start': userData as String});
+        case UpdateUserAction.workEnd:
+          await _updateUserData({'work_end': userData as String});
       }
     } on FirebaseException catch (e) {
       throw ServerException(
@@ -190,30 +203,35 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
-    return _cloudStoreClient.collection('users').doc(uid).get();
+    return _cloudStoreClient.collection('company').doc(uid).get();
   }
 
   /// get data start from here
-  Future<void> _setUserData(
-      User user, String fallbackEmail, [String? companyId]) async {
-    await _cloudStoreClient.collection('users').doc(user.uid).set(
+  Future<void> _setUserData(User user, String fallbackEmail,
+      [String? companyId]) async {
+    await _cloudStoreClient.collection('company').doc(user.uid).set(
+          // TODO: add role
           UserModel(
-            uid: user.uid,
+            companyId: user.uid,
+            companyName: user.displayName ?? '',
             email: user.email ?? fallbackEmail,
-            fullName: user.displayName ?? '',
-            profilePic: user.photoURL ?? '',
-            created: DateTime.now().toString(),
-            companyId: companyId,
+            address: '',
+            website: '',
+            phoneNumber: '',
+            profilePicture: user.photoURL ?? '',
             bio: '',
+            latitude: 0,
+            longitude: 0,
             workStart: '',
-            workEnd: ''
+            workEnd: '',
+            created: DateTime.now().toString(),
           ).toMap(),
         );
   }
 
   Future<void> _updateUserData(DataMap data) async {
     await _cloudStoreClient
-        .collection('users')
+        .collection('company')
         .doc(_authClient.currentUser?.uid)
         .update(data);
   }

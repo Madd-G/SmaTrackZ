@@ -76,9 +76,9 @@ class AbsenceCard extends StatelessWidget {
                     builder: (_, provider, __) {
                       final user = provider.user!;
                       final image =
-                          user.profilePic == null || user.profilePic!.isEmpty
+                          user.profilePicture == null || user.profilePicture!.isEmpty
                               ? null
-                              : user.profilePic;
+                              : user.profilePicture;
                       return CircleAvatar(
                         radius: 20,
                         backgroundImage: image != null

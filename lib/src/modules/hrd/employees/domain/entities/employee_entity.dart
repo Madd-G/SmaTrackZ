@@ -5,7 +5,7 @@
 //   final String email;
 //   final String? profilePic;
 //   final String? bio;
-//   final String fullName;
+//   final String companyName;
 //   final String? workStart;
 //   final String? workEnd;
 //   final String? companyId;
@@ -13,7 +13,7 @@
 //   const EmployeeEntity(
 //       {required this.uid,
 //       required this.email,
-//       required this.fullName,
+//       required this.companyName,
 //       this.workStart,
 //       this.workEnd,
 //       this.profilePic,
@@ -24,7 +24,7 @@
 //       : this(
 //           uid: '',
 //           email: '',
-//           fullName: '',
+//           companyName: '',
 //           profilePic: '',
 //           bio: '',
 //           workStart: '',
@@ -40,7 +40,7 @@
 //         email,
 //         profilePic,
 //         bio,
-//         fullName,
+//         companyName,
 //         workStart,
 //         workEnd,
 //         companyId,
@@ -49,6 +49,6 @@
 //   @override
 //   String toString() {
 //     return 'LocalUser{uid: $uid, email: $email, bio: '
-//         '$bio, full_name: $fullName}, work_start: $workStart, work_end: $workEnd, companyId: $companyId';
+//         '$bio, companyName: $companyName}, work_start: $workStart, work_end: $workEnd, companyId: $companyId';
 //   }
 // }

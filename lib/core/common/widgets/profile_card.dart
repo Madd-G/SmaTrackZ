@@ -20,9 +20,9 @@ class ProfileCard extends StatelessWidget {
         child: Consumer<UserProvider>(
           builder: (_, provider, __) {
             final user = provider.user!;
-            final image = user.profilePic == null || user.profilePic!.isEmpty
+            final image = user.profilePicture == null || user.profilePicture!.isEmpty
                 ? null
-                : user.profilePic;
+                : user.profilePicture;
             return Row(
               children: [
                 CircleAvatar(
@@ -38,7 +38,7 @@ class ProfileCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.fullName,
+                        user.companyName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(

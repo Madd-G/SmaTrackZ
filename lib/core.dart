@@ -31,9 +31,9 @@ export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/present
 export 'package:smatrackz/src/modules/hrd/employees/data/data.dart';
 export 'package:smatrackz/src/modules/hrd/employees/domain/domain.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/presentation.dart';
-export 'package:smatrackz/src/modules/hrd/office/data/data.dart';
-export 'package:smatrackz/src/modules/hrd/office/domain/domain.dart';
-export 'package:smatrackz/src/modules/hrd/office/presentation/presentation.dart';
+export 'package:smatrackz/src/modules/hrd/company/data/data.dart';
+export 'package:smatrackz/src/modules/hrd/company/domain/domain.dart';
+export 'package:smatrackz/src/modules/hrd/company/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/home/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/profile/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/team_dashboard/presentation/presentation.dart';

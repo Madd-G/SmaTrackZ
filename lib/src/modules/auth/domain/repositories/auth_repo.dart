@@ -12,8 +12,8 @@ abstract class AuthRepo {
 
   ResultFuture<void> signUp({
     required String email,
-    required String fullName,
     required String password,
+    required String companyName,
     required String companyId,
   });
 

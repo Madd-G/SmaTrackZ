@@ -4,7 +4,7 @@
 //   const EmployeeModel({
 //     required super.uid,
 //     required super.email,
-//     required super.fullName,
+//     required super.companyName,
 //     super.workStart,
 //     super.workEnd,
 //     super.profilePic,
@@ -16,14 +16,14 @@
 //       : this(
 //           uid: '',
 //           email: '',
-//           fullName: '',
+//           companyName: '',
 //         );
 //
 //   EmployeeModel.fromMap(DataMap map)
 //       : super(
 //           uid: map['uid'] as String,
 //           email: map['email'] as String,
-//           fullName: map['full_name'] as String,
+//           companyName: map['company_name'] as String,
 //           workStart: map['work_start'] as String?,
 //           workEnd: map['work_end'] as String?,
 //           profilePic: map['profile_picture'] as String?,
@@ -36,7 +36,7 @@
 //     String? email,
 //     String? profilePic,
 //     String? bio,
-//     String? fullName,
+//     String? companyName,
 //     String? workStart,
 //     String? workEnd,
 //     String? companyId,
@@ -46,7 +46,7 @@
 //         email: email ?? this.email,
 //         profilePic: profilePic ?? this.profilePic,
 //         bio: bio ?? this.bio,
-//         fullName: fullName ?? this.fullName,
+//         companyName: companyName ?? this.companyName,
 //         workStart: workStart ?? this.workStart,
 //         workEnd: workEnd ?? this.workEnd,
 //         companyId: companyId ?? this.companyId,
@@ -61,7 +61,7 @@
 //       'work_start': workStart,
 //       'work_end': workEnd,
 //       'bio': bio,
-//       'full_name': fullName,
+//       'company_name': companyName,
 //       'company_id': companyId,
 //     };
 //   }

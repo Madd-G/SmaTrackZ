@@ -9,13 +9,13 @@
 //   @override
 //   ResultFuture<void> addEmployee({
 //     required String email,
-//     required String fullName,
+//     required String companyName,
 //     required String password,
 //   }) async {
 //     try {
 //       await _remoteDataSource.addEmployee(
 //         email: email,
-//         fullName: fullName,
+//         companyName: companyName,
 //         password: password,
 //       );
 //       return const Right(null);

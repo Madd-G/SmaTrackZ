@@ -2,22 +2,20 @@ import 'package:smatrackz/core.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
+    required this.companyNameController,
     required this.emailController,
+    required this.companyAddressController,
     required this.passwordController,
     required this.confirmPasswordController,
     required this.formKey,
-    required this.fullNameController,
-    required this.officeNameController,
-    required this.officeAddressController,
     super.key,
   });
 
-  final TextEditingController fullNameController;
+  final TextEditingController companyNameController;
   final TextEditingController emailController;
+  final TextEditingController companyAddressController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  final TextEditingController officeNameController;
-  final TextEditingController officeAddressController;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -30,8 +28,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   void dispose() {
-    widget.fullNameController.dispose();
+    widget.companyNameController.dispose();
     widget.emailController.dispose();
+    widget.companyAddressController.dispose();
     widget.passwordController.dispose();
     widget.confirmPasswordController.dispose();
     super.dispose();
@@ -46,14 +45,14 @@ class _SignUpFormState extends State<SignUpForm> {
         children: [
           const SizedBox(height: 20),
           Text(
-            'User Information',
+            'Company Information',
             style: CustomTextStyle.textLargeSemiBold
                 .copyWith(color: AppColors.greyColor, fontSize: 18.0),
           ),
           const SizedBox(height: 15),
           CustomTextField(
-            controller: widget.fullNameController,
-            hintText: 'Full Name',
+            controller: widget.companyNameController,
+            hintText: 'Company Name',
             keyboardType: TextInputType.name,
           ),
           const SizedBox(height: 10),
@@ -62,7 +61,13 @@ class _SignUpFormState extends State<SignUpForm> {
             hintText: 'Email address',
             keyboardType: TextInputType.emailAddress,
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 15.0),
+          CustomTextField(
+            controller: widget.companyAddressController,
+            hintText: 'Company Address',
+            keyboardType: TextInputType.name,
+          ),
+          const SizedBox(height: 15.0),
           CustomTextField(
             controller: widget.passwordController,
             hintText: 'Password',
@@ -104,24 +109,6 @@ class _SignUpFormState extends State<SignUpForm> {
               }
               return null;
             },
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Company Information',
-            style: CustomTextStyle.textLargeSemiBold
-                .copyWith(color: AppColors.greyColor, fontSize: 18.0),
-          ),
-          const SizedBox(height: 10),
-          CustomTextField(
-            controller: widget.officeNameController,
-            hintText: 'Company Name',
-            keyboardType: TextInputType.name,
-          ),
-          const SizedBox(height: 10),
-          CustomTextField(
-            controller: widget.officeAddressController,
-            hintText: 'Company Address',
-            keyboardType: TextInputType.name,
           ),
         ],
       ),

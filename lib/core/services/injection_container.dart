@@ -5,9 +5,9 @@ final sl = GetIt.instance;
 Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
-  await _initOffice();
+  await _initCompany();
   // await _initAddEmployee();
-  // await _initOffice();
+  // await _initCompany();
 }
 
 Future<void> _initFirebaseInstances() async {
@@ -41,33 +41,33 @@ Future<void> _initAuth() async {
     );
 }
 
-Future<void> _initOffice() async {
+Future<void> _initCompany() async {
   sl
     ..registerFactory(
-      () => OfficeBloc(
-        addOffice: sl(),
-        getOffice: sl(),
-        updateOffice: sl(),
+      () => CompanyBloc(
+        addCompany: sl(),
+        getCompany: sl(),
+        updateCompany: sl(),
       ),
     )
-    ..registerLazySingleton(() => AddOffice(sl()))
-    ..registerLazySingleton(() => GetOffice(sl()))
-    ..registerLazySingleton(() => UpdateOffice(sl()))
-    ..registerLazySingleton<OfficeRepository>(() => OfficeRepositoryImpl(sl()))
-    ..registerLazySingleton<OfficeRemoteDataSource>(
-      () => OfficeRemoteDataSourceImpl(
+    ..registerLazySingleton(() => AddCompany(sl()))
+    ..registerLazySingleton(() => GetCompany(sl()))
+    ..registerLazySingleton(() => UpdateCompany(sl()))
+    ..registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl(sl()))
+    ..registerLazySingleton<CompanyRemoteDataSource>(
+      () => CompanyRemoteDataSourceImpl(
         cloudStoreClient: sl(),
         auth: sl(),
       ),
     );
 }
 
-// Future<void> _initOffice() async {
+// Future<void> _initCompany() async {
 //   sl
-//     ..registerLazySingleton<OfficeRemoteDataSource>(
-//         () => OfficeRemoteDataSource())
-//     ..registerLazySingleton<OfficeRepository>(
-//         () => OfficeRepositoryImpl(sl<OfficeRemoteDataSource>()));
+//     ..registerLazySingleton<CompanyRemoteDataSource>(
+//         () => CompanyRemoteDataSource())
+//     ..registerLazySingleton<CompanyRepository>(
+//         () => CompanyRepositoryImpl(sl<CompanyRemoteDataSource>()));
 // }
 
 // Future<void> _initAddEmployee() async {

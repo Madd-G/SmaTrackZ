@@ -110,10 +110,10 @@ class EmployeeListScreen extends StatelessWidget {
                         leading: Consumer<UserProvider>(
                           builder: (_, provider, __) {
                             final user = provider.user!;
-                            final image = user.profilePic == null ||
-                                    user.profilePic!.isEmpty
+                            final image = user.profilePicture == null ||
+                                    user.profilePicture!.isEmpty
                                 ? null
-                                : user.profilePic;
+                                : user.profilePicture;
                             return CircleAvatar(
                               radius: 20,
                               backgroundImage: image != null
@@ -129,11 +129,11 @@ class EmployeeListScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: CustomTextStyle.textLargeSemiBold,
                         ),
-                        subtitle: Text(
-                          user['role'].toString(),
-                          style: CustomTextStyle.textMediumRegular
-                              .copyWith(color: AppColors.greyColor),
-                        ),
+                        // subtitle: Text(
+                        //   user['role'].toString(),
+                        //   style: CustomTextStyle.textMediumRegular
+                        //       .copyWith(color: AppColors.greyColor),
+                        // ),
                       );
                     }).toList(),
                   ),

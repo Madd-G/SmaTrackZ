@@ -11,11 +11,11 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
-  final fullNameController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  final officeNameController = TextEditingController();
-  final officeAddressController = TextEditingController();
+  final companyNameController = TextEditingController();
+  final companyAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final String companyId = const Uuid().v8();
 
@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => sl<AuthBloc>()),
-          BlocProvider(create: (context) => sl<OfficeBloc>()),
+          BlocProvider(create: (context) => sl<CompanyBloc>()),
         ],
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
@@ -64,16 +64,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(height: 25),
                         SignUpForm(
                           emailController: emailController,
-                          fullNameController: fullNameController,
                           passwordController: passwordController,
                           confirmPasswordController: confirmPasswordController,
-                          officeNameController: officeNameController,
-                          officeAddressController: officeAddressController,
+                          companyNameController: usernameController,
+                          companyAddressController: companyAddressController,
                           formKey: formKey,
                         ),
                         const SizedBox(height: 30),
                         RoundedButton(
-                          label: 'Next',
+                          label: 'Sign Up',
                           onPressed: () async {
                             FocusManager.instance.primaryFocus?.unfocus();
                             FirebaseAuth.instance.currentUser?.reload();
@@ -82,17 +81,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     SignUpEvent(
                                       email: emailController.text.trim(),
                                       password: passwordController.text.trim(),
-                                      name: fullNameController.text.trim(),
-                                      created: DateTime.now().toString(),
                                       companyId: companyId,
+                                      name: usernameController.text.trim(),
+                                      // address: companyAddressController.text.trim(),
                                     ),
                                   );
-                              context.read<OfficeBloc>().add(
-                                    AddOfficeEvent(
-                                      officeId: companyId,
-                                      name: officeNameController.text.trim(),
+                              context.read<CompanyBloc>().add(
+                                    AddCompanyEvent(
                                       address:
-                                          officeAddressController.text.trim(),
+                                          companyAddressController.text.trim(),
+                                      createdAt: DateTime.now().toString(),
                                     ),
                                   );
                             }

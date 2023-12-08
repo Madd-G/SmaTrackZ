@@ -46,10 +46,10 @@ class TeamsScreen extends StatelessWidget {
                     children: [
                       TeamCard(
                         onTap: () {
-                          Navigator.pushNamed(context, OfficeScreen.routeName);
+                          Navigator.pushNamed(context, CompanyScreen.routeName);
                         },
                         icon: Icons.location_on,
-                        title: 'Office & Location',
+                        title: 'Company & Location',
                         color: AppColors.blueColor,
                       ),
                       TeamCard(

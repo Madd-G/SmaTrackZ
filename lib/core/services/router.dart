@@ -7,20 +7,20 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
             const localUser = UserModel(
-              uid: '',
+              companyId: '',
               email: '',
-              fullName: '',
-              bio: '',
+              companyName: '',
+              address: '',
             );
             context.userProvider.initUser(localUser);
             return BlocProvider(
-                create: (_) => sl<OfficeBloc>(),
+                create: (_) => sl<CompanyBloc>(),
                 child: const BottomNavigation());
           }
 
           return MultiBlocProvider(providers: [
             BlocProvider(create: (_) => sl<AuthBloc>()),
-            BlocProvider(create: (_) => sl<OfficeBloc>()),
+            BlocProvider(create: (_) => sl<CompanyBloc>()),
           ], child: const SignInScreen());
         },
         settings: settings,
@@ -48,21 +48,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             BlocProvider(
               create: (_) => sl<AuthBloc>(),
             ),
-            BlocProvider(create: (_) => sl<OfficeBloc>()),
+            BlocProvider(create: (_) => sl<CompanyBloc>()),
           ],
           child: const RegisterScreen(),
         ),
         settings: settings,
       );
 
-    case OfficeScreen.routeName:
+    case CompanyScreen.routeName:
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<OfficeBloc>()
-              ..add(LoadOfficeEvent(
-                  officeId: context.userProvider.user!.companyId!)),
-            child: const OfficeScreen(),
+            create: (context) => sl<CompanyBloc>()
+              ..add(LoadCompanyEvent(
+                  companyId: context.userProvider.user!.companyId)),
+            child: const CompanyScreen(),
           );
         },
         settings: settings,
@@ -72,19 +72,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<OfficeBloc>(),
-            child: MapScreen(settings.arguments! as OfficeModel),
+            create: (context) => sl<CompanyBloc>(),
+            child: MapScreen(settings.arguments! as CompanyModel),
           );
         },
         settings: settings,
       );
 
-    case EditOfficeScreen.routeName:
+    case EditCompanyScreen.routeName:
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<OfficeBloc>(),
-            child: EditOfficeScreen(settings.arguments! as OfficeModel),
+            create: (context) => sl<CompanyBloc>(),
+            child: EditCompanyScreen(settings.arguments! as CompanyModel),
           );
         },
         settings: settings,
@@ -100,7 +100,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<OfficeBloc>(),
+            create: (context) => sl<CompanyBloc>(),
             child: const BottomNavigation(),
           );
         },

@@ -35,14 +35,14 @@ class AuthRepoImpl implements AuthRepo {
   @override
   ResultFuture<void> signUp({
     required String email,
-    required String fullName,
+    required String companyName,
     required String password,
     required String companyId,
   }) async {
     try {
       await _remoteDataSource.signUp(
         email: email,
-        fullName: fullName,
+        companyName: companyName,
         password: password,
         companyId: companyId,
       );
