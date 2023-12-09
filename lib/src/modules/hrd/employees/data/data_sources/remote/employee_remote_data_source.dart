@@ -5,7 +5,7 @@ abstract class EmployeeRemoteDataSource {
 
   Future<void> addEmployee({
     required String email,
-    required String companyName,
+    required EmployeeModel employee,
     required String password,
     required String companyId,
   });
@@ -33,18 +33,20 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
   Future<void> addEmployee({
     required String email,
     required String companyId,
-    required String companyName,
+    required EmployeeModel employee,
     required String password,
   }) async {
     try {
-      final employeeCredential = await _authClient.createUserWithEmailAndPassword(
+      final employeeCredential =
+          await _authClient.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await employeeCredential.user?.updateDisplayName(companyName);
+      await employeeCredential.user?.updateDisplayName(employee.username);
       await employeeCredential.user?.updatePhotoURL(kDefaultAvatar);
-      await _setEmployeeData(_authClient.currentUser!, email, companyId, companyName);
+      await _setEmployeeData(
+          _authClient.currentUser!, email, companyId, employee);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occurred',
@@ -69,9 +71,10 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         case UpdateEmployeeAction.email:
           await _authClient.currentUser?.updateEmail(employeeData as String);
           await _updateEmployeeData({'email': employeeData});
-        case UpdateEmployeeAction.companyName:
-          await _authClient.currentUser?.updateDisplayName(employeeData as String);
-          await _updateEmployeeData({'company_name': employeeData});
+        case UpdateEmployeeAction.username:
+          await _authClient.currentUser
+              ?.updateDisplayName(employeeData as String);
+          await _updateEmployeeData({'username': employeeData});
         case UpdateEmployeeAction.profilePicture:
           final ref = _dbClient
               .ref()
@@ -127,14 +130,19 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
   //   return _cloudStoreClient.collection('users').doc(uid).get();
   // }
 
-  Future<void> _setEmployeeData(User user, String fallbackEmail, String companyId, String companyName) async {
+  Future<void> _setEmployeeData(User user, String fallbackEmail,
+      String companyId, EmployeeModel employee) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           EmployeeModel(
             uid: user.uid,
             email: user.email ?? fallbackEmail,
+            username: employee.username ?? '',
+            profilePicture: user.photoURL ?? '',
+            workStart: employee.workStart ?? '',
+            workEnd: employee.workEnd ?? '',
+            bio: employee.bio ?? '',
+            role: employee.role ?? '',
             companyId: companyId ?? '',
-            companyName: companyName ?? '',
-            profilePic: user.photoURL ?? '',
           ).toMap(),
         );
   }

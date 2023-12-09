@@ -33,14 +33,14 @@ class AddEmployeeScreen extends StatefulWidget {
 }
 
 class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
-  final TextEditingController companyNameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
   String? position;
 
   @override
   void dispose() {
-    companyNameController.dispose();
+    usernameController.dispose();
     emailController.dispose();
     super.dispose();
   }
@@ -72,7 +72,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               style: CustomTextStyle.textRegular),
                           const SizedBox(height: 10.0),
                           CustomTextField(
-                            controller: companyNameController,
+                            controller: usernameController,
                             // hintText: 'Full Name',
                             keyboardType: TextInputType.name,
                           ),
@@ -98,36 +98,43 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     ),
                   ],
                 ),
-                Consumer<UserProvider>(builder: (_, provider, __) {
-                  final company = provider.user!;
-                  return GestureDetector(
-                    onTap: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      if (formKey.currentState!.validate()) {
-                        // TODO: add office
-                        context.read<AddEmployeeBloc>().add(
-                              AddEmployeeEvent(
-                                email: emailController.text.trim(),
-                                password: emailController.text.trim(),
-                                name: company.companyName,
-                                companyId: company.companyId,
-                              ),
-                            );
-                        Navigator.pushReplacementNamed(
-                            context, EmployeeListScreen.routeName);
-                      }
-                    },
-                    child: RoundedContainer(
-                      radius: 10.0,
-                      containerColor: AppColors.primaryColor,
-                      width: context.width,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Center(child: Text('Save')),
+                Consumer<UserProvider>(
+                  builder: (_, provider, __) {
+                    final company = provider.user!;
+                    return GestureDetector(
+                      onTap: () async {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        if (formKey.currentState!.validate()) {
+                          // TODO: add employee
+                          context.read<AddEmployeeBloc>().add(
+                                AddEmployeeEvent(
+                                  email: emailController.text.trim(),
+                                  password: emailController.text.trim(),
+                                  employee: EmployeeModel(
+                                    // uid: 'uid',
+                                    email: emailController.text.trim(),
+                                    username: usernameController.text.trim(),
+                                    role: position!,
+                                  ),
+                                  companyId: company.companyId,
+                                ),
+                              );
+                          Navigator.pushReplacementNamed(
+                              context, EmployeeListScreen.routeName);
+                        }
+                      },
+                      child: RoundedContainer(
+                        radius: 10.0,
+                        containerColor: AppColors.primaryColor,
+                        width: context.width,
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Center(child: Text('Save')),
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  },
+                ),
               ],
             ),
           ),

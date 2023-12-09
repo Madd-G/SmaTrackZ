@@ -2,67 +2,72 @@ import 'package:smatrackz/core.dart';
 
 class EmployeeModel extends EmployeeEntity {
   const EmployeeModel({
-    required super.uid,
+    super.uid,
     required super.email,
-    required super.companyName,
+    required super.username,
     super.workStart,
     super.workEnd,
-    super.profilePic,
+    super.profilePicture,
     super.bio,
     super.companyId,
+    super.role,
   });
 
   const EmployeeModel.empty()
       : this(
           uid: '',
           email: '',
-          companyName: '',
+          username: '',
         );
 
   EmployeeModel.fromMap(DataMap map)
       : super(
           uid: map['uid'] as String,
+          username: map['username'] as String,
           email: map['email'] as String,
-          companyName: map['company_name'] as String,
           workStart: map['work_start'] as String?,
           workEnd: map['work_end'] as String?,
-          profilePic: map['profile_picture'] as String?,
+          profilePicture: map['profile_picture'] as String?,
           bio: map['bio'] as String?,
           companyId: map['company_id'] as String?,
+          role: map['role'] as String?,
         );
 
   EmployeeModel copyWith({
     String? uid,
+    String? username,
     String? email,
-    String? profilePic,
+    String? profilePicture,
     String? bio,
-    String? companyName,
     String? workStart,
     String? workEnd,
     String? companyId,
+    String? role,
   }) {
     return EmployeeModel(
-        uid: uid ?? this.uid,
-        email: email ?? this.email,
-        profilePic: profilePic ?? this.profilePic,
-        bio: bio ?? this.bio,
-        companyName: companyName ?? this.companyName,
-        workStart: workStart ?? this.workStart,
-        workEnd: workEnd ?? this.workEnd,
-        companyId: companyId ?? this.companyId,
+      uid: uid ?? this.uid,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      profilePicture: profilePicture ?? this.profilePicture,
+      bio: bio ?? this.bio,
+      workStart: workStart ?? this.workStart,
+      workEnd: workEnd ?? this.workEnd,
+      companyId: companyId ?? this.companyId,
+      role: role ?? this.role,
     );
   }
 
   DataMap toMap() {
     return {
       'uid': uid,
+      'username': username,
       'email': email,
-      'profile_picture': profilePic,
+      'profile_picture': profilePicture,
       'work_start': workStart,
       'work_end': workEnd,
       'bio': bio,
-      'company_name': companyName,
       'company_id': companyId,
+      'role': role,
     };
   }
 }

@@ -6,7 +6,7 @@ abstract class EmployeeRepo {
   ResultFuture<void> addEmployee({
     required String email,
     required String companyId,
-    required String companyName,
+    required EmployeeModel employee,
     required String password,
   });
 }

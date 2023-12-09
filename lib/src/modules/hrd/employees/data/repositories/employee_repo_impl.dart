@@ -10,14 +10,14 @@ class EmployeeRepoImpl implements EmployeeRepo {
   ResultFuture<void> addEmployee({
     required String email,
     required String companyId,
-    required String companyName,
+    required EmployeeModel employee,
     required String password,
   }) async {
     try {
       await _remoteDataSource.addEmployee(
         email: email,
         companyId: companyId,
-        companyName: companyName,
+        employee: employee,
         password: password,
       );
       return const Right(null);

@@ -10,7 +10,7 @@ class AddEmployee extends FutureUseCaseWithParams<void, AddEmployeeParams> {
         email: params.email,
         password: params.password,
         companyId: params.companyId,
-        companyName: params.companyName,
+        employee: params.employee,
       );
 }
 
@@ -19,17 +19,21 @@ class AddEmployeeParams extends Equatable {
     required this.email,
     required this.password,
     required this.companyId,
-    required this.companyName,
+    required this.employee,
   });
 
-  const AddEmployeeParams.empty()
-      : this(email: '', password: '', companyId: '', companyName: '');
+  AddEmployeeParams.empty()
+      : this(
+            email: '',
+            password: '',
+            companyId: '',
+            employee: EmployeeModel.empty());
 
   final String email;
   final String password;
   final String companyId;
-  final String companyName;
+  final EmployeeModel employee;
 
   @override
-  List<String> get props => [email, password, companyName, companyId];
+  List<String> get props => [email, password, companyId];
 }

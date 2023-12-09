@@ -1,5 +1,5 @@
 enum UpdateEmployeeAction {
-  companyName,
+  username,
   email,
   address,
   phoneNumber,

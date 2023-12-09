@@ -27,7 +27,7 @@ class AddEmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
       AddEmployeeParams(
         email: event.email,
         companyId: event.companyId,
-        companyName: event.name,
+        employee: event.employee,
         password: event.password,
       ),
     );

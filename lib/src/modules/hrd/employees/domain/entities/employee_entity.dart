@@ -1,35 +1,39 @@
 import 'package:smatrackz/core.dart';
 
 class EmployeeEntity extends Equatable {
-  final String uid;
+  final String? uid;
+  final String username;
   final String email;
-  final String? profilePic;
+  final String? profilePicture;
   final String? bio;
-  final String companyName;
   final String? workStart;
   final String? workEnd;
   final String? companyId;
+  final String? role;
 
-  const EmployeeEntity(
-      {required this.uid,
-      required this.email,
-      required this.companyName,
-      this.workStart,
-      this.workEnd,
-      this.profilePic,
-      this.bio,
-      this.companyId,});
+  const EmployeeEntity({
+    required this.uid,
+    required this.username,
+    required this.email,
+    this.workStart,
+    this.workEnd,
+    this.profilePicture,
+    this.bio,
+    this.companyId,
+    this.role,
+  });
 
   const EmployeeEntity.empty()
       : this(
           uid: '',
+          username: '',
           email: '',
-          companyName: '',
-          profilePic: '',
+          profilePicture: '',
           bio: '',
           workStart: '',
           workEnd: '',
           companyId: '',
+          role: '',
         );
 
   bool get isAdmin => email == 'admin@gmail.com';
@@ -37,18 +41,27 @@ class EmployeeEntity extends Equatable {
   @override
   List<Object?> get props => [
         uid,
+        username,
         email,
-        profilePic,
+        profilePicture,
         bio,
-        companyName,
         workStart,
         workEnd,
         companyId,
+        role,
       ];
 
   @override
   String toString() {
-    return 'EmployeeEntity{uid: $uid, email: $email, bio: '
-        '$bio, companyName: $companyName}, work_start: $workStart, work_end: $workEnd, companyId: $companyId';
+    return 'EmployeeEntity{'
+        'uid: $uid, '
+        'username: $username, '
+        'email: $email, '
+        'bio: $bio, '
+        'work_start: $workStart, '
+        'work_end: $workEnd, '
+        'companyId: $companyId, '
+        'role: $role, '
+        '}';
   }
 }
