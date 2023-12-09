@@ -38,7 +38,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     );
     result.fold(
       (failure) => emit(EmployeeErrorState(failure.errorMessage)),
-      (_) => emit(const AddEmployeeState()),
+      (_) => emit(const EmployeeUpdatedState()),
     );
   }
 

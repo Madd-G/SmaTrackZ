@@ -14,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProfileHeader(),
+              HomeHeader(),
               Menu(),
             ],
           ),

@@ -1,9 +1,7 @@
 import 'package:smatrackz/core.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({
-    super.key,
-  });
+  const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +30,7 @@ class HomeHeader extends StatelessWidget {
                     style: CustomTextStyle.textLargeMedium
                         .copyWith(color: AppColors.whiteColor),
                   ),
-                  const Icon(IconlyBold.notification,
-                      color: Colors.white),
+                  const Icon(IconlyBold.notification, color: Colors.white),
                 ],
               ),
               const SizedBox(height: 30.0),

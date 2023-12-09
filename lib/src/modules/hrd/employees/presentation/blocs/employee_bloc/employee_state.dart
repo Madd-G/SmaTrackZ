@@ -37,3 +37,7 @@ class EmployeeErrorState extends EmployeeState {
   @override
   List<String> get props => [message];
 }
+
+class EmployeeUpdatedState extends EmployeeState {
+  const EmployeeUpdatedState();
+}

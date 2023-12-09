@@ -36,6 +36,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case DetailEmployeeScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+              create: (_) => sl<EmployeeBloc>(),
+              child:
+                  DetailEmployeeScreen(settings.arguments! as EmployeeModel));
+        },
+        settings: settings,
+      );
+
     case AddEmployeeScreen.routeName:
       return _pageBuilder(
         (context) {

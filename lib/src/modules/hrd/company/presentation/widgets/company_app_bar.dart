@@ -40,12 +40,6 @@ class CompanyAppBar extends StatelessWidget implements PreferredSizeWidget {
                           color: AppColors.greyColor,
                         ),
                       ),
-                      // onTap: () => Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => EditCompanyScreen(state.companyData),
-                      //   ),
-                      // ),
                       onTap: () async {
                         await Navigator.of(context)
                             .pushNamed(EditCompanyScreen.routeName,

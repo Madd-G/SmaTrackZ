@@ -1,9 +1,7 @@
 import 'package:smatrackz/core.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({
-    super.key,
-  });
+  const ProfileCard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -71,31 +71,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           formKey: formKey,
                         ),
                         const SizedBox(height: 30),
-                        RoundedButton(
-                          label: 'Sign Up',
-                          onPressed: () async {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            FirebaseAuth.instance.currentUser?.reload();
-                            if (formKey.currentState!.validate()) {
-                              context.read<AuthBloc>().add(
-                                    SignUpEvent(
-                                      email: emailController.text.trim(),
-                                      password: passwordController.text.trim(),
-                                      companyId: companyId,
-                                      name: usernameController.text.trim(),
-                                      // address: companyAddressController.text.trim(),
-                                    ),
-                                  );
-                              // context.read<CompanyBloc>().add(
-                              //       AddCompanyEvent(
-                              //         address:
-                              //             companyAddressController.text.trim(),
-                              //         createdAt: DateTime.now().toString(),
-                              //       ),
-                              //     );
-                            }
-                          },
-                        ),
+                        (state is AuthLoading)
+                            ? const Center(child: CircularProgressIndicator())
+                            : RoundedButton(
+                                label: 'Sign Up',
+                                onPressed: () async {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  FirebaseAuth.instance.currentUser?.reload();
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<AuthBloc>().add(
+                                          SignUpEvent(
+                                            email: emailController.text.trim(),
+                                            password:
+                                                passwordController.text.trim(),
+                                            companyId: companyId,
+                                            name:
+                                                usernameController.text.trim(),
+                                            // address: companyAddressController.text.trim(),
+                                          ),
+                                        );
+                                  }
+                                },
+                              ),
                         const SizedBox(height: 5.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

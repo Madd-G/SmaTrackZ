@@ -25,9 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
               if (state is AuthError) {
                 CoreUtils.showSnackBar(context, state.message);
               } else if (state is SignedIn) {
-                context
-                    .read<UserProvider>()
-                    .initUser(state.user as UserModel);
+                context.read<UserProvider>().initUser(state.user as UserModel);
                 Navigator.pushReplacementNamed(
                     context, BottomNavigation.routeName);
               }
@@ -62,25 +60,24 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        if (state is AuthLoading)
-                          const Center(child: CircularProgressIndicator())
-                        else
-                          RoundedButton(
-                            label: 'LOGIN',
-                            onPressed: () {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              FirebaseAuth.instance.currentUser?.reload();
-                              if (formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
-                                      SignInEvent(
-                                        email: emailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
-                                      ),
-                                    );
-                              }
-                            },
-                          ),
+                        (state is AuthLoading)
+                            ? const Center(child: CircularProgressIndicator())
+                            : RoundedButton(
+                                label: 'LOGIN',
+                                onPressed: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  FirebaseAuth.instance.currentUser?.reload();
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<AuthBloc>().add(
+                                          SignInEvent(
+                                            email: emailController.text.trim(),
+                                            password:
+                                                passwordController.text.trim(),
+                                          ),
+                                        );
+                                  }
+                                },
+                              ),
                         const SizedBox(height: 5.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

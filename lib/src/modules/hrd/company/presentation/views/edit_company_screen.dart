@@ -101,7 +101,6 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
                       ),
                     );
                   }
-
                 },
                 child: state is AuthLoading
                     ? const Center(child: CircularProgressIndicator())
