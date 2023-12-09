@@ -99,18 +99,18 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   ],
                 ),
                 Consumer<UserProvider>(builder: (_, provider, __) {
-                  final user = provider.user!;
+                  final company = provider.user!;
                   return GestureDetector(
                     onTap: () async {
                       FocusManager.instance.primaryFocus?.unfocus();
                       if (formKey.currentState!.validate()) {
                         // TODO: add office
-                        context.read<AuthBloc>().add(
-                              SignUpEvent(
+                        context.read<AddEmployeeBloc>().add(
+                              AddEmployeeEvent(
                                 email: emailController.text.trim(),
                                 password: emailController.text.trim(),
-                                name: companyNameController.text.trim(),
-                                companyId: user.companyId,
+                                name: company.companyName,
+                                companyId: company.companyId,
                               ),
                             );
                         Navigator.pushReplacementNamed(

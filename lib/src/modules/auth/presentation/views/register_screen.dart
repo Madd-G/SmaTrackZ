@@ -86,13 +86,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       // address: companyAddressController.text.trim(),
                                     ),
                                   );
-                              context.read<CompanyBloc>().add(
-                                    AddCompanyEvent(
-                                      address:
-                                          companyAddressController.text.trim(),
-                                      createdAt: DateTime.now().toString(),
-                                    ),
-                                  );
+                              // context.read<CompanyBloc>().add(
+                              //       AddCompanyEvent(
+                              //         address:
+                              //             companyAddressController.text.trim(),
+                              //         createdAt: DateTime.now().toString(),
+                              //       ),
+                              //     );
                             }
                           },
                         ),

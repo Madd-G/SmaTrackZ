@@ -6,7 +6,7 @@ Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
   await _initCompany();
-  // await _initAddEmployee();
+  await _initAddEmployee();
   // await _initCompany();
 }
 
@@ -70,20 +70,20 @@ Future<void> _initCompany() async {
 //         () => CompanyRepositoryImpl(sl<CompanyRemoteDataSource>()));
 // }
 
-// Future<void> _initAddEmployee() async {
-//   sl
-//     ..registerFactory(
-//       () => AddEmployeeBloc(
-//         addEmployee: sl(),
-//       ),
-//     )
-//     ..registerLazySingleton(() => AddEmployee(sl()))
-//     ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
-//     ..registerLazySingleton<EmployeeRemoteDataSource>(
-//       () => EmployeeRemoteDataSourceImpl(
-//         authClient: sl(),
-//         cloudStoreClient: sl(),
-//         dbClient: sl(),
-//       ),
-//     );
-// }
+Future<void> _initAddEmployee() async {
+  sl
+    ..registerFactory(
+      () => AddEmployeeBloc(
+        addEmployee: sl(),
+      ),
+    )
+    ..registerLazySingleton(() => AddEmployee(sl()))
+    ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
+    ..registerLazySingleton<EmployeeRemoteDataSource>(
+      () => EmployeeRemoteDataSourceImpl(
+        authClient: sl(),
+        cloudStoreClient: sl(),
+        dbClient: sl(),
+      ),
+    );
+}

@@ -30,7 +30,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-              create: (_) => sl<AuthBloc>(), child: const AddEmployeeScreen());
+              create: (_) => sl<AddEmployeeBloc>(),
+              child: const AddEmployeeScreen());
         },
         settings: settings,
       );
