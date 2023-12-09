@@ -22,12 +22,12 @@ class AddEmployeeParams extends Equatable {
     required this.employee,
   });
 
-  AddEmployeeParams.empty()
+  const AddEmployeeParams.empty()
       : this(
             email: '',
             password: '',
             companyId: '',
-            employee: EmployeeModel.empty());
+            employee: const EmployeeModel.empty());
 
   final String email;
   final String password;

@@ -1,4 +1,4 @@
-part of 'add_employee_bloc.dart';
+part of 'employee_bloc.dart';
 
 @immutable
 abstract class EmployeeEvent extends Equatable {
@@ -24,4 +24,9 @@ class AddEmployeeEvent extends EmployeeEvent {
         password,
         companyId,
       ];
+}
+
+class GetEmployeeEvent extends EmployeeEvent {
+  @override
+  List<Object?> get props => [];
 }

@@ -20,8 +20,6 @@ class ProfileCard extends StatelessWidget {
         child: Consumer<UserProvider>(
           builder: (_, provider, __) {
             final user = provider.user!;
-            print('user: $user');
-
             final image =
                 user.profilePicture == null || user.profilePicture!.isEmpty
                     ? null

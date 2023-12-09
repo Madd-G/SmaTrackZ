@@ -106,7 +106,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                         FocusManager.instance.primaryFocus?.unfocus();
                         if (formKey.currentState!.validate()) {
                           // TODO: add employee
-                          context.read<AddEmployeeBloc>().add(
+                          context.read<EmployeeBloc>().add(
                                 AddEmployeeEvent(
                                   email: emailController.text.trim(),
                                   password: emailController.text.trim(),
@@ -115,6 +115,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                     email: emailController.text.trim(),
                                     username: usernameController.text.trim(),
                                     role: position!,
+                                    createdAt: DateTime.now().toString(),
                                   ),
                                   companyId: company.companyId,
                                 ),

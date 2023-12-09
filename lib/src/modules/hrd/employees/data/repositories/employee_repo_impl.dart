@@ -5,7 +5,6 @@ class EmployeeRepoImpl implements EmployeeRepo {
 
   final EmployeeRemoteDataSource _remoteDataSource;
 
-
   @override
   ResultFuture<void> addEmployee({
     required String email,
@@ -23,6 +22,16 @@ class EmployeeRepoImpl implements EmployeeRepo {
       return const Right(null);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
+
+  @override
+  ResultFuture<List<EmployeeEntity>> getEmployees() async {
+    try {
+      final employees = await _remoteDataSource.getEmployees();
+      return Right(employees);
+    } on ServerException catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 }

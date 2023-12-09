@@ -1,87 +1,102 @@
 import 'package:smatrackz/core.dart';
 
-class EmployeeListScreen extends StatelessWidget {
+class EmployeeListScreen extends StatefulWidget {
   const EmployeeListScreen({super.key});
 
   static const routeName = '/employee-list';
 
-  static final List<Map<String, String>> employeeList = [
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Johnson Doni',
-      'role': 'Accountant',
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Budi Luis',
-      'role': 'Mobile developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Lionel Cristiano',
-      'role': 'Project Manager'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Andi Agustian Gunawan Mulawarman Hambali',
-      'role': 'Backend Developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Deny Andreas',
-      'role': 'Quality Assurance'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Johnson Doni',
-      'role': 'Accountant',
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Budi Luis',
-      'role': 'Mobile developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Lionel Cristiano',
-      'role': 'Project Manager'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Andi Agustian Gunawan Mulawarman Hambali',
-      'role': 'Backend Developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Deny Andreas',
-      'role': 'Quality Assurance'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Johnson Doni',
-      'role': 'Accountant',
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Budi Luis',
-      'role': 'Mobile developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Lionel Cristiano',
-      'role': 'Project Manager'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Andi Agustian Gunawan Mulawarman Hambali',
-      'role': 'Backend Developer'
-    },
-    {
-      'profileImage': 'assets/images/user.png',
-      'name': 'Deny Andreas',
-      'role': 'Quality Assurance'
-    },
-  ];
+  // static final List<Map<String, String>> employeeList = [
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Johnson Doni',
+  //     'role': 'Accountant',
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Budi Luis',
+  //     'role': 'Mobile developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Lionel Cristiano',
+  //     'role': 'Project Manager'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Andi Agustian Gunawan Mulawarman Hambali',
+  //     'role': 'Backend Developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Deny Andreas',
+  //     'role': 'Quality Assurance'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Johnson Doni',
+  //     'role': 'Accountant',
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Budi Luis',
+  //     'role': 'Mobile developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Lionel Cristiano',
+  //     'role': 'Project Manager'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Andi Agustian Gunawan Mulawarman Hambali',
+  //     'role': 'Backend Developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Deny Andreas',
+  //     'role': 'Quality Assurance'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Johnson Doni',
+  //     'role': 'Accountant',
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Budi Luis',
+  //     'role': 'Mobile developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Lionel Cristiano',
+  //     'role': 'Project Manager'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Andi Agustian Gunawan Mulawarman Hambali',
+  //     'role': 'Backend Developer'
+  //   },
+  //   {
+  //     'profileImage': 'assets/images/user.png',
+  //     'name': 'Deny Andreas',
+  //     'role': 'Quality Assurance'
+  //   },
+  // ];
+
+  @override
+  State<EmployeeListScreen> createState() => _EmployeeListScreenState();
+}
+
+class _EmployeeListScreenState extends State<EmployeeListScreen> {
+  void getEmployee() {
+    context.read<EmployeeBloc>().add(GetEmployeeEvent());
+  }
+
+  @override
+  void initState() {
+    getEmployee();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,43 +114,57 @@ class EmployeeListScreen extends StatelessWidget {
                   const Text('List Employee',
                       style: CustomTextStyle.headingSemiBold),
                   const SizedBox(height: 25.0),
-                  ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: employeeList.map((user) {
-                      return ListTile(
-                        contentPadding:
-                            const EdgeInsets.only(left: 0.0, right: 0.0),
-                        leading: Consumer<UserProvider>(
-                          builder: (_, provider, __) {
-                            final user = provider.user!;
-                            final image = user.profilePicture == null ||
-                                    user.profilePicture!.isEmpty
-                                ? null
-                                : user.profilePicture;
-                            return CircleAvatar(
-                              radius: 20,
-                              backgroundImage: image != null
-                                  ? NetworkImage(image)
-                                  : const AssetImage(AppMedia.user)
-                                      as ImageProvider,
+                  BlocConsumer<EmployeeBloc, EmployeeState>(
+                    listener: (context, state) {
+                      if (state is EmployeeErrorState) {
+                        CoreUtils.showSnackBar(context, state.message);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is EmployeeLoadingState) {
+                        return const LoadingView();
+                      } else if ((state is EmployeeLoadedState &&
+                              state.employees.isEmpty) ||
+                          state is EmployeeErrorState) {
+                        return const NotFoundText('No employee found ');
+                      } else if (state is EmployeeLoadedState) {
+                        final employees = state.employees
+                          ..sort(
+                            (a, b) => b.createdAt!.compareTo(a.createdAt!),
+                          );
+                        return ListView(
+                          reverse: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          children: employees.map((employee) {
+                            return ListTile(
+                              contentPadding:
+                                  const EdgeInsets.only(left: 0.0, right: 0.0),
+                              leading: CircleAvatar(
+                                radius: 20,
+                                backgroundImage: employee.profilePicture != ''
+                                    ? NetworkImage(employee.profilePicture!)
+                                    : const AssetImage(AppMedia.user)
+                                        as ImageProvider,
+                              ),
+                              title: Text(
+                                employee.username.toString(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: CustomTextStyle.textLargeSemiBold,
+                              ),
+                              subtitle: Text(
+                                employee.role.toString(),
+                                style: CustomTextStyle.textMediumRegular
+                                    .copyWith(color: AppColors.greyColor),
+                              ),
                             );
-                          },
-                        ),
-                        title: Text(
-                          user['name'].toString(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: CustomTextStyle.textLargeSemiBold,
-                        ),
-                        // subtitle: Text(
-                        //   user['role'].toString(),
-                        //   style: CustomTextStyle.textMediumRegular
-                        //       .copyWith(color: AppColors.greyColor),
-                        // ),
-                      );
-                    }).toList(),
+                          }).toList(),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 ],
               ),

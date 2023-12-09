@@ -26,11 +26,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case EmployeeListScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+              create: (_) => sl<EmployeeBloc>(),
+              child: const EmployeeListScreen());
+        },
+        settings: settings,
+      );
+
     case AddEmployeeScreen.routeName:
       return _pageBuilder(
         (context) {
           return BlocProvider(
-              create: (_) => sl<AddEmployeeBloc>(),
+              create: (_) => sl<EmployeeBloc>(),
               child: const AddEmployeeScreen());
         },
         settings: settings,
@@ -88,12 +98,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             child: EditCompanyScreen(settings.arguments! as CompanyModel),
           );
         },
-        settings: settings,
-      );
-
-    case EmployeeListScreen.routeName:
-      return _pageBuilder(
-        (_) => const EmployeeListScreen(),
         settings: settings,
       );
 

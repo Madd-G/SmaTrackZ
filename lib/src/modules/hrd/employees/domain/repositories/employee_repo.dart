@@ -9,4 +9,6 @@ abstract class EmployeeRepo {
     required EmployeeModel employee,
     required String password,
   });
+
+  ResultFuture<List<EmployeeEntity>> getEmployees();
 }

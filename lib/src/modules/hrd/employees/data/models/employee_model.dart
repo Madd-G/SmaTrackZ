@@ -11,6 +11,7 @@ class EmployeeModel extends EmployeeEntity {
     super.bio,
     super.companyId,
     super.role,
+    super.createdAt,
   });
 
   const EmployeeModel.empty()
@@ -31,6 +32,7 @@ class EmployeeModel extends EmployeeEntity {
           bio: map['bio'] as String?,
           companyId: map['company_id'] as String?,
           role: map['role'] as String?,
+          createdAt: map['created_at'] as String?,
         );
 
   EmployeeModel copyWith({
@@ -43,6 +45,7 @@ class EmployeeModel extends EmployeeEntity {
     String? workEnd,
     String? companyId,
     String? role,
+    String? createdAt,
   }) {
     return EmployeeModel(
       uid: uid ?? this.uid,
@@ -54,6 +57,7 @@ class EmployeeModel extends EmployeeEntity {
       workEnd: workEnd ?? this.workEnd,
       companyId: companyId ?? this.companyId,
       role: role ?? this.role,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -68,6 +72,7 @@ class EmployeeModel extends EmployeeEntity {
       'bio': bio,
       'company_id': companyId,
       'role': role,
+      'created_at': createdAt,
     };
   }
 }

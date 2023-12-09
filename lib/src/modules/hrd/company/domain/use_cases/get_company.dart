@@ -6,7 +6,8 @@ class GetCompany extends FutureUseCaseWithParams<void, GetCompanyParams> {
   final CompanyRepository _companyRepo;
 
   @override
-  ResultFuture<CompanyModel> call(GetCompanyParams params) async => _companyRepo.getCompany(params.companyId);
+  ResultFuture<CompanyModel> call(GetCompanyParams params) async =>
+      _companyRepo.getCompany(params.companyId);
 }
 
 class GetCompanyParams extends Equatable {
@@ -18,10 +19,11 @@ class GetCompanyParams extends Equatable {
 
   const GetCompanyParams.empty()
       : this(
-    companyId: '',
-  );
+          companyId: '',
+        );
 
   @override
-  List<Object?> get props =>
-      [companyId];
+  List<Object?> get props => [
+        companyId,
+      ];
 }

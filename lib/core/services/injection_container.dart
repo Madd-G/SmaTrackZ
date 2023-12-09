@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/employees/domain/use_cases/get_employee.dart';
 
 final sl = GetIt.instance;
 
@@ -6,7 +7,7 @@ Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
   await _initCompany();
-  await _initAddEmployee();
+  await _initEmployee();
   // await _initCompany();
 }
 
@@ -53,7 +54,8 @@ Future<void> _initCompany() async {
     ..registerLazySingleton(() => AddCompany(sl()))
     ..registerLazySingleton(() => GetCompany(sl()))
     ..registerLazySingleton(() => UpdateCompany(sl()))
-    ..registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl(sl()))
+    ..registerLazySingleton<CompanyRepository>(
+        () => CompanyRepositoryImpl(sl()))
     ..registerLazySingleton<CompanyRemoteDataSource>(
       () => CompanyRemoteDataSourceImpl(
         cloudStoreClient: sl(),
@@ -70,14 +72,16 @@ Future<void> _initCompany() async {
 //         () => CompanyRepositoryImpl(sl<CompanyRemoteDataSource>()));
 // }
 
-Future<void> _initAddEmployee() async {
+Future<void> _initEmployee() async {
   sl
     ..registerFactory(
-      () => AddEmployeeBloc(
+      () => EmployeeBloc(
         addEmployee: sl(),
+        getEmployee: sl(),
       ),
     )
     ..registerLazySingleton(() => AddEmployee(sl()))
+    ..registerLazySingleton(() => GetEmployee(sl()))
     ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
     ..registerLazySingleton<EmployeeRemoteDataSource>(
       () => EmployeeRemoteDataSourceImpl(

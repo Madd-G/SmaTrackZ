@@ -10,6 +10,7 @@ class EmployeeEntity extends Equatable {
   final String? workEnd;
   final String? companyId;
   final String? role;
+  final String? createdAt;
 
   const EmployeeEntity({
     required this.uid,
@@ -21,6 +22,7 @@ class EmployeeEntity extends Equatable {
     this.bio,
     this.companyId,
     this.role,
+    this.createdAt,
   });
 
   const EmployeeEntity.empty()
@@ -34,6 +36,7 @@ class EmployeeEntity extends Equatable {
           workEnd: '',
           companyId: '',
           role: '',
+          createdAt: '',
         );
 
   bool get isAdmin => email == 'admin@gmail.com';
@@ -49,6 +52,7 @@ class EmployeeEntity extends Equatable {
         workEnd,
         companyId,
         role,
+        createdAt,
       ];
 
   @override
@@ -62,6 +66,7 @@ class EmployeeEntity extends Equatable {
         'work_end: $workEnd, '
         'companyId: $companyId, '
         'role: $role, '
+        'created_at: $createdAt, '
         '}';
   }
 }

@@ -14,6 +14,8 @@ abstract class EmployeeRemoteDataSource {
     required UpdateEmployeeAction action,
     dynamic employeeData,
   });
+
+  Future<List<EmployeeEntity>> getEmployees();
 }
 
 class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
@@ -134,15 +136,26 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
       String companyId, EmployeeModel employee) async {
     await _cloudStoreClient.collection('users').doc(user.uid).set(
           EmployeeModel(
+            // uid: user.uid,
+            // email: user.email ?? fallbackEmail,
+            // username: employee.username ?? '',
+            // profilePicture: user.photoURL ?? '',
+            // workStart: employee.workStart ?? '',
+            // workEnd: employee.workEnd ?? '',
+            // bio: employee.bio ?? '',
+            // role: employee.role ?? '',
+            // companyId: companyId ?? '',
+            // createdAt: employee.createdAt ?? '',
             uid: user.uid,
             email: user.email ?? fallbackEmail,
-            username: employee.username ?? '',
+            username: employee.username,
             profilePicture: user.photoURL ?? '',
-            workStart: employee.workStart ?? '',
-            workEnd: employee.workEnd ?? '',
-            bio: employee.bio ?? '',
+            workStart: '',
+            workEnd: '',
+            bio: '',
             role: employee.role ?? '',
-            companyId: companyId ?? '',
+            companyId: companyId,
+            createdAt: employee.createdAt ?? '',
           ).toMap(),
         );
   }
@@ -152,5 +165,32 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         .collection('users')
         .doc(_authClient.currentUser?.uid)
         .update(data);
+  }
+
+  @override
+  Future<List<EmployeeEntity>> getEmployees() {
+    try {
+      final user = _authClient.currentUser;
+      if (user == null) {
+        throw const ServerException(
+          message: 'User is not authenticated',
+          statusCode: '401',
+        );
+      }
+      return _cloudStoreClient.collection('users').get().then(
+            (value) => value.docs
+                .map((doc) => EmployeeModel.fromMap(doc.data()))
+                .toList(),
+          );
+    } on FirebaseException catch (e) {
+      throw ServerException(
+        message: e.message ?? 'Unknown error occurred',
+        statusCode: e.code,
+      );
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
   }
 }
