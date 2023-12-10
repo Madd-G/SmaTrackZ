@@ -1,12 +1,10 @@
 part of 'employee_bloc.dart';
 
 @immutable
-abstract class EmployeeEvent extends Equatable {
-  const EmployeeEvent();
-}
+abstract class EmployeeEvent {}
 
 class AddEmployeeEvent extends EmployeeEvent {
-  const AddEmployeeEvent({
+  AddEmployeeEvent({
     required this.email,
     required this.password,
     required this.employee,
@@ -18,7 +16,6 @@ class AddEmployeeEvent extends EmployeeEvent {
   final EmployeeModel employee;
   final String companyId;
 
-  @override
   List<String> get props => [
         email,
         password,
@@ -27,6 +24,19 @@ class AddEmployeeEvent extends EmployeeEvent {
 }
 
 class GetEmployeeEvent extends EmployeeEvent {
-  @override
   List<Object?> get props => [];
+}
+
+class UpdateEmployeeEvent extends EmployeeEvent {
+  UpdateEmployeeEvent({
+    required this.action,
+    required this.uid,
+    required this.employeeData,
+  });
+
+  final UpdateEmployeeAction action;
+  final String uid;
+  final dynamic employeeData;
+
+  List<Object?> get props => [action, uid, employeeData];
 }

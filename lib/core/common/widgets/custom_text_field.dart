@@ -2,7 +2,7 @@ import 'package:smatrackz/core.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    required this.controller,
+    this.controller,
     this.filled = false,
     this.obscureText = false,
     this.readOnly = false,
@@ -14,10 +14,11 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.hintStyle,
     this.overrideValidator = false,
+    this.inputBorder,
   });
 
   final String? Function(String?)? validator;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool filled;
   final Color? fillColour;
   final bool obscureText;
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool overrideValidator;
   final TextStyle? hintStyle;
+  final InputBorder? inputBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +49,22 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
+        border: inputBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+        enabledBorder: inputBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+        focusedBorder: inputBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         filled: filled,
         fillColor: fillColour,

@@ -1,6 +1,8 @@
 enum UpdateEmployeeAction {
+  uid,
   username,
   email,
+  role,
   address,
   phoneNumber,
   profilePicture,

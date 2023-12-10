@@ -11,4 +11,10 @@ abstract class EmployeeRepo {
   });
 
   ResultFuture<List<EmployeeEntity>> getEmployees();
+
+  ResultFuture<void> updateEmployee({
+    required UpdateEmployeeAction action,
+    required String uid,
+    required dynamic employeeData,
+  });
 }

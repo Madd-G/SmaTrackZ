@@ -1,5 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/employees/domain/use_cases/get_employee.dart';
 
 final sl = GetIt.instance;
 
@@ -78,10 +77,12 @@ Future<void> _initEmployee() async {
       () => EmployeeBloc(
         addEmployee: sl(),
         getEmployee: sl(),
+        updateEmployee: sl(),
       ),
     )
     ..registerLazySingleton(() => AddEmployee(sl()))
     ..registerLazySingleton(() => GetEmployee(sl()))
+    ..registerLazySingleton(() => UpdateEmployee(sl()))
     ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
     ..registerLazySingleton<EmployeeRemoteDataSource>(
       () => EmployeeRemoteDataSourceImpl(

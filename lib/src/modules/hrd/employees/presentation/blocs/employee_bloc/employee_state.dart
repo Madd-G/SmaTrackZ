@@ -3,17 +3,16 @@ part of 'employee_bloc.dart';
 @immutable
 abstract class EmployeeState extends Equatable {
   const EmployeeState();
+}
 
+class EmployeeInitialState extends EmployeeState {
   @override
   List<Object> get props => [];
 }
 
-class EmployeeInitialState extends EmployeeState {
-  const EmployeeInitialState();
-}
-
 class EmployeeLoadingState extends EmployeeState {
-  const EmployeeLoadingState();
+  @override
+  List<Object> get props => [];
 }
 
 class EmployeeLoadedState extends EmployeeState {
@@ -26,7 +25,8 @@ class EmployeeLoadedState extends EmployeeState {
 }
 
 class AddEmployeeState extends EmployeeState {
-  const AddEmployeeState();
+  @override
+  List<Object> get props => [];
 }
 
 class EmployeeErrorState extends EmployeeState {
@@ -40,4 +40,7 @@ class EmployeeErrorState extends EmployeeState {
 
 class EmployeeUpdatedState extends EmployeeState {
   const EmployeeUpdatedState();
+
+  @override
+  List<Object?> get props => [];
 }

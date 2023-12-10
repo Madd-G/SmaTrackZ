@@ -34,4 +34,19 @@ class EmployeeRepoImpl implements EmployeeRepo {
       return Left(ServerFailure.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<void> updateEmployee({
+    required UpdateEmployeeAction action,
+    required String uid,
+    required dynamic employeeData,
+  }) async {
+    try {
+      await _remoteDataSource.updateEmployee(
+          action: action, uid: uid, employeeData: employeeData);
+      return const Right(null);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
 }

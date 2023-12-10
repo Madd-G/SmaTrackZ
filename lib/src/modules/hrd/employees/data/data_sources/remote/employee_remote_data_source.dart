@@ -12,6 +12,7 @@ abstract class EmployeeRemoteDataSource {
 
   Future<void> updateEmployee({
     required UpdateEmployeeAction action,
+    required String uid,
     dynamic employeeData,
   });
 
@@ -66,17 +67,18 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
   @override
   Future<void> updateEmployee({
     required UpdateEmployeeAction action,
+    required String uid,
     dynamic employeeData,
   }) async {
     try {
       switch (action) {
         case UpdateEmployeeAction.email:
           await _authClient.currentUser?.updateEmail(employeeData as String);
-          await _updateEmployeeData({'email': employeeData});
+          await _updateEmployeeData({'email': employeeData}, uid);
         case UpdateEmployeeAction.username:
           await _authClient.currentUser
               ?.updateDisplayName(employeeData as String);
-          await _updateEmployeeData({'username': employeeData});
+          await _updateEmployeeData({'username': employeeData}, uid);
         case UpdateEmployeeAction.profilePicture:
           final ref = _dbClient
               .ref()
@@ -85,7 +87,7 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
           await ref.putFile(employeeData as File);
           final url = await ref.getDownloadURL();
           await _authClient.currentUser?.updatePhotoURL(url);
-          await _updateEmployeeData({'profile_picture': url});
+          await _updateEmployeeData({'profile_picture': url}, uid);
         case UpdateEmployeeAction.password:
           if (_authClient.currentUser?.email == null) {
             throw const ServerException(
@@ -104,15 +106,21 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             newData['newPassword'] as String,
           );
         case UpdateEmployeeAction.bio:
-          await _updateEmployeeData({'bio': employeeData as String});
+          await _updateEmployeeData({'bio': employeeData as String}, uid);
         case UpdateEmployeeAction.address:
-          await _updateEmployeeData({'address': employeeData as String});
+          await _updateEmployeeData({'address': employeeData as String}, uid);
         case UpdateEmployeeAction.phoneNumber:
-          await _updateEmployeeData({'phone_number': employeeData as String});
+          await _updateEmployeeData(
+              {'phone_number': employeeData as String}, uid);
         case UpdateEmployeeAction.workStart:
-          await _updateEmployeeData({'work_start': employeeData as String});
+          await _updateEmployeeData(
+              {'work_start': employeeData as String}, uid);
         case UpdateEmployeeAction.workEnd:
-          await _updateEmployeeData({'work_end': employeeData as String});
+          await _updateEmployeeData({'work_end': employeeData as String}, uid);
+        case UpdateEmployeeAction.role:
+          await _updateEmployeeData({'role': employeeData as String}, uid);
+        case UpdateEmployeeAction.uid:
+          await _updateEmployeeData({'uid': employeeData as String}, uid);
       }
     } on FirebaseException catch (e) {
       throw ServerException(
@@ -128,13 +136,13 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
     }
   }
 
-  // Future<DocumentSnapshot<DataMap>> _getUserData(String uid) async {
-  //   return _cloudStoreClient.collection('users').doc(uid).get();
-  // }
-
-  Future<void> _setEmployeeData(User user, String fallbackEmail,
-      String companyId, EmployeeModel employee) async {
-    await _cloudStoreClient.collection('users').doc(user.uid).set(
+  Future<void> _setEmployeeData(
+      // TODO: ganti User karena User itu Company bukan current user data
+      User user,
+      String fallbackEmail,
+      String companyId,
+      EmployeeModel employee) async {
+    await _cloudStoreClient.collection('users').doc(employee.uid).set(
           EmployeeModel(
             // uid: user.uid,
             // email: user.email ?? fallbackEmail,
@@ -146,8 +154,8 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             // role: employee.role ?? '',
             // companyId: companyId ?? '',
             // createdAt: employee.createdAt ?? '',
-            uid: user.uid,
-            email: user.email ?? fallbackEmail,
+            uid: employee.uid,
+            email: employee.email,
             username: employee.username,
             profilePicture: user.photoURL ?? '',
             workStart: '',
@@ -160,11 +168,8 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         );
   }
 
-  Future<void> _updateEmployeeData(DataMap data) async {
-    await _cloudStoreClient
-        .collection('users')
-        .doc(_authClient.currentUser?.uid)
-        .update(data);
+  Future<void> _updateEmployeeData(DataMap data, String uid) async {
+    await _cloudStoreClient.collection('users').doc(uid).update(data);
   }
 
   @override

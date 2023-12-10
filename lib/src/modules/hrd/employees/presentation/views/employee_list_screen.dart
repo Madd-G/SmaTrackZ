@@ -63,12 +63,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                       shrinkWrap: true,
                       children: employees.map((employee) {
                         return ListTile(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              DetailEmployeeScreen.routeName,
-                              arguments: employee,
-                            );
+                          onTap: () async {
+                            await Navigator.of(context)
+                                .pushNamed(DetailEmployeeScreen.routeName,
+                                    arguments: employee)
+                                .then((value) => context
+                                    .read<EmployeeBloc>()
+                                    .add(GetEmployeeEvent()));
                           },
                           contentPadding:
                               const EdgeInsets.only(left: 0.0, right: 0.0),
