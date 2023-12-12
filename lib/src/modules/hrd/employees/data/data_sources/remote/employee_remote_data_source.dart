@@ -142,7 +142,7 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
       String fallbackEmail,
       String companyId,
       EmployeeModel employee) async {
-    await _cloudStoreClient.collection('users').doc(employee.uid).set(
+    await _cloudStoreClient.collection('users').doc(user.uid).set(
           EmployeeModel(
             // uid: user.uid,
             // email: user.email ?? fallbackEmail,
@@ -154,7 +154,7 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             // role: employee.role ?? '',
             // companyId: companyId ?? '',
             // createdAt: employee.createdAt ?? '',
-            uid: employee.uid,
+            uid: user.uid,
             email: employee.email,
             username: employee.username,
             profilePicture: user.photoURL ?? '',
