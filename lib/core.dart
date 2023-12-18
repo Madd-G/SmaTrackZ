@@ -28,6 +28,9 @@ export 'package:smatrackz/src/modules/auth/data/data.dart';
 export 'package:smatrackz/src/modules/auth/domain/domain.dart';
 export 'package:smatrackz/src/modules/auth/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/presentation.dart';
+export 'package:smatrackz/src/modules/hrd/chat/data/data.dart';
+export 'package:smatrackz/src/modules/hrd/chat/domain/domain.dart';
+export 'package:smatrackz/src/modules/hrd/chat/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/employees/data/data.dart';
 export 'package:smatrackz/src/modules/hrd/employees/domain/domain.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/presentation.dart';
@@ -56,3 +59,5 @@ export 'dart:async';
 export 'dart:convert' hide Codec;
 export 'dart:io';
 export 'dart:ui' show Codec, instantiateImageCodec, FrameInfo, ImageByteFormat;
+export 'dart:math';
+

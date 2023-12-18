@@ -7,6 +7,12 @@ extension TimeExt on DateTime {
     return DateFormat("H:mm:ss").format(now);
   }
 
+  /// 01:34
+  String get clockFormatSimple {
+    final now = DateTime.now();
+    return DateFormat("H:mm").format(now);
+  }
+
   /// 09 November 2023
   String get dateFormat {
     final now = DateTime.now();

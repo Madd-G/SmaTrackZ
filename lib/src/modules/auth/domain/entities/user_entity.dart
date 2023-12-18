@@ -70,7 +70,7 @@ class UserEntity extends Equatable {
 
   @override
   String toString() {
-    return 'LocalUser{'
+    return '\n UserEntity{'
         '\n company_id: $companyId, '
         '\n company_name: $companyName, '
         '\n email: $email, '
@@ -84,6 +84,6 @@ class UserEntity extends Equatable {
         '\n work_start: $workStart, '
         '\n work_end: $workEnd'
         '\n created: $created, '
-        '\n';
+        '\n }';
   }
 }

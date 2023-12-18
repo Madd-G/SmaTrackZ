@@ -7,7 +7,7 @@ Future<void> init() async {
   await _initAuth();
   await _initCompany();
   await _initEmployee();
-  // await _initCompany();
+  await _initChat();
 }
 
 Future<void> _initFirebaseInstances() async {
@@ -38,6 +38,30 @@ Future<void> _initAuth() async {
         cloudStoreClient: sl(),
         dbClient: sl(),
       ),
+    );
+}
+
+Future<void> _initChat() async {
+  sl
+    ..registerFactory(
+      () => ChatCubit(
+        getGroups: sl(),
+        getMessages: sl(),
+        getUserById: sl(),
+        joinGroup: sl(),
+        leaveGroup: sl(),
+        sendMessage: sl(),
+      ),
+    )
+    ..registerLazySingleton(() => GetGroups(sl()))
+    ..registerLazySingleton(() => GetMessages(sl()))
+    ..registerLazySingleton(() => GetUserById(sl()))
+    ..registerLazySingleton(() => JoinGroup(sl()))
+    ..registerLazySingleton(() => LeaveGroup(sl()))
+    ..registerLazySingleton(() => SendMessage(sl()))
+    ..registerLazySingleton<ChatRepo>(() => ChatRepoImpl(sl()))
+    ..registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(firestore: sl(), auth: sl()),
     );
 }
 

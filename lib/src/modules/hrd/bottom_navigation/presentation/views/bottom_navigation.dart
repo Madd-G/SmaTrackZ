@@ -70,9 +70,20 @@ class BottomNavigation extends StatelessWidget {
                     BottomNavigationBarItem(
                       icon: Icon(
                         controller.currentIndex == 3
+                            ? IconlyBold.chat
+                            : IconlyLight.chat,
+                        color: controller.currentIndex == 3
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                      ),
+                      label: 'Chat',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        controller.currentIndex == 4
                             ? IconlyBold.profile
                             : IconlyLight.profile,
-                        color: controller.currentIndex == 3
+                        color: controller.currentIndex == 4
                             ? AppColors.primaryColor
                             : Colors.grey,
                       ),

@@ -16,7 +16,7 @@ extension ContextExt on BuildContext {
   UserEntity? get currentUser => userProvider.user;
 
   // CompanyProvider get companyProvider => read<CompanyProvider>();
-
+  //
   // CompanyEntity? get company => companyProvider.company;
 
   TabNavigator get tabNavigator => read<TabNavigator>();

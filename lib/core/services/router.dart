@@ -6,10 +6,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
-            const localUser = UserModel(
-              companyId: '',
-              email: '',
-              companyName: '',
+            final user = sl<FirebaseAuth>().currentUser!;
+            final localUser = UserModel(
+              companyId: user.uid,
+              email: user.email ?? '',
+              companyName: user.displayName ?? '',
               address: '',
             );
             context.userProvider.initUser(localUser);
@@ -122,6 +123,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         },
         settings: settings,
       );
+
     default:
       return _pageBuilder(
         (_) => const ErrorScreen(),
