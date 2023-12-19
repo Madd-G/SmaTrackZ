@@ -60,7 +60,7 @@ class UserFound extends ChatState {
 class MessagesLoaded extends ChatState {
   const MessagesLoaded(this.messages);
 
-  final List<Message> messages;
+  final List<MessageEntity> messages;
 
   @override
   List<Object> get props => [messages];

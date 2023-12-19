@@ -25,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
   final LeaveGroup _leaveGroup;
   final SendMessage _sendMessage;
 
-  Future<void> sendMessage(Message message) async {
+  Future<void> sendMessage(MessageEntity message) async {
     emit(const SendingMessage());
     final result = await _sendMessage(message);
     result.fold(
@@ -95,7 +95,7 @@ class ChatCubit extends Cubit<ChatState> {
   void getMessages(String groupId) {
     emit(const LoadingMessages());
 
-    StreamSubscription<Either<Failure, List<Message>>>? subscription;
+    StreamSubscription<Either<Failure, List<MessageEntity>>>? subscription;
 
     subscription = _getMessages(groupId).listen(
       (result) {

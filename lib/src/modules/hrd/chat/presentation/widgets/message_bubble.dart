@@ -3,7 +3,7 @@ import 'package:smatrackz/core.dart';
 class MessageBubble extends StatefulWidget {
   const MessageBubble(this.message, {super.key});
 
-  final Message message;
+  final MessageEntity message;
 
   @override
   State<MessageBubble> createState() => _MessageBubbleState();
@@ -65,7 +65,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                 children: [
                   if (!isCurrentUser)
                     Text(
-                      user == null ? '' : widget.message.senderId,
+                      user == null ? '' : widget.message.senderName,
                       style: CustomTextStyle.textSemiBold
                           .copyWith(color: generateUserColor(user == null ? '' : widget.message.senderId)),
                     ),

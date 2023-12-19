@@ -14,7 +14,7 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   bool showingDialog = false;
 
-  List<Message> messages = [];
+  List<MessageEntity> messages = [];
   bool showInputField = false;
 
   @override

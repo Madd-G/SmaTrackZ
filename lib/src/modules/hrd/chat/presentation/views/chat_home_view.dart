@@ -69,7 +69,7 @@ class _ChatHomeViewState extends State<ChatHomeView> {
               children: [
                 if (yourGroups.isNotEmpty) ...[
                   Text(
-                    'Your Group',
+                    'Your Groups',
                     style: context.theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),

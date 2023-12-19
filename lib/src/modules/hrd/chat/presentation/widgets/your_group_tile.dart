@@ -13,7 +13,7 @@ class YourGroupTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(360),
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
-          child: Image.network(group.groupImageUrl!),
+          child: Image.network(group.groupImageUrl!, fit: BoxFit.cover,),
         ),
       ),
       subtitle: group.lastMessage != null
@@ -43,6 +43,8 @@ class YourGroupTile extends StatelessWidget {
               group.lastMessageTimestamp!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
+              style: CustomTextStyle.textSmallRegular
+                  .copyWith(color: AppColors.greyColor),
             )
           : null,
       onTap: () {

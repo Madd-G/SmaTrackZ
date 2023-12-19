@@ -40,7 +40,7 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  ResultFuture<void> sendMessage(Message message) async {
+  ResultFuture<void> sendMessage(MessageEntity message) async {
     try {
       await _remoteDataSource.sendMessage(message);
       return const Right(null);
@@ -50,14 +50,14 @@ class ChatRepoImpl implements ChatRepo {
   }
 
   @override
-  ResultStream<List<Message>> getMessages(String groupId) {
+  ResultStream<List<MessageEntity>> getMessages(String groupId) {
     return _remoteDataSource.getMessages(groupId).transform(_handleStream());
   }
 
-  StreamTransformer<List<MessageModel>, Either<Failure, List<Message>>>
+  StreamTransformer<List<MessageModel>, Either<Failure, List<MessageEntity>>>
       _handleStream() {
     return StreamTransformer<List<MessageModel>,
-        Either<Failure, List<Message>>>.fromHandlers(
+        Either<Failure, List<MessageEntity>>>.fromHandlers(
       handleError: (error, stackTrace, sink) {
         if (error is ServerException) {
           sink.add(

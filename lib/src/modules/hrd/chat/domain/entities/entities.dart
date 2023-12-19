@@ -1,2 +1,2 @@
 export 'group_entity.dart';
-export 'message.dart';
+export 'message_entity.dart';
