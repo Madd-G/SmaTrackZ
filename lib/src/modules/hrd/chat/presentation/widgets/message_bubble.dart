@@ -14,7 +14,6 @@ class _MessageBubbleState extends State<MessageBubble> {
 
   @override
   Widget build(BuildContext context) {
-    int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
     var user = context.currentUser;
     bool isCurrentUser =
         widget.message.senderId == context.currentUser!.companyId;
@@ -42,7 +41,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                 ),
               ),
             Container(
-              constraints: BoxConstraints(maxWidth: context.width * 0.8, minWidth: 0),
+              constraints:
+                  BoxConstraints(maxWidth: context.width * 0.8, minWidth: 0),
               margin: EdgeInsets.only(top: 4, left: isCurrentUser ? 0 : 10),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               decoration: BoxDecoration(
@@ -66,10 +66,8 @@ class _MessageBubbleState extends State<MessageBubble> {
                   if (!isCurrentUser)
                     Text(
                       user == null ? '' : widget.message.senderId,
-                      style: CustomTextStyle.textSemiBold.copyWith(
-                          color: Color(
-                        randomColor,
-                      ).withOpacity(1.0)),
+                      style: CustomTextStyle.textSemiBold
+                          .copyWith(color: generateUserColor(user == null ? '' : widget.message.senderId)),
                     ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -102,6 +100,16 @@ class _MessageBubbleState extends State<MessageBubble> {
           ],
         ),
       ),
+    );
+  }
+
+  Color generateUserColor(String userId) {
+    final random = Random(userId.hashCode);
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 }
