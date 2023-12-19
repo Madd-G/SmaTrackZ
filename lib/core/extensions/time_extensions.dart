@@ -8,9 +8,8 @@ extension TimeExt on DateTime {
   }
 
   /// 01:34
-  String get clockFormatSimple {
-    final now = DateTime.now();
-    return DateFormat("H:mm").format(now);
+  String extractHourMinute() {
+    return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
   }
 
   /// 09 November 2023

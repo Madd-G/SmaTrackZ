@@ -16,7 +16,8 @@ class _MessageBubbleState extends State<MessageBubble> {
   Widget build(BuildContext context) {
     int randomColor = (Random().nextDouble() * 0xFFFFFF).toInt();
     var user = context.currentUser;
-    bool isCurrentUser = widget.message.senderId == context.currentUser!.companyId;
+    bool isCurrentUser =
+        widget.message.senderId == context.currentUser!.companyId;
     return BlocListener<ChatCubit, ChatState>(
       listener: (_, state) {
         if (state is UserFound && user == null) {
@@ -63,7 +64,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                 children: [
                   if (!isCurrentUser)
                     Text(
-                      user == null ? '' : user.companyName,
+                      user == null ? '' : widget.message.senderId,
                       style: CustomTextStyle.textSemiBold.copyWith(
                           color: Color(
                         randomColor,
@@ -71,21 +72,24 @@ class _MessageBubbleState extends State<MessageBubble> {
                     ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: isCurrentUser
-                        ? MainAxisAlignment.end
-                        : MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         widget.message.message,
+                        textAlign: TextAlign.start,
                         style: CustomTextStyle.textMediumRegular.copyWith(
                           color: Colors.black,
                         ),
                       ),
                       const SizedBox(width: 10.0),
                       Text(
-                        widget.message.timestamp.clockFormatSimple,
-                        style: CustomTextStyle.textSmallRegular
-                            .copyWith(color: Colors.black, fontSize: 10.0),
+                        widget.message.timestamp.extractHourMinute(),
+                        maxLines: 10,
+                        textAlign: TextAlign.end,
+                        style: CustomTextStyle.textSmallRegular.copyWith(
+                          color: Colors.black,
+                          fontSize: 10.0,
+                        ),
                       )
                     ],
                   ),

@@ -62,7 +62,6 @@ class _ChatViewState extends State<ChatView> {
                     reverse: true,
                     itemBuilder: (_, index) {
                       final message = messages[index];
-
                       return BlocProvider(
                         create: (_) => sl<ChatCubit>(),
                         child: MessageBubble(
