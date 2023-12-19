@@ -42,6 +42,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                 ),
               ),
             Container(
+              constraints: BoxConstraints(maxWidth: context.width * 0.8, minWidth: 0),
               margin: EdgeInsets.only(top: 4, left: isCurrentUser ? 0 : 10),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               decoration: BoxDecoration(
@@ -74,17 +75,19 @@ class _MessageBubbleState extends State<MessageBubble> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.message.message,
-                        textAlign: TextAlign.start,
-                        style: CustomTextStyle.textMediumRegular.copyWith(
-                          color: Colors.black,
+                      Expanded(
+                        child: Text(
+                          widget.message.message,
+                          maxLines: 20,
+                          textAlign: TextAlign.start,
+                          style: CustomTextStyle.textMediumRegular.copyWith(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10.0),
                       Text(
                         widget.message.timestamp.extractHourMinute(),
-                        maxLines: 10,
                         textAlign: TextAlign.end,
                         style: CustomTextStyle.textSmallRegular.copyWith(
                           color: Colors.black,
