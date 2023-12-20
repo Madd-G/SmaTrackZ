@@ -9,12 +9,9 @@ class YourGroupTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(group.name),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(360),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          child: Image.network(group.groupImageUrl!, fit: BoxFit.cover,),
-        ),
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(group.groupImageUrl!),
+        backgroundColor: Colors.transparent,
       ),
       subtitle: group.lastMessage != null
           ? RichText(
