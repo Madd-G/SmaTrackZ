@@ -34,9 +34,9 @@ class TeamsScreen extends StatelessWidget {
                       ),
                       TeamCard(
                         onTap: () {},
-                        icon: Icons.question_mark,
-                        title: 'Requests',
-                        color: AppColors.redColor,
+                        icon: Icons.groups_outlined,
+                        title: 'Groups',
+                        color: AppColors.greenColor,
                       ),
                     ],
                   ),
