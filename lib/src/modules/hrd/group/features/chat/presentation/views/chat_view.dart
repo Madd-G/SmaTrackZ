@@ -30,17 +30,13 @@ class _ChatViewState extends State<ChatView> {
       appBar: ChatAppBar(group: widget.group),
       body: BlocConsumer<ChatCubit, ChatState>(
         listener: (_, state) {
+          print('chatState: $state');
           if (showingDialog) {
             Navigator.of(context).pop();
             showingDialog = false;
           }
           if (state is ChatError) {
             CoreUtils.showSnackBar(context, state.message);
-          } else if (state is LeavingGroup) {
-            showingDialog = true;
-            CoreUtils.showLoadingDialog(context);
-          } else if (state is LeftGroup) {
-            context.pop();
           } else if (state is MessagesLoaded) {
             setState(() {
               messages = state.messages;

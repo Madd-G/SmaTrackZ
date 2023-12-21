@@ -11,10 +11,6 @@ class ChatInitial extends ChatState {
   const ChatInitial();
 }
 
-class LoadingGroups extends ChatState {
-  const LoadingGroups();
-}
-
 class LoadingMessages extends ChatState {
   const LoadingMessages();
 }
@@ -23,29 +19,12 @@ class SendingMessage extends ChatState {
   const SendingMessage();
 }
 
-class JoiningGroup extends ChatState {
-  const JoiningGroup();
-}
-
-class LeavingGroup extends ChatState {
-  const LeavingGroup();
-}
-
 class GettingUser extends ChatState {
   const GettingUser();
 }
 
 class MessageSent extends ChatState {
   const MessageSent();
-}
-
-class GroupLoaded extends ChatState {
-  const GroupLoaded(this.groups);
-
-  final List<GroupEntity> groups;
-
-  @override
-  List<Object> get props => [groups];
 }
 
 class UserFound extends ChatState {
@@ -64,14 +43,6 @@ class MessagesLoaded extends ChatState {
 
   @override
   List<Object> get props => [messages];
-}
-
-class LeftGroup extends ChatState {
-  const LeftGroup();
-}
-
-class JoinedGroup extends ChatState {
-  const JoinedGroup();
 }
 
 class ChatError extends ChatState {

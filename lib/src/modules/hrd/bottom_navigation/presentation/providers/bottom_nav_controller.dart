@@ -25,8 +25,15 @@ class BottomNavController extends ChangeNotifier {
     ChangeNotifierProvider(
       create: (_) => TabNavigator(
         TabItem(
-          child: BlocProvider(
-            create: (_) => sl<ChatCubit>(),
+          // child: BlocProvider(
+          //   create: (_) => sl<GroupCubit>(),
+          //   child: const ChatHomeView(),
+          // ),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<GroupCubit>()),
+              BlocProvider(create: (_) => sl<ChatCubit>()),
+            ],
             child: const ChatHomeView(),
           ),
         ),

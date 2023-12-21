@@ -3,7 +3,7 @@ import 'package:smatrackz/core.dart';
 class JoinGroup extends FutureUseCaseWithParams<void, JoinGroupParams> {
   const JoinGroup(this._repo);
 
-  final ChatRepo _repo;
+  final GroupRepo _repo;
 
   @override
   ResultFuture<void> call(JoinGroupParams params) => _repo.joinGroup(

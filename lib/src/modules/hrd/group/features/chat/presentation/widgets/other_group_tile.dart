@@ -22,7 +22,7 @@ class OtherGroupTile extends StatelessWidget {
           foregroundColor: AppColors.whiteColor,
         ),
         onPressed: () {
-          context.read<ChatCubit>().joinGroup(
+          context.read<GroupCubit>().joinGroup(
                 groupId: group.id,
                 userId: context.currentUser!.companyName,
               );

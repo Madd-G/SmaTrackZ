@@ -8,7 +8,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: const NestedBackButton(),
+      // leading: const NestedBackButton(),
       titleSpacing: 0,
       title: Row(
         children: [
@@ -54,7 +54,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               onTap: () async {
-                final chatCubit = context.read<ChatCubit>();
+                final groupCubit = context.read<GroupCubit>();
                 final result = await showDialog<bool>(
                   context: context,
                   builder: (context) {
@@ -81,7 +81,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   },
                 );
                 if (result ?? false) {
-                  await chatCubit.leaveGroup(
+                  await groupCubit.leaveGroup(
                     groupId: group.id,
                     userId: sl<FirebaseAuth>().currentUser!.uid,
                   );

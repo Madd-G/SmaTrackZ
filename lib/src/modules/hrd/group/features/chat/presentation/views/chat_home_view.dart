@@ -18,7 +18,7 @@ class _ChatHomeViewState extends State<ChatHomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<ChatCubit>().getGroups();
+    context.read<GroupCubit>().getGroups();
   }
 
   @override
@@ -31,13 +31,14 @@ class _ChatHomeViewState extends State<ChatHomeView> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: BlocConsumer<ChatCubit, ChatState>(
+      body: BlocConsumer<GroupCubit, GroupState>(
         listener: (_, state) {
+          print('groupState: $state');
           if (showingDialog) {
             Navigator.of(context).pop();
             showingDialog = false;
           }
-          if (state is ChatError) {
+          if (state is GroupError) {
             CoreUtils.showSnackBar(context, state.message);
           } else if (state is JoiningGroup) {
             showingDialog = true;

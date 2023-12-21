@@ -7,6 +7,7 @@ Future<void> init() async {
   await _initAuth();
   await _initCompany();
   await _initEmployee();
+  await _initGroup();
   await _initChat();
 }
 
@@ -41,23 +42,36 @@ Future<void> _initAuth() async {
     );
 }
 
+Future<void> _initGroup() async {
+  sl
+    ..registerFactory(
+      () => GroupCubit(
+        getGroups: sl(),
+        getUserById: sl(),
+        joinGroup: sl(),
+        leaveGroup: sl(),
+      ),
+    )
+    ..registerLazySingleton(() => GetGroups(sl()))
+    ..registerLazySingleton(() => GetUserById(sl()))
+    ..registerLazySingleton(() => JoinGroup(sl()))
+    ..registerLazySingleton(() => LeaveGroup(sl()))
+    ..registerLazySingleton<GroupRepo>(() => GroupRepoImpl(sl()))
+    ..registerLazySingleton<GroupRemoteDataSource>(
+      () => GroupRemoteDataSourceImpl(firestore: sl(), auth: sl()),
+    );
+}
+
 Future<void> _initChat() async {
   sl
     ..registerFactory(
       () => ChatCubit(
-        getGroups: sl(),
         getMessages: sl(),
         getUserById: sl(),
-        joinGroup: sl(),
-        leaveGroup: sl(),
         sendMessage: sl(),
       ),
     )
-    ..registerLazySingleton(() => GetGroups(sl()))
     ..registerLazySingleton(() => GetMessages(sl()))
-    ..registerLazySingleton(() => GetUserById(sl()))
-    ..registerLazySingleton(() => JoinGroup(sl()))
-    ..registerLazySingleton(() => LeaveGroup(sl()))
     ..registerLazySingleton(() => SendMessage(sl()))
     ..registerLazySingleton<ChatRepo>(() => ChatRepoImpl(sl()))
     ..registerLazySingleton<ChatRemoteDataSource>(
@@ -86,14 +100,6 @@ Future<void> _initCompany() async {
       ),
     );
 }
-
-// Future<void> _initCompany() async {
-//   sl
-//     ..registerLazySingleton<CompanyRemoteDataSource>(
-//         () => CompanyRemoteDataSource())
-//     ..registerLazySingleton<CompanyRepository>(
-//         () => CompanyRepositoryImpl(sl<CompanyRemoteDataSource>()));
-// }
 
 Future<void> _initEmployee() async {
   sl

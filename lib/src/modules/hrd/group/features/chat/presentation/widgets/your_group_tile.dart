@@ -45,12 +45,20 @@ class YourGroupTile extends StatelessWidget {
             )
           : null,
       onTap: () {
-        context.push(
-          BlocProvider(
-            create: (_) => sl<ChatCubit>(),
-            child: ChatView(group: group),
-          ),
-        );
+        // context.push(
+        //   BlocProvider(
+        //     create: (_) => sl<ChatCubit>(),
+        //     child: ChatView(group: group),
+        //   ),
+        // );
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (_) => sl<ChatCubit>(),
+                child: ChatView(group: group),
+              ),
+            ));
       },
     );
   }
