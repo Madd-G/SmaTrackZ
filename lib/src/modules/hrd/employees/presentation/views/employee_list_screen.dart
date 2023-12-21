@@ -28,7 +28,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       // extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
-          'List Employee',
+          'Employees',
           style: CustomTextStyle.headingSemiBold,
         ),
       ),

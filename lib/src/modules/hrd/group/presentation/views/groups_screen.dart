@@ -1,15 +1,15 @@
 import 'package:smatrackz/core.dart';
 
-class ChatHomeView extends StatefulWidget {
-  const ChatHomeView({super.key});
+class GroupsScreen extends StatefulWidget {
+  const GroupsScreen({super.key});
 
-  static const routeName = '/chat-home';
+  static const routeName = '/groups-screen';
 
   @override
-  State<ChatHomeView> createState() => _ChatHomeViewState();
+  State<GroupsScreen> createState() => _GroupsScreenState();
 }
 
-class _ChatHomeViewState extends State<ChatHomeView> {
+class _GroupsScreenState extends State<GroupsScreen> {
   List<GroupEntity> yourGroups = [];
   List<GroupEntity> otherGroups = [];
 
@@ -27,8 +27,8 @@ class _ChatHomeViewState extends State<ChatHomeView> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: const Text(
-          'Chat',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          'Groups',
+          style: CustomTextStyle.headingSemiBold,
         ),
       ),
       body: BlocConsumer<GroupCubit, GroupState>(
@@ -68,14 +68,7 @@ class _ChatHomeViewState extends State<ChatHomeView> {
               padding: const EdgeInsets.all(20),
               children: [
                 if (yourGroups.isNotEmpty) ...[
-                  Text(
-                    'Your Groups',
-                    style: context.theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Divider(color: Colors.grey.shade300),
-                  ...yourGroups.map(YourGroupTile.new),
+                  ...yourGroups.map(GroupTile.new),
                 ],
               ],
             );

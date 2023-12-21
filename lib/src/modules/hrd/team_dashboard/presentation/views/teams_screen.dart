@@ -33,7 +33,9 @@ class TeamsScreen extends StatelessWidget {
                         color: AppColors.primaryColor,
                       ),
                       TeamCard(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, GroupsScreen.routeName);
+                        },
                         icon: Icons.groups_outlined,
                         title: 'Groups',
                         color: AppColors.greenColor,

@@ -30,7 +30,6 @@ class _ChatViewState extends State<ChatView> {
       appBar: ChatAppBar(group: widget.group),
       body: BlocConsumer<ChatCubit, ChatState>(
         listener: (_, state) {
-          print('chatState: $state');
           if (showingDialog) {
             Navigator.of(context).pop();
             showingDialog = false;

@@ -27,6 +27,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
+    case GroupsScreen.routeName:
+      return _pageBuilder(
+        (context) {
+          return BlocProvider(
+            create: (_) => sl<GroupCubit>(),
+            child: const GroupsScreen(),
+          );
+        },
+        settings: settings,
+      );
+
     case EmployeeListScreen.routeName:
       return _pageBuilder(
         (context) {
