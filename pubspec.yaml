@@ -31,12 +31,12 @@ dependencies:
   geolocator: ^10.1.0
   permission_handler: ^11.0.1
   dio: ^5.3.3
-#  flutter_map: ^6.0.1
   latlong2: ^0.9.0
   google_maps_flutter: ^2.5.0
   flutter_google_places_hoc081098: ^2.0.0-beta.1
   google_api_headers: ^2.0.3
-#  firebase_app_check: ^0.2.1+4
+  image_picker: ^1.0.2
+
 
 dev_dependencies:
   flutter_test:

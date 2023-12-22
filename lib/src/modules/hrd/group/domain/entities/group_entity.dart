@@ -10,6 +10,7 @@ class GroupEntity extends Equatable {
     this.groupImageUrl,
     this.lastMessageTimestamp,
     this.lastMessageSenderName,
+    this.imageIsFile = false,
   });
 
   const GroupEntity.empty()
@@ -32,6 +33,7 @@ class GroupEntity extends Equatable {
   final String? groupImageUrl;
   final DateTime? lastMessageTimestamp;
   final String? lastMessageSenderName;
+  final bool imageIsFile;
 
   @override
   List<Object?> get props => [id, name, companyId];

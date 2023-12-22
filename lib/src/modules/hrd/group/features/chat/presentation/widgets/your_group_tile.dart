@@ -13,7 +13,7 @@ class YourGroupTile extends StatelessWidget {
         backgroundImage: NetworkImage(group.groupImageUrl!),
         backgroundColor: Colors.transparent,
       ),
-      subtitle: group.lastMessage != null
+      subtitle: group.lastMessage != ''
           ? RichText(
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -35,7 +35,7 @@ class YourGroupTile extends StatelessWidget {
               ),
             )
           : null,
-      trailing: group.lastMessage != null
+      trailing: group.lastMessage != ''
           ? TimeText(
               group.lastMessageTimestamp!,
               maxLines: 1,
@@ -52,13 +52,14 @@ class YourGroupTile extends StatelessWidget {
         //   ),
         // );
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (_) => sl<ChatCubit>(),
-                child: ChatView(group: group),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider(
+              create: (_) => sl<ChatCubit>(),
+              child: ChatView(group: group),
+            ),
+          ),
+        );
       },
     );
   }

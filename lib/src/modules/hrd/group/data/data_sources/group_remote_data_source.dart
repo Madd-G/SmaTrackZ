@@ -11,16 +11,21 @@ abstract class GroupRemoteDataSource {
   Future<void> leaveGroup({required String groupId, required String userId});
 
   Future<UserModel> getUserById(String userId);
+
+  Future<void> addGroup(GroupEntity group);
 }
 
 class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
   const GroupRemoteDataSourceImpl({
     required FirebaseFirestore firestore,
+    required FirebaseStorage storage,
     required FirebaseAuth auth,
   })  : _firestore = firestore,
+        _storage = storage,
         _auth = auth;
 
   final FirebaseFirestore _firestore;
+  final FirebaseStorage _storage;
   final FirebaseAuth _auth;
 
   @override
@@ -61,6 +66,51 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
           statusCode: '500',
         ),
       );
+    }
+  }
+
+  @override
+  Future<void> addGroup(GroupEntity group) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) {
+        throw const ServerException(
+          message: 'User is not authenticated',
+          statusCode: '401',
+        );
+      }
+      final companyRef = _firestore.collection('company').doc();
+      final groupRef = _firestore.collection('group').doc();
+
+      var groupModel = (group as GroupModel).copyWith(
+        id: groupRef.id,
+        companyId: companyRef.id,
+      );
+
+      if (groupModel.imageIsFile) {
+        final imageRef = _storage.ref().child(
+              'company/${groupModel.id}/profile_image'
+              '/${groupModel.name}-pfp',
+            );
+
+        await imageRef
+            .putFile(File(groupModel.groupImageUrl!))
+            .then((value) async {
+          final url = await value.ref.getDownloadURL();
+          groupModel = groupModel.copyWith(groupImageUrl: url);
+        });
+      }
+
+      await groupRef.set(groupModel.toMap());
+    } on FirebaseException catch (e) {
+      throw ServerException(
+        message: e.message ?? 'Unknown error occurred',
+        statusCode: e.code,
+      );
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      throw ServerException(message: e.toString(), statusCode: '505');
     }
   }
 

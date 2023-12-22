@@ -23,6 +23,7 @@ export 'package:google_maps_flutter/google_maps_flutter.dart';
 export 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
 export 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 export 'package:google_api_headers/google_api_headers.dart';
+export 'package:image_picker/image_picker.dart';
 
 export 'package:smatrackz/src/modules/auth/data/data.dart';
 export 'package:smatrackz/src/modules/auth/domain/domain.dart';

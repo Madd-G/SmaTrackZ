@@ -50,15 +50,18 @@ Future<void> _initGroup() async {
         getUserById: sl(),
         joinGroup: sl(),
         leaveGroup: sl(),
+        addGroup: sl(),
       ),
     )
     ..registerLazySingleton(() => GetGroups(sl()))
     ..registerLazySingleton(() => GetUserById(sl()))
     ..registerLazySingleton(() => JoinGroup(sl()))
     ..registerLazySingleton(() => LeaveGroup(sl()))
+    ..registerLazySingleton(() => AddGroup(sl()))
     ..registerLazySingleton<GroupRepo>(() => GroupRepoImpl(sl()))
     ..registerLazySingleton<GroupRemoteDataSource>(
-      () => GroupRemoteDataSourceImpl(firestore: sl(), auth: sl()),
+      () =>
+          GroupRemoteDataSourceImpl(firestore: sl(), auth: sl(), storage: sl()),
     );
 }
 

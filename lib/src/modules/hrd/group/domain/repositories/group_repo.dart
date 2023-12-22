@@ -17,4 +17,5 @@ abstract class GroupRepo {
 
   ResultFuture<UserEntity> getUserById(String userId);
 
+  ResultFuture<void> addGroup(GroupEntity group);
 }

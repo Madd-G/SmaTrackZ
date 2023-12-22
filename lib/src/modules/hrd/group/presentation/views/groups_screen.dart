@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/group/presentation/widgets/add_group_sheet.dart';
 
 class GroupsScreen extends StatefulWidget {
   const GroupsScreen({super.key});
@@ -30,6 +31,27 @@ class _GroupsScreenState extends State<GroupsScreen> {
           'Groups',
           style: CustomTextStyle.headingSemiBold,
         ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       showModalBottomSheet<void>(
+        //         context: context,
+        //         backgroundColor: Colors.white,
+        //         isScrollControlled: true,
+        //         showDragHandle: true,
+        //         elevation: 0,
+        //         useSafeArea: true,
+        //         builder: (_) => MultiBlocProvider(
+        //           providers: [
+        //             BlocProvider(create: (_) => sl<GroupCubit>()),
+        //           ],
+        //           child: const AddGroupSheet(),
+        //         ),
+        //       );
+        //     },
+        //     icon: const Icon(Icons.add),
+        //   )
+        // ],
       ),
       body: BlocConsumer<GroupCubit, GroupState>(
         listener: (_, state) {
@@ -74,6 +96,26 @@ class _GroupsScreenState extends State<GroupsScreen> {
             );
           }
           return const SizedBox.shrink();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primaryColor,
+        child: const Icon(Icons.add),
+        onPressed: () async {
+          showModalBottomSheet<void>(
+            context: context,
+            backgroundColor: Colors.white,
+            isScrollControlled: true,
+            showDragHandle: true,
+            elevation: 0,
+            useSafeArea: true,
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<GroupCubit>()),
+              ],
+              child: const AddGroupSheet(),
+            ),
+          );
         },
       ),
     );

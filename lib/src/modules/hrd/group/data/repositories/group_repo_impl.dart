@@ -40,6 +40,16 @@ class GroupRepoImpl implements GroupRepo {
   }
 
   @override
+  ResultFuture<void> addGroup(GroupEntity group) async {
+    try {
+      await _remoteDataSource.addGroup(group);
+      return const Right(null);
+    } on ServerException catch(e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
   ResultFuture<void> joinGroup({
     required String groupId,
     required String userId,

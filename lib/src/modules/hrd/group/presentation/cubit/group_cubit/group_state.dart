@@ -20,6 +20,14 @@ class JoiningGroup extends GroupState {
   const JoiningGroup();
 }
 
+class AddingGroup extends GroupState {
+  const AddingGroup();
+}
+
+class GroupAdded extends GroupState {
+  const GroupAdded();
+}
+
 class LeavingGroup extends GroupState {
   const LeavingGroup();
 }

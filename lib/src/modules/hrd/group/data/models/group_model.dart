@@ -10,6 +10,7 @@ class GroupModel extends GroupEntity {
     super.lastMessageSenderName,
     super.lastMessageTimestamp,
     super.groupImageUrl,
+    super.imageIsFile = false,
   });
 
   GroupModel.empty()
@@ -22,7 +23,6 @@ class GroupModel extends GroupEntity {
           groupImageUrl: '',
           lastMessageSenderName: '',
           lastMessageTimestamp: DateTime.now(),
-          // lastMessageTimestamp: DateTime.now().toString(),
         );
 
   GroupModel.fromMap(Map<String, dynamic> map)
@@ -31,15 +31,10 @@ class GroupModel extends GroupEntity {
           name: map['name'] as String,
           companyId: map['company_id'] as String,
           members: List<String>.from(map['members'] as List<dynamic>),
-          // OR
-          // members: (map['members'] as List<dynamic>).cast<String>(),
-          // OR
-          // members: (map['members'] as List<dynamic>).map((e) => e as String)
-          // .toList(),
           lastMessage: map['last_message'] as String?,
           lastMessageSenderName: map['last_message_sender_name'] as String?,
-          lastMessageTimestamp: (map['last_message_timestamp'] as Timestamp?)?.toDate(),
-              // (map['last_message_timestamp'] as String?),
+          lastMessageTimestamp:
+              (map['last_message_timestamp'] as Timestamp?)?.toDate(),
           groupImageUrl: map['group_image_url'] as String?,
         );
 
@@ -49,10 +44,10 @@ class GroupModel extends GroupEntity {
     String? companyId,
     List<String>? members,
     DateTime? lastMessageTimestamp,
-    // String? lastMessageTimestamp,
     String? lastMessageSenderName,
     String? lastMessage,
     String? groupImageUrl,
+    bool? imageIsFile,
   }) {
     return GroupModel(
       id: id ?? this.id,
@@ -60,9 +55,11 @@ class GroupModel extends GroupEntity {
       companyId: companyId ?? this.companyId,
       members: members ?? this.members,
       lastMessage: lastMessage ?? this.lastMessage,
-      lastMessageSenderName: lastMessageSenderName ?? this.lastMessageSenderName,
+      lastMessageSenderName:
+          lastMessageSenderName ?? this.lastMessageSenderName,
       lastMessageTimestamp: lastMessageTimestamp ?? this.lastMessageTimestamp,
       groupImageUrl: groupImageUrl ?? this.groupImageUrl,
+      imageIsFile: imageIsFile ?? this.imageIsFile,
     );
   }
 

@@ -8,16 +8,19 @@ class GroupCubit extends Cubit<GroupState> {
     required GetUserById getUserById,
     required JoinGroup joinGroup,
     required LeaveGroup leaveGroup,
+    required AddGroup addGroup,
   })  : _getGroups = getGroups,
         _getUserById = getUserById,
         _joinGroup = joinGroup,
         _leaveGroup = leaveGroup,
+        _addGroup = addGroup,
         super(const GroupInitial());
 
   final GetGroups _getGroups;
   final GetUserById _getUserById;
   final JoinGroup _joinGroup;
   final LeaveGroup _leaveGroup;
+  final AddGroup _addGroup;
 
   Future<void> joinGroup({
     required String groupId,
@@ -30,6 +33,15 @@ class GroupCubit extends Cubit<GroupState> {
     result.fold(
       (failure) => emit(GroupError(failure.errorMessage)),
       (_) => emit(const JoinedGroup()),
+    );
+  }
+
+  Future<void> addGroup(GroupEntity group) async {
+    emit(const AddingGroup());
+    final result = await _addGroup(group);
+    result.fold(
+      (failure) => emit(GroupError(failure.errorMessage)),
+      (_) => emit(const GroupAdded()),
     );
   }
 

@@ -53,7 +53,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     final result = await _getEmployee();
     result.fold(
       (failure) => emit(EmployeeErrorState(failure.errorMessage)),
-      (courses) => emit(EmployeeLoadedState(courses)),
+      (employee) => emit(EmployeeLoadedState(employee)),
     );
   }
 
