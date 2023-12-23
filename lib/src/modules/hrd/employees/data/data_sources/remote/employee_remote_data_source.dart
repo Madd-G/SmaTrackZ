@@ -164,6 +164,7 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             role: employee.role ?? '',
             companyId: companyId,
             createdAt: employee.createdAt ?? '',
+            groups: employee.groups ?? [],
           ).toMap(),
         );
   }

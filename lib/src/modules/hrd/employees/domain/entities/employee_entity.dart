@@ -11,6 +11,7 @@ class EmployeeEntity extends Equatable {
   final String? companyId;
   final String? role;
   final String? createdAt;
+  final List<String>? groups;
 
   const EmployeeEntity({
     required this.uid,
@@ -23,6 +24,7 @@ class EmployeeEntity extends Equatable {
     this.companyId,
     this.role,
     this.createdAt,
+    this.groups,
   });
 
   const EmployeeEntity.empty()
@@ -37,6 +39,7 @@ class EmployeeEntity extends Equatable {
           companyId: '',
           role: '',
           createdAt: '',
+          groups: const [],
         );
 
   bool get isAdmin => email == 'admin@gmail.com';
@@ -53,6 +56,7 @@ class EmployeeEntity extends Equatable {
         companyId,
         role,
         createdAt,
+        groups,
       ];
 
   @override
@@ -67,6 +71,7 @@ class EmployeeEntity extends Equatable {
         'companyId: $companyId, '
         'role: $role, '
         'created_at: $createdAt, '
+        'groups: $groups, '
         '}';
   }
 }

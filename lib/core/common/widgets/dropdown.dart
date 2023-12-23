@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class QDropdownField extends StatefulWidget {
+class Dropdown extends StatefulWidget {
   final String label;
   final String? hint;
   final List<Map<String, dynamic>> items;
@@ -9,7 +9,7 @@ class QDropdownField extends StatefulWidget {
   final bool emptyMode;
   final Function(dynamic value, String? label) onChanged;
 
-  const QDropdownField({
+  const Dropdown({
     Key? key,
     required this.label,
     required this.items,
@@ -21,10 +21,10 @@ class QDropdownField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<QDropdownField> createState() => _QDropdownFieldState();
+  State<Dropdown> createState() => _DropdownState();
 }
 
-class _QDropdownFieldState extends State<QDropdownField> {
+class _DropdownState extends State<Dropdown> {
   List<Map<String, dynamic>> items = [];
   Map<String, dynamic>? selectedValue;
 

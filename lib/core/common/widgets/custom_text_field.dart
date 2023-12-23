@@ -49,33 +49,28 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       decoration: InputDecoration(
-        border: inputBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-        enabledBorder: inputBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(color: Colors.grey),
-            ),
-        focusedBorder: inputBorder ??
-            OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(
-                color: Theme.of(context).primaryColor,
+          border: inputBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
               ),
-            ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        filled: filled,
-        fillColor: fillColour,
-        suffixIcon: suffixIcon,
-        hintText: hintText,
-        hintStyle: hintStyle ??
-            const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-      ),
+          enabledBorder: inputBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: Colors.grey),
+              ),
+          focusedBorder: inputBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+          filled: filled,
+          fillColor: fillColour,
+          suffixIcon: suffixIcon,
+          hintText: hintText,
+          hintStyle: hintStyle ?? CustomTextStyle.textLargeBold),
     );
   }
 }

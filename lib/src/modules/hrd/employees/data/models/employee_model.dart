@@ -12,14 +12,10 @@ class EmployeeModel extends EmployeeEntity {
     super.companyId,
     super.role,
     super.createdAt,
+    super.groups,
   });
 
-  const EmployeeModel.empty()
-      : this(
-          uid: '',
-          email: '',
-          username: '',
-        );
+  const EmployeeModel.empty() : this(uid: '', email: '', username: '');
 
   EmployeeModel.fromMap(DataMap map)
       : super(
@@ -33,6 +29,7 @@ class EmployeeModel extends EmployeeEntity {
           companyId: map['company_id'] as String?,
           role: map['role'] as String?,
           createdAt: map['created_at'] as String?,
+          groups: List<String>.from(map['groups'] as List<dynamic>),
         );
 
   EmployeeModel copyWith({
@@ -46,6 +43,7 @@ class EmployeeModel extends EmployeeEntity {
     String? companyId,
     String? role,
     String? createdAt,
+    List<String>? groups,
   }) {
     return EmployeeModel(
       uid: uid ?? this.uid,
@@ -58,6 +56,7 @@ class EmployeeModel extends EmployeeEntity {
       companyId: companyId ?? this.companyId,
       role: role ?? this.role,
       createdAt: createdAt ?? this.createdAt,
+      groups: groups ?? this.groups,
     );
   }
 
@@ -73,6 +72,7 @@ class EmployeeModel extends EmployeeEntity {
       'company_id': companyId,
       'role': role,
       'created_at': createdAt,
+      'groups': groups,
     };
   }
 }

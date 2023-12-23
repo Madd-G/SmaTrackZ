@@ -49,7 +49,7 @@ class _DetailEmployeeScreenState extends State<DetailEmployeeScreen> {
       listener: (context, state) {
         if (state is EmployeeUpdatedState) {
           CoreUtils.showSnackBar(context, 'Employee data updated Successfully');
-          // Navigator.pop(context);
+          Navigator.pop(context);
         } else if (state is EmployeeErrorState) {
           debugPrint("error: ${state.toString()}");
           CoreUtils.showSnackBar(context, state.message);
@@ -150,21 +150,42 @@ class _DetailEmployeeScreenState extends State<DetailEmployeeScreen> {
                       ),
                       CustomTextField(
                         controller: usernameController,
-                        hintText: widget.employee.username,
+                        // hintText: widget.employee.username,
                         inputBorder: InputBorder.none,
                       ),
                       CustomTextField(
                         controller: emailController,
-                        hintText: widget.employee.email,
+                        // hintText: widget.employee.email,
                         inputBorder: InputBorder.none,
                       ),
                       CustomTextField(
                         controller: roleController,
-                        hintText: widget.employee.role,
+                        // hintText: widget.employee.role,
                         inputBorder: InputBorder.none,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          runSpacing: 10.0,
+                          spacing: 10.0,
+                          children: [
+                            ...widget.employee.groups!.map(
+                              (e) => Container(
+                                decoration: const BoxDecoration(
+                                    color: AppColors.primaryColor,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(e),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                       CustomTextField(
-                        // controller: roleController,
                         hintText: widget.employee.createdAt,
                         inputBorder: InputBorder.none,
                         readOnly: true,

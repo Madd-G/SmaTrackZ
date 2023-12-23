@@ -1,6 +1,16 @@
 import 'package:smatrackz/core.dart';
 
 class GroupEntity extends Equatable {
+  final String id;
+  final String name;
+  final String companyId;
+  final List<String> members;
+  final String? lastMessage;
+  final String? groupImageUrl;
+  final DateTime? lastMessageTimestamp;
+  final String? lastMessageSenderName;
+  final bool imageIsFile;
+
   const GroupEntity({
     required this.id,
     required this.name,
@@ -24,16 +34,6 @@ class GroupEntity extends Equatable {
           lastMessageTimestamp: null,
           lastMessageSenderName: null,
         );
-
-  final String id;
-  final String name;
-  final String companyId;
-  final List<String> members;
-  final String? lastMessage;
-  final String? groupImageUrl;
-  final DateTime? lastMessageTimestamp;
-  final String? lastMessageSenderName;
-  final bool imageIsFile;
 
   @override
   List<Object?> get props => [id, name, companyId];
