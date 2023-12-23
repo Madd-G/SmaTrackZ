@@ -47,15 +47,17 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                 builder: (context, state) {
                   if (state is EmployeeLoadingState) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if ((state is EmployeeLoadedState &&
-                          state.employees.isEmpty) ||
-                      state is EmployeeErrorState) {
-                    return const NotFoundText('No employee found ');
                   } else if (state is EmployeeLoadedState) {
                     final employees = state.employees
-                      ..sort(
-                        (a, b) => b.createdAt!.compareTo(a.createdAt!),
-                      );
+                        .where((element) =>
+                            element.companyId == context.currentUser!.companyId)
+                        .toList()
+                      ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+
+                    if (employees.isEmpty) {
+                      return const NotFoundText('No employee found ');
+                    }
+
                     return ListView(
                       reverse: true,
                       physics: const NeverScrollableScrollPhysics(),
