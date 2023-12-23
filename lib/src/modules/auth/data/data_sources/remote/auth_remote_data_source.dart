@@ -118,7 +118,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       await userCred.user?.updateDisplayName(companyName);
       await userCred.user?.updatePhotoURL(kDefaultAvatar);
-      // await _setUserData(_authClient.currentUser!, email, companyId);
+      await _setUserData(_authClient.currentUser!, email, companyId);
     } on FirebaseAuthException catch (e) {
       throw ServerException(
         message: e.message ?? 'Error Occurred',
@@ -207,28 +207,26 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   /// get data start from here
-  // Future<void> _setUserData(User user, String fallbackEmail,
-  //     [String? companyId]) async {
-  //   print('user.uid: ${user.uid}');
-  //   await _cloudStoreClient.collection('company').doc(user.uid).set(
-  //         // TODO: add role
-  //         UserModel(
-  //           companyId: user.uid,
-  //           companyName: user.displayName ?? '',
-  //           email: user.email ?? fallbackEmail,
-  //           address: '',
-  //           website: '',
-  //           phoneNumber: '',
-  //           profilePicture: user.photoURL ?? '',
-  //           bio: '',
-  //           latitude: 0,
-  //           longitude: 0,
-  //           workStart: '',
-  //           workEnd: '',
-  //           created: DateTime.now().toString(),
-  //         ).toMap(),
-  //       );
-  // }
+  Future<void> _setUserData(User user, String fallbackEmail,
+      [String? companyId]) async {
+    await _cloudStoreClient.collection('company').doc(user.uid).set(
+          UserModel(
+            companyId: user.uid,
+            companyName: user.displayName ?? '',
+            email: user.email ?? fallbackEmail,
+            address: '',
+            website: '',
+            phoneNumber: '',
+            profilePicture: user.photoURL ?? '',
+            bio: '',
+            latitude: 0,
+            longitude: 0,
+            workStart: '',
+            workEnd: '',
+            created: DateTime.now().toString(),
+          ).toMap(),
+        );
+  }
 
   Future<void> _updateUserData(DataMap data) async {
     await _cloudStoreClient

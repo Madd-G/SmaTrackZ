@@ -37,7 +37,6 @@ dependencies:
   google_api_headers: ^2.0.3
   image_picker: ^1.0.2
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

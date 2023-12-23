@@ -56,7 +56,8 @@ class CompanyScreen extends StatelessWidget {
                             const SizedBox(height: 20.0),
                             CompanyInfo(
                               icon: Icons.access_time,
-                              info: "${state.companyData.workStart!} - ${state.companyData.workEnd!}",
+                              info:
+                                  "${state.companyData.workStart!} - ${state.companyData.workEnd!}",
                             ),
                             const SizedBox(height: 20.0),
                             CompanyInfo(

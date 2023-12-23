@@ -1,7 +1,6 @@
 import 'package:smatrackz/core.dart';
 
 class UserEntity extends Equatable {
-  // TODO: add department id
   final String companyId;
   final String companyName;
   final String email;

@@ -4,7 +4,6 @@ class SignUpForm extends StatefulWidget {
   const SignUpForm({
     required this.companyNameController,
     required this.emailController,
-    required this.companyAddressController,
     required this.passwordController,
     required this.confirmPasswordController,
     required this.formKey,
@@ -13,7 +12,6 @@ class SignUpForm extends StatefulWidget {
 
   final TextEditingController companyNameController;
   final TextEditingController emailController;
-  final TextEditingController companyAddressController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
   final GlobalKey<FormState> formKey;
@@ -30,7 +28,6 @@ class _SignUpFormState extends State<SignUpForm> {
   void dispose() {
     widget.companyNameController.dispose();
     widget.emailController.dispose();
-    widget.companyAddressController.dispose();
     widget.passwordController.dispose();
     widget.confirmPasswordController.dispose();
     super.dispose();
@@ -60,12 +57,6 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: widget.emailController,
             hintText: 'Email address',
             keyboardType: TextInputType.emailAddress,
-          ),
-          const SizedBox(height: 15.0),
-          CustomTextField(
-            controller: widget.companyAddressController,
-            hintText: 'Company Address',
-            keyboardType: TextInputType.name,
           ),
           const SizedBox(height: 15.0),
           CustomTextField(

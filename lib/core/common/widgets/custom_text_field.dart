@@ -70,7 +70,7 @@ class CustomTextField extends StatelessWidget {
           fillColor: fillColour,
           suffixIcon: suffixIcon,
           hintText: hintText,
-          hintStyle: hintStyle ?? CustomTextStyle.textLargeBold),
+          hintStyle: hintStyle ?? CustomTextStyle.textLargeRegular),
     );
   }
 }

@@ -15,7 +15,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final companyNameController = TextEditingController();
-  final companyAddressController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final String companyId = const Uuid().v8();
 
@@ -67,7 +66,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           passwordController: passwordController,
                           confirmPasswordController: confirmPasswordController,
                           companyNameController: usernameController,
-                          companyAddressController: companyAddressController,
                           formKey: formKey,
                         ),
                         const SizedBox(height: 30),
@@ -87,7 +85,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             companyId: companyId,
                                             name:
                                                 usernameController.text.trim(),
-                                            // address: companyAddressController.text.trim(),
                                           ),
                                         );
                                   }

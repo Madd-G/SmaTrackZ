@@ -24,6 +24,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+    <string>Access your camera for snapping and uploading photos securely.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Access your photo library to upload photos securely.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Access your microphone for clear audio when recording videos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
