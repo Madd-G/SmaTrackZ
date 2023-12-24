@@ -10,18 +10,16 @@ class BackgroundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          Image.asset(
-            AppMedia.backgroundImage,
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-          ),
-          child,
-        ],
-      ),
+    return Stack(
+      children: [
+        Image.asset(
+          AppMedia.backgroundImage,
+          fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
+        ),
+        child,
+      ],
     );
   }
 }
