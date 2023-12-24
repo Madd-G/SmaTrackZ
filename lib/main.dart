@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:smatrackz/core.dart';
 
 Future<void> main() async {
@@ -30,10 +32,21 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
         navigatorKey: Get.navigatorKey,
         theme: AppTheme.lightTheme,
         onGenerateRoute: generateRoute,
       ),
     );
   }
+}
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.trackpad,
+      };
 }

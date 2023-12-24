@@ -41,12 +41,6 @@ class _SignUpFormState extends State<SignUpForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          Text(
-            'Company Information',
-            style: CustomTextStyle.textLargeSemiBold
-                .copyWith(color: AppColors.greyColor, fontSize: 18.0),
-          ),
-          const SizedBox(height: 15),
           CustomTextField(
             controller: widget.companyNameController,
             hintText: 'Company Name',

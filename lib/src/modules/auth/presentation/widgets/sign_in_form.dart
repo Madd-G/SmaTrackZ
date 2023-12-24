@@ -32,6 +32,7 @@ class _SignInFormState extends State<SignInForm> {
       key: widget.formKey,
       child: Column(
         children: [
+          const SizedBox(height: 20),
           CustomTextField(
             controller: widget.emailController,
             hintText: 'Email Address',
