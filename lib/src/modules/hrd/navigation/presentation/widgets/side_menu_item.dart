@@ -24,7 +24,7 @@ class SideMenuItem extends StatelessWidget {
     return InkWell(
       onTap: press,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 20.0, 5.0, 15.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 15.0),
         child: Row(
           children: [
             Icon(
@@ -34,17 +34,17 @@ class SideMenuItem extends StatelessWidget {
                   : AppColors.greyColor,
             ),
             if (isExpanded)
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: (isActive || isHover)
-                          ? AppColors.blackColor
-                          : AppColors.greyColor,
-                    ),
-              ),
-            )
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: (isActive || isHover)
+                            ? AppColors.blackColor
+                            : AppColors.greyColor,
+                      ),
+                ),
+              )
           ],
         ),
       ),

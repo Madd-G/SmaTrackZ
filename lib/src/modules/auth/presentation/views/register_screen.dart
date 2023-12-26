@@ -40,77 +40,91 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   );
             } else if (state is SignedIn) {
               context.read<UserProvider>().initUser(state.user as UserModel);
-              Navigator.pushReplacementNamed(
-                  context, MainNavigation.routeName);
+              Navigator.pushReplacementNamed(context, MainNavigation.routeName);
             }
           },
           builder: (context, state) {
             return BackgroundImage(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20.0),
-                      const Center(
-                        child: WelcomeText(
-                          title: 'Sign Up',
-                          subtitle: 'Let\'s create your account.',
+                child: SafeArea(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 450.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 20.0),
+                            const Center(
+                              child: WelcomeText(
+                                title: 'Sign Up',
+                                subtitle: 'Let\'s create your account.',
+                              ),
+                            ),
+                            const SizedBox(height: 25),
+                            SignUpForm(
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                              companyNameController: usernameController,
+                              formKey: formKey,
+                            ),
+                            const SizedBox(height: 30),
+                            (state is AuthLoading)
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : RoundedButton(
+                                    label: 'Sign Up',
+                                    onPressed: () async {
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+                                      FirebaseAuth.instance.currentUser
+                                          ?.reload();
+                                      if (formKey.currentState!.validate()) {
+                                        context.read<AuthBloc>().add(
+                                              SignUpEvent(
+                                                email:
+                                                    emailController.text.trim(),
+                                                password: passwordController
+                                                    .text
+                                                    .trim(),
+                                                companyId: companyId,
+                                                name: usernameController.text
+                                                    .trim(),
+                                              ),
+                                            );
+                                      }
+                                    },
+                                  ),
+                            const SizedBox(height: 5.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Already have an account?',
+                                  style: CustomTextStyle.textBigRegular,
+                                ),
+                                const SizedBox(width: 7.0),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushReplacementNamed(
+                                        context, SignInScreen.routeName);
+                                  },
+                                  child: Text(
+                                    'Login',
+                                    style: CustomTextStyle.textBigRegular
+                                        .copyWith(
+                                            color: AppColors.primaryColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 25),
-                      SignUpForm(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        confirmPasswordController: confirmPasswordController,
-                        companyNameController: usernameController,
-                        formKey: formKey,
-                      ),
-                      const SizedBox(height: 30),
-                      (state is AuthLoading)
-                          ? const Center(child: CircularProgressIndicator())
-                          : RoundedButton(
-                              label: 'Sign Up',
-                              onPressed: () async {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                FirebaseAuth.instance.currentUser?.reload();
-                                if (formKey.currentState!.validate()) {
-                                  context.read<AuthBloc>().add(
-                                        SignUpEvent(
-                                          email: emailController.text.trim(),
-                                          password:
-                                              passwordController.text.trim(),
-                                          companyId: companyId,
-                                          name: usernameController.text.trim(),
-                                        ),
-                                      );
-                                }
-                              },
-                            ),
-                      const SizedBox(height: 5.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Already have an account?',
-                            style: CustomTextStyle.textBigRegular,
-                          ),
-                          const SizedBox(width: 7.0),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacementNamed(
-                                  context, SignInScreen.routeName);
-                            },
-                            child: Text(
-                              'Login',
-                              style: CustomTextStyle.textBigRegular
-                                  .copyWith(color: AppColors.primaryColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),

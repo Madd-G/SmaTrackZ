@@ -49,6 +49,7 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       readOnly: readOnly,
       decoration: InputDecoration(
+          constraints: const BoxConstraints(maxWidth: 450.0),
           border: inputBorder ??
               OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),

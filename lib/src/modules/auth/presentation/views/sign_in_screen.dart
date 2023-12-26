@@ -35,74 +35,79 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20.0),
-                        const WelcomeText(
-                          title: 'Sign In',
-                          subtitle:
-                              'Happy to see you again, please login here.',
-                        ),
-                        const SizedBox(height: 35),
-                        SignInForm(
-                          emailController: emailController,
-                          passwordController: passwordController,
-                          formKey: formKey,
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Forgot password?',
-                              style: CustomTextStyle.textRegular,
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 450.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20.0),
+                          const WelcomeText(
+                            title: 'Sign In',
+                            subtitle:
+                                'Happy to see you again, please login here.',
+                          ),
+                          const SizedBox(height: 35),
+                          SignInForm(
+                            emailController: emailController,
+                            passwordController: passwordController,
+                            formKey: formKey,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Forgot password?',
+                                style: CustomTextStyle.textRegular,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        (state is AuthLoading)
-                            ? const Center(child: CircularProgressIndicator())
-                            : RoundedButton(
-                                label: 'LOGIN',
-                                onPressed: () {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  FirebaseAuth.instance.currentUser?.reload();
-                                  if (formKey.currentState!.validate()) {
-                                    context.read<AuthBloc>().add(
-                                          SignInEvent(
-                                            email: emailController.text.trim(),
-                                            password:
-                                                passwordController.text.trim(),
-                                          ),
-                                        );
-                                  }
+                          const SizedBox(height: 10),
+                          (state is AuthLoading)
+                              ? const Center(child: CircularProgressIndicator())
+                              : RoundedButton(
+                                  label: 'LOGIN',
+                                  onPressed: () {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    FirebaseAuth.instance.currentUser?.reload();
+                                    if (formKey.currentState!.validate()) {
+                                      context.read<AuthBloc>().add(
+                                            SignInEvent(
+                                              email:
+                                                  emailController.text.trim(),
+                                              password: passwordController.text
+                                                  .trim(),
+                                            ),
+                                          );
+                                    }
+                                  },
+                                ),
+                          const SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Don\'t have an account?',
+                                style: CustomTextStyle.textBigRegular,
+                              ),
+                              const SizedBox(width: 7.0),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    RegisterScreen.routeName,
+                                  );
                                 },
+                                child: Text(
+                                  'Register',
+                                  style: CustomTextStyle.textBigRegular
+                                      .copyWith(color: AppColors.primaryColor),
+                                ),
                               ),
-                        const SizedBox(height: 5.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Don\'t have an account?',
-                              style: CustomTextStyle.textBigRegular,
-                            ),
-                            const SizedBox(width: 7.0),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  RegisterScreen.routeName,
-                                );
-                              },
-                              child: Text(
-                                'Register',
-                                style: CustomTextStyle.textBigRegular
-                                    .copyWith(color: AppColors.primaryColor),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
