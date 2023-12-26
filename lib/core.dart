@@ -28,7 +28,7 @@ export 'package:image_picker/image_picker.dart';
 export 'package:smatrackz/src/modules/auth/data/data.dart';
 export 'package:smatrackz/src/modules/auth/domain/domain.dart';
 export 'package:smatrackz/src/modules/auth/presentation/presentation.dart';
-export 'package:smatrackz/src/modules/hrd/bottom_navigation/presentation/presentation.dart';
+export 'package:smatrackz/src/modules/hrd/navigation/presentation/presentation.dart';
 export 'package:smatrackz/src/modules/hrd/employees/data/data.dart';
 export 'package:smatrackz/src/modules/hrd/employees/domain/domain.dart';
 export 'package:smatrackz/src/modules/hrd/employees/presentation/presentation.dart';

@@ -112,7 +112,7 @@ class _RegisterCompanyLocationScreenState
           } else if (state is SignedIn) {
             context.read<UserProvider>().initUser(state.user as UserModel);
 
-            Navigator.pushReplacementNamed(context, BottomNavigation.routeName);
+            Navigator.pushReplacementNamed(context, MainNavigation.routeName);
           }
         },
         builder: (context, state) {

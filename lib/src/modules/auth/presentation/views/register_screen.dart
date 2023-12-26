@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             } else if (state is SignedIn) {
               context.read<UserProvider>().initUser(state.user as UserModel);
               Navigator.pushReplacementNamed(
-                  context, BottomNavigation.routeName);
+                  context, MainNavigation.routeName);
             }
           },
           builder: (context, state) {

@@ -1,6 +1,6 @@
 import 'package:smatrackz/core.dart';
 
-class BottomNavController extends ChangeNotifier {
+class NavigationController extends ChangeNotifier {
   final List<int> _indexHistory = [0];
   final List<Widget> _screens = [
     ChangeNotifierProvider(

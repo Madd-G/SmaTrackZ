@@ -7,16 +7,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: BackgroundImage(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            HomeHeader(),
-            CenterSection(),
-            TimeSection(),
-          ],
-        ),
+        child: Center(
+            child: Text(Responsive.isMobile(context)
+                ? 'Mobile'
+                : Responsive.isTablet(context)
+                    ? 'Tablet'
+                    : Responsive.isDesktop(context)
+                        ? 'Desktop'
+                        : 'Else')),
+        // child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     HomeHeader(),
+        //     CenterSection(),
+        //     TimeSection(),
+        //   ],
+        // ),
       ),
     );
   }

@@ -16,7 +16,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             context.userProvider.initUser(localUser);
             return BlocProvider(
                 create: (_) => sl<CompanyBloc>(),
-                child: const BottomNavigation());
+                child: const MainNavigation());
           }
 
           return MultiBlocProvider(providers: [
@@ -124,12 +124,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         settings: settings,
       );
 
-    case BottomNavigation.routeName:
+    case MainNavigation.routeName:
       return _pageBuilder(
         (context) {
           return BlocProvider(
             create: (context) => sl<CompanyBloc>(),
-            child: const BottomNavigation(),
+            child: const MainNavigation(),
           );
         },
         settings: settings,
