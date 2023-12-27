@@ -11,7 +11,7 @@ class NavigationController extends ChangeNotifier {
     ),
     ChangeNotifierProvider(
       create: (_) => TabNavigator(
-        TabItem(child: const TeamsScreen()),
+        TabItem(child: const CompanyScreen()),
       ),
       child: const PersistentView(),
     ),

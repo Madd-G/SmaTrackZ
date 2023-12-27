@@ -38,11 +38,11 @@ class SideMenuItem extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: (isActive || isHover)
-                            ? AppColors.blackColor
-                            : AppColors.greyColor,
-                      ),
+                  style: CustomTextStyle.textLargeSemiBold.copyWith(
+                    color: (isActive || isHover)
+                        ? AppColors.primaryColor
+                        : AppColors.greyColor,
+                  ),
                 ),
               )
           ],

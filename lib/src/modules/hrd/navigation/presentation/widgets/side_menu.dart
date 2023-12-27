@@ -10,7 +10,7 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  bool isExpanded = false;
+  bool isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _SideMenuState extends State<SideMenu> {
                 press: () {
                   widget.controller.changeIndex(1);
                 },
-                title: "Team",
+                title: "Office and Location",
                 icon: IconlyBold.user_3,
                 isActive: widget.controller.currentIndex == 1 ? true : false,
                 isExpanded: isExpanded,
