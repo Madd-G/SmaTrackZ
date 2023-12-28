@@ -14,15 +14,37 @@ Route<dynamic> generateRoute(RouteSettings settings) {
               address: '',
             );
             context.userProvider.initUser(localUser);
-            return BlocProvider(
-                create: (_) => sl<CompanyBloc>(),
-                child: const MainNavigation());
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<CompanyBloc>()),
+                BlocProvider(create: (_) => sl<EmployeeBloc>()),
+              ],
+              child: const MainNavigation(),
+            );
           }
 
-          return MultiBlocProvider(providers: [
-            BlocProvider(create: (_) => sl<AuthBloc>()),
-            BlocProvider(create: (_) => sl<CompanyBloc>()),
-          ], child: const SignInScreen());
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<AuthBloc>()),
+              BlocProvider(create: (_) => sl<CompanyBloc>()),
+              BlocProvider(create: (_) => sl<EmployeeBloc>()),
+            ],
+            child: const SignInScreen(),
+          );
+        },
+        settings: settings,
+      );
+
+    case MainNavigation.routeName:
+      return _pageBuilder(
+        (context) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<CompanyBloc>()),
+              BlocProvider(create: (_) => sl<EmployeeBloc>()),
+            ],
+            child: const MainNavigation(),
+          );
         },
         settings: settings,
       );
@@ -35,6 +57,23 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             child: const GroupsScreen(),
           );
         },
+        settings: settings,
+      );
+
+    case CompanyScreen.routeName:
+      return _pageBuilder(
+        (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => sl<CompanyBloc>()
+                ..add(LoadCompanyEvent(
+                    companyId: context.userProvider.user!.companyId)),
+            ),
+            BlocProvider(
+                create: (_) => sl<EmployeeBloc>()..add(GetEmployeeEvent())),
+          ],
+          child: const CompanyScreen(),
+        ),
         settings: settings,
       );
 
@@ -79,37 +118,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (_) => MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (_) => sl<AuthBloc>(),
-            ),
+            BlocProvider(create: (_) => sl<AuthBloc>()),
             BlocProvider(create: (_) => sl<CompanyBloc>()),
+            BlocProvider(create: (_) => sl<EmployeeBloc>()),
           ],
           child: const RegisterScreen(),
         ),
         settings: settings,
       );
 
-    case CompanyScreen.routeName:
-      return _pageBuilder(
-        (context) {
-          return BlocProvider(
-            create: (context) => sl<CompanyBloc>()
-              ..add(LoadCompanyEvent(
-                  companyId: context.userProvider.user!.companyId)),
-            child: const CompanyScreen(),
-          );
-        },
-        settings: settings,
-      );
-
     case MapScreen.routeName:
       return _pageBuilder(
-        (context) {
-          return BlocProvider(
-            create: (context) => sl<CompanyBloc>(),
-            child: MapScreen(settings.arguments! as CompanyModel),
-          );
-        },
+        (context) => BlocProvider(
+          create: (context) => sl<CompanyBloc>(),
+          child: MapScreen(settings.arguments! as CompanyModel),
+        ),
         settings: settings,
       );
 
@@ -123,18 +146,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         },
         settings: settings,
       );
-
-    case MainNavigation.routeName:
-      return _pageBuilder(
-        (context) {
-          return BlocProvider(
-            create: (context) => sl<CompanyBloc>(),
-            child: const MainNavigation(),
-          );
-        },
-        settings: settings,
-      );
-
     default:
       return _pageBuilder(
         (_) => const ErrorScreen(),
