@@ -40,8 +40,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (context) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(create: (_) => sl<CompanyBloc>()),
-              BlocProvider(create: (_) => sl<EmployeeBloc>()),
+              BlocProvider(
+                  create: (_) => sl<CompanyBloc>()
+                    ..add(LoadCompanyEvent(
+                        companyId: context.userProvider.user!.companyId))),
+              BlocProvider(
+                  create: (_) => sl<EmployeeBloc>()..add(GetEmployeeEvent())),
             ],
             child: const MainNavigation(),
           );
@@ -66,8 +70,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           providers: [
             BlocProvider(
               create: (_) => sl<CompanyBloc>()
-                ..add(LoadCompanyEvent(
-                    companyId: context.userProvider.user!.companyId)),
+                // ..add(LoadCompanyEvent(
+                //     companyId: context.userProvider.user!.companyId)),
             ),
             BlocProvider(
                 create: (_) => sl<EmployeeBloc>()..add(GetEmployeeEvent())),

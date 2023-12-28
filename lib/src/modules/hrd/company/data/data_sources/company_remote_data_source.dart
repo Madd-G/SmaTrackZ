@@ -64,6 +64,7 @@ class CompanyRemoteDataSourceImpl implements CompanyRemoteDataSource {
   Future<CompanyModel> getCompany(String id) async {
     try {
       final user = _auth.currentUser;
+      print(user);
       if (user == null) {
         throw const ServerException(
           message: 'User is not authenticated',
@@ -79,9 +80,10 @@ class CompanyRemoteDataSourceImpl implements CompanyRemoteDataSource {
         statusCode: e.code,
       );
     } on ServerException {
+      debugPrint('ServerException');
       rethrow;
     } catch (e) {
-      throw ServerException(message: e.toString(), statusCode: '505');
+      throw ServerException(message: 'disini ${e.toString()}', statusCode: '505');
     }
   }
 

@@ -194,6 +194,7 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         statusCode: e.code,
       );
     } on ServerException {
+      debugPrint('object ServerException');
       rethrow;
     } catch (e) {
       throw ServerException(message: e.toString(), statusCode: '505');
