@@ -1,12 +1,12 @@
 import 'package:smatrackz/core.dart';
 
-class AddEmployee extends FutureUseCaseWithParams<void, AddEmployeeParams> {
+class AddEmployee extends FutureUseCaseWithParams<List<EmployeeEntity>, AddEmployeeParams> {
   const AddEmployee(this._repo);
 
   final EmployeeRepo _repo;
 
   @override
-  ResultFuture<void> call(AddEmployeeParams params) => _repo.addEmployee(
+  ResultFuture<List<EmployeeEntity>> call(AddEmployeeParams params) => _repo.addEmployee(
         email: params.email,
         password: params.password,
         companyId: params.companyId,

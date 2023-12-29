@@ -6,7 +6,7 @@ class EmployeeRepoImpl implements EmployeeRepo {
   final EmployeeRemoteDataSource _remoteDataSource;
 
   @override
-  ResultFuture<void> addEmployee({
+  ResultFuture<List<EmployeeEntity>> addEmployee({
     required String email,
     required String companyId,
     required EmployeeModel employee,
@@ -19,7 +19,8 @@ class EmployeeRepoImpl implements EmployeeRepo {
         employee: employee,
         password: password,
       );
-      return const Right(null);
+      final employees = await _remoteDataSource.getEmployees();
+      return Right(employees);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
     }
