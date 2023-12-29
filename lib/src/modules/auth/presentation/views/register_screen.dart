@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => sl<AuthBloc>()),
-          BlocProvider(create: (context) => sl<CompanyBloc>()),
+          // BlocProvider(create: (context) => sl<CompanyBloc>()),
         ],
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {

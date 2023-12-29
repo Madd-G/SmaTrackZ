@@ -5,7 +5,7 @@ class MapScreen extends StatefulWidget {
 
   static const routeName = '/map';
 
-  final CompanyModel company;
+  final UserModel company;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -261,9 +261,9 @@ class _MapScreenState extends State<MapScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              context.read<CompanyBloc>().add(
+                              context.read<AuthBloc>().add(
                                     UpdateLocationEvent(
-                                      companyId: widget.company.companyId!,
+                                      companyId: widget.company.companyId,
                                       latitude: currentPosition!.latitude,
                                       longitude: currentPosition!.longitude,
                                     ),

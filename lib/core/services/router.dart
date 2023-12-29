@@ -6,17 +6,19 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
-            final user = sl<FirebaseAuth>().currentUser!;
+            User user = sl<FirebaseAuth>().currentUser!;
+            print('\n++++++++\nuser on router: $user \n++++++++++\n');
             final localUser = UserModel(
               companyId: user.uid,
               email: user.email ?? '',
-              companyName: user.displayName ?? '',
+              // companyName: user.displayName ?? '',
+              companyName: '',
               address: '',
             );
             context.userProvider.initUser(localUser);
             return MultiBlocProvider(
               providers: [
-                BlocProvider(create: (_) => sl<CompanyBloc>()),
+                BlocProvider(create: (_) => sl<AuthBloc>()),
                 BlocProvider(create: (_) => sl<EmployeeBloc>()),
               ],
               child: const MainNavigation(),
@@ -26,7 +28,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => sl<AuthBloc>()),
-              BlocProvider(create: (_) => sl<CompanyBloc>()),
+              // BlocProvider(create: (_) => sl<CompanyBloc>()),
               BlocProvider(create: (_) => sl<EmployeeBloc>()),
             ],
             child: const SignInScreen(),
@@ -41,9 +43,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                  create: (_) => sl<CompanyBloc>()
-                    ..add(LoadCompanyEvent(
-                        companyId: context.userProvider.user!.companyId))),
+                create: (_) => sl<AuthBloc>()
+              ),
               BlocProvider(
                   create: (_) => sl<EmployeeBloc>()..add(GetEmployeeEvent())),
             ],
@@ -68,11 +69,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) => MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (_) => sl<CompanyBloc>()
+            BlocProvider(create: (_) => sl<AuthBloc>()
                 // ..add(LoadCompanyEvent(
                 //     companyId: context.userProvider.user!.companyId)),
-            ),
+                ),
             BlocProvider(
                 create: (_) => sl<EmployeeBloc>()..add(GetEmployeeEvent())),
           ],
@@ -123,7 +123,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => sl<AuthBloc>()),
-            BlocProvider(create: (_) => sl<CompanyBloc>()),
+            // BlocProvider(create: (_) => sl<CompanyBloc>()),
             BlocProvider(create: (_) => sl<EmployeeBloc>()),
           ],
           child: const RegisterScreen(),
@@ -134,8 +134,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case MapScreen.routeName:
       return _pageBuilder(
         (context) => BlocProvider(
-          create: (context) => sl<CompanyBloc>(),
-          child: MapScreen(settings.arguments! as CompanyModel),
+          create: (context) => sl<AuthBloc>(),
+          child: MapScreen(settings.arguments! as UserModel),
         ),
         settings: settings,
       );
@@ -144,8 +144,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _pageBuilder(
         (context) {
           return BlocProvider(
-            create: (context) => sl<CompanyBloc>(),
-            child: EditCompanyScreen(settings.arguments! as CompanyModel),
+            create: (context) => sl<AuthBloc>(),
+            child: EditCompanyScreen(settings.arguments! as UserModel),
           );
         },
         settings: settings,

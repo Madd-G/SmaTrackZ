@@ -5,7 +5,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   await _initFirebaseInstances();
   await _initAuth();
-  await _initCompany();
+  // await _initCompany();
   await _initEmployee();
   await _initGroup();
   await _initChat();
@@ -82,27 +82,27 @@ Future<void> _initChat() async {
     );
 }
 
-Future<void> _initCompany() async {
-  sl
-    ..registerFactory(
-      () => CompanyBloc(
-        addCompany: sl(),
-        getCompany: sl(),
-        updateCompany: sl(),
-      ),
-    )
-    ..registerLazySingleton(() => AddCompany(sl()))
-    ..registerLazySingleton(() => GetCompany(sl()))
-    ..registerLazySingleton(() => UpdateCompany(sl()))
-    ..registerLazySingleton<CompanyRepository>(
-        () => CompanyRepositoryImpl(sl()))
-    ..registerLazySingleton<CompanyRemoteDataSource>(
-      () => CompanyRemoteDataSourceImpl(
-        cloudStoreClient: sl(),
-        auth: sl(),
-      ),
-    );
-}
+// Future<void> _initCompany() async {
+//   sl
+//     ..registerFactory(
+//       () => CompanyBloc(
+//         addCompany: sl(),
+//         getCompany: sl(),
+//         updateCompany: sl(),
+//       ),
+//     )
+//     ..registerLazySingleton(() => AddCompany(sl()))
+//     ..registerLazySingleton(() => GetCompany(sl()))
+//     ..registerLazySingleton(() => UpdateCompany(sl()))
+//     ..registerLazySingleton<CompanyRepository>(
+//         () => CompanyRepositoryImpl(sl()))
+//     ..registerLazySingleton<CompanyRemoteDataSource>(
+//       () => CompanyRemoteDataSourceImpl(
+//         cloudStoreClient: sl(),
+//         auth: sl(),
+//       ),
+//     );
+// }
 
 Future<void> _initEmployee() async {
   sl

@@ -7,7 +7,7 @@ class LocationPicker extends StatefulWidget {
   final String? Function(double? latitude, double? longitude)? validator;
   final Function(double latitude, double longitude) onChanged;
   final bool enableEdit;
-  final CompanyModel company;
+  final UserModel company;
 
   const LocationPicker({
     Key? key,
@@ -166,11 +166,14 @@ class LocationPickerState extends State<LocationPicker> {
                     onTap: () async {
                       await Navigator.of(context)
                           .pushNamed(MapScreen.routeName,
-                              arguments: widget.company)
-                          .then((value) => context.read<CompanyBloc>().add(
-                              LoadCompanyEvent(
-                                  companyId:
-                                      context.userProvider.user!.companyId)));
+                              arguments: widget.company);
+                          // .then(
+                          //   (value) => context.read<AuthBloc>().add(
+                          //         LoadCompanyEvent(
+                          //             companyId:
+                          //                 context.userProvider.user!.companyId),
+                          //       ),
+                          // );
                     },
                     child: RoundedContainer(
                       containerColor: AppColors.blackColor,

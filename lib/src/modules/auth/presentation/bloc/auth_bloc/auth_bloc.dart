@@ -10,8 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required SignUp signUp,
     required ForgotPassword forgotPassword,
     required UpdateUser updateUser,
-  })  :
-        _signIn = signIn,
+  })  : _signIn = signIn,
         _signUp = signUp,
         _forgotPassword = forgotPassword,
         _updateUser = updateUser,
@@ -23,6 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpEvent>(_signUpHandler);
     on<ForgotPasswordEvent>(_forgotPasswordHandler);
     on<UpdateUserEvent>(_updateUserHandler);
+    on<UpdateLocationEvent>(_onUpdateLocationEvent);
   }
 
   final SignIn _signIn;
@@ -89,5 +89,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) => emit(AuthError(failure.errorMessage)),
       (_) => emit(const UserUpdated()),
     );
+  }
+
+  void _onUpdateLocationEvent(
+    UpdateLocationEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("company")
+          .doc(event.companyId)
+          .update({
+        "latitude": event.latitude,
+        "longitude": event.longitude,
+      });
+
+      emit(LocationUpdatedState(
+        latitude: event.latitude,
+        longitude: event.longitude,
+      ));
+    } catch (e) {
+      emit(const AuthError('Error updating location'));
+    }
   }
 }

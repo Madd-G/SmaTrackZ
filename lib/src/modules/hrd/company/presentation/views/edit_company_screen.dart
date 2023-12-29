@@ -5,7 +5,7 @@ class EditCompanyScreen extends StatefulWidget {
 
   static const routeName = '/edit-company';
 
-  final CompanyModel company;
+  final UserModel company;
 
   @override
   State<EditCompanyScreen> createState() => _EditCompanyScreenState();
@@ -17,10 +17,10 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
   final websiteController = TextEditingController();
 
   bool get nameChanged =>
-      widget.company.companyName!.trim() != nameController.text.trim();
+      widget.company.companyName.trim() != nameController.text.trim();
 
   bool get addressChanged =>
-      widget.company.address!.trim() != addressController.text.trim();
+      widget.company.address.trim() != addressController.text.trim();
 
   bool get websiteChanged =>
       widget.company.website!.trim() != websiteController.text.trim();
@@ -29,8 +29,8 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
 
   @override
   void initState() {
-    nameController.text = widget.company.companyName!.trim();
-    addressController.text = widget.company.address!.trim();
+    nameController.text = widget.company.companyName.trim();
+    addressController.text = widget.company.address.trim();
     websiteController.text = widget.company.website!.trim();
     super.initState();
   }
@@ -45,14 +45,14 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CompanyBloc, CompanyState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is CompanyUpdatedState) {
+        if (state is UserUpdated) {
           CoreUtils.showSnackBar(context, 'Company updated Successfully');
           Navigator.pop(context);
-        } else if (state is CompanyErrorState) {
+        } else if (state is AuthError) {
           debugPrint("error: ${state.toString()}");
-          CoreUtils.showSnackBar(context, state.errorMessage);
+          CoreUtils.showSnackBar(context, state.message);
         }
       },
       builder: (context, state) {
@@ -76,28 +76,28 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
               TextButton(
                 onPressed: () {
                   if (nothingChanged) Navigator.pop(context);
-                  final bloc = context.read<CompanyBloc>();
+                  final bloc = context.read<AuthBloc>();
                   if (nameChanged) {
                     bloc.add(
-                      UpdateCompanyEvent(
-                        action: UpdateCompanyAction.name,
-                        companyData: nameController.text.trim(),
+                      UpdateUserEvent(
+                        action: UpdateUserAction.companyName,
+                        userData: nameController.text.trim(),
                       ),
                     );
                   }
                   if (addressChanged) {
                     bloc.add(
-                      UpdateCompanyEvent(
-                        action: UpdateCompanyAction.address,
-                        companyData: addressController.text.trim(),
+                      UpdateUserEvent(
+                        action: UpdateUserAction.address,
+                        userData: addressController.text.trim(),
                       ),
                     );
                   }
                   if (websiteChanged) {
                     bloc.add(
-                      UpdateCompanyEvent(
-                        action: UpdateCompanyAction.website,
-                        companyData: websiteController.text.trim(),
+                      UpdateUserEvent(
+                        action: UpdateUserAction.website,
+                        userData: websiteController.text.trim(),
                       ),
                     );
                   }
@@ -165,7 +165,7 @@ class UpdateCompanyForm extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController addressController;
   final TextEditingController websiteController;
-  final CompanyModel company;
+  final UserModel company;
 
   @override
   Widget build(BuildContext context) {
@@ -178,12 +178,12 @@ class UpdateCompanyForm extends StatelessWidget {
           EditCompanyFormField(
             fieldTitle: 'COMPANY NAME',
             controller: nameController,
-            hintText: company.companyName!.trim(),
+            hintText: company.companyName.trim(),
           ),
           EditCompanyFormField(
             fieldTitle: 'ADDRESS',
             controller: addressController,
-            hintText: company.address!.trim(),
+            hintText: company.address.trim(),
           ),
           EditCompanyFormField(
             fieldTitle: 'WEBSITE',

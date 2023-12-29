@@ -44,3 +44,16 @@ class AuthError extends AuthState {
   @override
   List<String> get props => [message];
 }
+
+class LocationUpdatedState extends AuthState {
+  const LocationUpdatedState({
+    required this.latitude,
+    required this.longitude,
+  });
+
+  final double latitude;
+  final double longitude;
+
+  @override
+  List<Object> get props => [latitude, longitude];
+}

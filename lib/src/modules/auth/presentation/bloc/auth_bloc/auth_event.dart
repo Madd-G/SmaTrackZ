@@ -59,3 +59,18 @@ class UpdateUserEvent extends AuthEvent {
   @override
   List<Object?> get props => [action, userData];
 }
+
+class UpdateLocationEvent extends AuthEvent {
+  final String companyId;
+  final double latitude;
+  final double longitude;
+
+  const UpdateLocationEvent({
+    required this.companyId,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  @override
+  List<Object?> get props => [companyId, latitude, longitude];
+}
