@@ -125,14 +125,7 @@ class CompanySection extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          'Show Map',
-                          style: CustomTextStyle.textBigRegular.copyWith(
-                            color: AppColors.primaryColor,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.primaryColor,
-                          ),
-                        ),
+                        ShowMap(company: company,),
                         const SizedBox(height: 20.0),
                         Text(company.website ?? '',
                             style: CustomTextStyle.textBigRegular),
