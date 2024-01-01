@@ -1,10 +1,17 @@
 import 'package:smatrackz/core.dart';
 
-class EmployeesAndAttendanceSection extends StatelessWidget {
-  EmployeesAndAttendanceSection({super.key, required this.company});
+class EmployeesAndAttendanceSection extends StatefulWidget {
+  const EmployeesAndAttendanceSection({super.key, required this.company});
 
   final UserModel company;
 
+  @override
+  State<EmployeesAndAttendanceSection> createState() =>
+      _EmployeesAndAttendanceSectionState();
+}
+
+class _EmployeesAndAttendanceSectionState
+    extends State<EmployeesAndAttendanceSection> {
   final Map<String, Map<String, dynamic>> resume = {
     'present-employee': {
       "count": 25,
@@ -23,9 +30,33 @@ class EmployeesAndAttendanceSection extends StatelessWidget {
       "title": "Active Employees",
     },
   };
+  String selectedRole = 'All Teams';
+  static final List<Map<String, String>> roleList = [
+    {
+      "label": "Project Manager",
+      "value": "Project Manager",
+    },
+    {
+      "label": "Accountant",
+      "value": "Accountant",
+    },
+    {
+      "label": "Mobile Developer",
+      "value": "Mobile Developer",
+    },
+    {
+      "label": "Backend Developer",
+      "value": "Backend Developer",
+    },
+    {
+      "label": "Quality Assurance",
+      "value": "Quality Assurance",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
+    print('build');
     return RoundedContainer(
       width: context.width,
       borderColor: Colors.white,
@@ -126,33 +157,48 @@ class EmployeesAndAttendanceSection extends StatelessWidget {
                       containerColor: AppColors.whiteColor,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  IconlyBold.user_2,
-                                  color: AppColors.greyColor,
-                                  size: 20.0,
-                                ),
-                                const SizedBox(width: 5.0),
-                                Text(
-                                  'All Teams',
-                                  style:
-                                      CustomTextStyle.textBigRegular.copyWith(
+                        child: SizedBox(
+                          width: 250.0,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              padding: EdgeInsets.zero,
+                              isDense: true,
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: AppColors.lightGreyColor,
+                              ),
+                              items: roleList.map((val) {
+                                return DropdownMenuItem<String>(
+                                  value: val['value'],
+                                  child: Text(val['value']!),
+                                );
+                              }).toList(),
+                              hint: Row(
+                                children: <Widget>[
+                                  const Icon(
+                                    IconlyBold.user_2,
                                     color: AppColors.greyColor,
+                                    size: 20.0,
                                   ),
-                                )
-                              ],
+                                  const SizedBox(width: 5.0),
+                                  Text(
+                                    selectedRole,
+                                    style:
+                                        CustomTextStyle.textBigRegular.copyWith(
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onChanged: (String? val) {
+                                setState(
+                                  () {
+                                    selectedRole = val!;
+                                  },
+                                );
+                              },
                             ),
-                            const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: AppColors.lightGreyColor,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
@@ -211,8 +257,8 @@ class EmployeesAndAttendanceSection extends StatelessWidget {
                   return Center(child: Text(state.message));
                 } else if (state is EmployeeLoadedState) {
                   final employees = state.employees
-                      .where(
-                          (element) => element.companyId == company.companyId)
+                      .where((element) =>
+                          element.companyId == widget.company.companyId)
                       .toList()
                     ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 
@@ -330,4 +376,13 @@ class EmployeesAndAttendanceSection extends StatelessWidget {
       ),
     );
   }
+}
+
+class CustomPopupMenuItem<T> extends PopupMenuItem<T> {
+  const CustomPopupMenuItem({
+    Key? key,
+    required T value,
+    required Widget child,
+    double height = 50.0,
+  }) : super(key: key, value: value, child: child, height: height);
 }
