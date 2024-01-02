@@ -7,7 +7,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         (context) {
           if (sl<FirebaseAuth>().currentUser != null) {
             User user = sl<FirebaseAuth>().currentUser!;
-            print('\n++++++++\nuser on router: $user \n++++++++++\n');
             final localUser = UserModel(
               companyId: user.uid,
               email: user.email ?? '',

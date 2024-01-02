@@ -13,7 +13,11 @@ class ShowMap extends StatelessWidget {
             context: context,
             builder: (mapDialogContext) {
               return AlertDialog(
-                content: MapScreen(company),
+                content: BlocProvider(
+                  create: (context) => sl<AuthBloc>(),
+                  child: MapScreen(company, mapContext: mapDialogContext,),
+                ),
+
               );
             });
       },

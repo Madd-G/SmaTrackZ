@@ -1,11 +1,12 @@
 import 'package:smatrackz/core.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen(this.company, {super.key});
+  const MapScreen(this.company, {super.key, this.mapContext});
 
   static const routeName = '/map';
 
   final UserModel company;
+  final BuildContext? mapContext;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -268,7 +269,7 @@ class _MapScreenState extends State<MapScreen> {
                                   ),
                                 );
 
-                            Navigator.pop(context);
+                            Navigator.pop(widget.mapContext!);
                           },
                           child: RoundedContainer(
                             radius: 10.0,

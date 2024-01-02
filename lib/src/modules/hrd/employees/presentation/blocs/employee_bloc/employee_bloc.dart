@@ -1,5 +1,4 @@
 import 'package:smatrackz/core.dart';
-import 'package:smatrackz/src/modules/hrd/employees/domain/use_cases/get_filtered_employee.dart';
 
 part 'employee_event.dart';
 
