@@ -24,6 +24,15 @@ class EmployeeLoadedState extends EmployeeState {
   List<Object> get props => [employees];
 }
 
+class FilteredEmployeeLoadedState extends EmployeeState {
+  const FilteredEmployeeLoadedState(this.employees);
+
+  final List<EmployeeEntity> employees;
+
+  @override
+  List<Object> get props => [employees];
+}
+
 class AddEmployeeState extends EmployeeState {
   @override
   List<Object> get props => [];

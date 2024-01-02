@@ -10,6 +10,10 @@ abstract class EmployeeRepo {
     required String password,
   });
 
+  ResultFuture<List<EmployeeEntity>> getFilteredEmployees({
+    required String role,
+  });
+
   ResultFuture<List<EmployeeEntity>> getEmployees();
 
   ResultFuture<void> updateEmployee({

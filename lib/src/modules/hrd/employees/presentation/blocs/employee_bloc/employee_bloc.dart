@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/src/modules/hrd/employees/domain/use_cases/get_filtered_employee.dart';
 
 part 'employee_event.dart';
 
@@ -7,10 +8,12 @@ part 'employee_state.dart';
 class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
   EmployeeBloc({
     required AddEmployee addEmployee,
+    required GetFilteredEmployee getFilteredEmployee,
     required GetEmployee getEmployee,
     required UpdateEmployee updateEmployee,
   })  : _addEmployee = addEmployee,
         _getEmployee = getEmployee,
+        _getFilteredEmployee = getFilteredEmployee,
         _updateEmployee = updateEmployee,
         super(EmployeeInitialState()) {
     on<EmployeeEvent>((event, emit) {
@@ -19,12 +22,14 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     // on<AddEmployeeEvent>((event, emit) => _addEmployeeHandler(event, emit)); // Corrected this line
     // on<AddEmployeeEvent>((event, emit) => _addEmployeeHandler);
     on<GetEmployeeEvent>(_getEmployeesHandler);
+    on<GetFilteredEmployeeEvent>(_getFilteredEmployeesHandler);
     on<AddEmployeeEvent>(_addEmployeeHandler);
     on<UpdateEmployeeEvent>(_updateEmployeeHandler);
   }
 
   final AddEmployee _addEmployee;
   final GetEmployee _getEmployee;
+  final GetFilteredEmployee _getFilteredEmployee;
   final UpdateEmployee _updateEmployee;
 
   Future<void> _addEmployeeHandler(
@@ -54,6 +59,19 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     result.fold(
       (failure) => emit(EmployeeErrorState(failure.errorMessage)),
       (employee) => emit(EmployeeLoadedState(employee)),
+    );
+  }
+
+  Future<void> _getFilteredEmployeesHandler(
+    GetFilteredEmployeeEvent event,
+    Emitter<EmployeeState> emit,
+  ) async {
+    emit(EmployeeLoadingState());
+    final result = await _getFilteredEmployee(
+        GetFilteredEmployeesParams(role: event.role));
+    result.fold(
+      (failure) => emit(EmployeeErrorState(failure.errorMessage)),
+      (employee) => emit(FilteredEmployeeLoadedState(employee)),
     );
   }
 

@@ -27,6 +27,21 @@ class EmployeeRepoImpl implements EmployeeRepo {
   }
 
   @override
+  ResultFuture<List<EmployeeEntity>> getFilteredEmployees({
+    required String role,
+  }) async {
+    try {
+      await _remoteDataSource.getFilteredEmployees(
+        role: role,
+      );
+      final employees = await _remoteDataSource.getEmployees();
+      return Right(employees);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
+
+  @override
   ResultFuture<List<EmployeeEntity>> getEmployees() async {
     try {
       final employees = await _remoteDataSource.getEmployees();

@@ -27,6 +27,14 @@ class GetEmployeeEvent extends EmployeeEvent {
   List<Object?> get props => [];
 }
 
+class GetFilteredEmployeeEvent extends EmployeeEvent {
+  GetFilteredEmployeeEvent({required this.role});
+
+  final String role;
+
+  List<Object?> get props => [role];
+}
+
 class UpdateEmployeeEvent extends EmployeeEvent {
   UpdateEmployeeEvent({
     required this.action,

@@ -1,6 +1,5 @@
 export 'custom_text_field.dart';
 export 'dropdown.dart';
-export 'dropdown2.dart';
 export 'rounded_container.dart';
 export 'profile_card.dart';
 export 'background_image.dart';

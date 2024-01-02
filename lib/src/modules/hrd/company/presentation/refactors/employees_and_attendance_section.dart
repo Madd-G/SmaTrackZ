@@ -56,7 +56,7 @@ class _EmployeesAndAttendanceSectionState
 
   @override
   Widget build(BuildContext context) {
-    print('build');
+    debugPrint('build');
     return RoundedContainer(
       width: context.width,
       borderColor: Colors.white,
@@ -196,6 +196,11 @@ class _EmployeesAndAttendanceSectionState
                                     selectedRole = val!;
                                   },
                                 );
+                                context.read<EmployeeBloc>().add(
+                                      GetFilteredEmployeeEvent(
+                                        role: selectedRole,
+                                      ),
+                                    );
                               },
                             ),
                           ),
@@ -259,6 +264,119 @@ class _EmployeesAndAttendanceSectionState
                   final employees = state.employees
                       .where((element) =>
                           element.companyId == widget.company.companyId)
+                      .toList()
+                    ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+
+                  if (employees.isEmpty) {
+                    return const NotFoundText('No employee found ');
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    reverse: true,
+                    itemCount: employees.length,
+                    itemBuilder: (context, index) {
+                      EmployeeEntity employee = employees[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 300.0,
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(360),
+                                        child: CircleAvatar(
+                                          maxRadius: 30.0,
+                                          backgroundColor: Colors.transparent,
+                                          child: Image.network(
+                                            'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=1800&t=st=1698592779~exp=1698593379~hmac=4026faeb332a0ec88f796565ae4ef0c43cf9d4962e4daa408db33ddff5d7f2e3',
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 20.0),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            employee.username,
+                                            style:
+                                                CustomTextStyle.textBigSemiBold,
+                                          ),
+                                          Text(
+                                            employee.role ?? '',
+                                            style: CustomTextStyle
+                                                .textMediumRegular
+                                                .copyWith(
+                                                    color: AppColors.greyColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onLongPress: () {
+                                    debugPrint(employee.email);
+                                  },
+                                  child: const Icon(
+                                    Icons.email_outlined,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 200.0,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        CupertinoIcons.arrow_down_right,
+                                        size: 15.0,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      Text(
+                                        '${employee.workStart}',
+                                        style: CustomTextStyle.textBigSemiBold
+                                            .copyWith(
+                                          color: AppColors.greenColor,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 30.0),
+                                      const Icon(
+                                        CupertinoIcons.arrow_up_right,
+                                        size: 15.0,
+                                        color: AppColors.primaryColor,
+                                      ),
+                                      Text(
+                                        '${employee.workEnd}',
+                                        style: CustomTextStyle.textBigSemiBold
+                                            .copyWith(
+                                          color: AppColors.redColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 15.0),
+                            const Divider(
+                              height: 10.0,
+                              color: AppColors.buttonGreyColor,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else if (state is FilteredEmployeeLoadedState) {
+                  final employees = state.employees
+                      .where((element) =>
+                          element.companyId == widget.company.companyId)
+                      .where((element) => element.role == selectedRole)
                       .toList()
                     ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 

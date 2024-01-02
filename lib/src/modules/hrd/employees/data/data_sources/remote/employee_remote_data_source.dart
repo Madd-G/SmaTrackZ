@@ -10,6 +10,8 @@ abstract class EmployeeRemoteDataSource {
     required String companyId,
   });
 
+  Future<List<EmployeeEntity>> getFilteredEmployees({required String role});
+
   Future<void> updateEmployee({
     required UpdateEmployeeAction action,
     required String uid,
@@ -171,6 +173,38 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
 
   Future<void> _updateEmployeeData(DataMap data, String uid) async {
     await _cloudStoreClient.collection('users').doc(uid).update(data);
+  }
+
+  @override
+  Future<List<EmployeeEntity>> getFilteredEmployees({required String role}) {
+    try {
+      final user = _authClient.currentUser;
+      if (user == null) {
+        throw const ServerException(
+          message: 'User is not authenticated',
+          statusCode: '401',
+        );
+      }
+      return _cloudStoreClient
+          .collection('users')
+          .where('role', isEqualTo: role)
+          .get()
+          .then(
+            (value) => value.docs
+                .map((doc) => EmployeeModel.fromMap(doc.data()))
+                .toList(),
+          );
+    } on FirebaseException catch (e) {
+      throw ServerException(
+        message: e.message ?? 'Unknown error occurred',
+        statusCode: e.code,
+      );
+    } on ServerException {
+      debugPrint('object ServerException');
+      rethrow;
+    } catch (e) {
+      throw ServerException(message: e.toString(), statusCode: '505');
+    }
   }
 
   @override

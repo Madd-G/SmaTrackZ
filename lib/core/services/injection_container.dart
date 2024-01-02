@@ -110,11 +110,13 @@ Future<void> _initEmployee() async {
       () => EmployeeBloc(
         addEmployee: sl(),
         getEmployee: sl(),
+        getFilteredEmployee: sl(),
         updateEmployee: sl(),
       ),
     )
     ..registerLazySingleton(() => AddEmployee(sl()))
     ..registerLazySingleton(() => GetEmployee(sl()))
+    ..registerLazySingleton(() => GetFilteredEmployee(sl()))
     ..registerLazySingleton(() => UpdateEmployee(sl()))
     ..registerLazySingleton<EmployeeRepo>(() => EmployeeRepoImpl(sl()))
     ..registerLazySingleton<EmployeeRemoteDataSource>(
