@@ -1,9 +1,18 @@
 import 'package:smatrackz/core.dart';
 
 class EmployeesAndAttendanceSection extends StatefulWidget {
-  const EmployeesAndAttendanceSection({super.key, required this.company});
+  const EmployeesAndAttendanceSection({
+    super.key,
+    required this.company,
+    required this.nameController,
+    required this.emailController,
+    required this.addCompanyFormKey,
+  });
 
   final UserModel company;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final GlobalKey<FormState> addCompanyFormKey;
 
   @override
   State<EmployeesAndAttendanceSection> createState() =>
@@ -56,50 +65,118 @@ class _EmployeesAndAttendanceSectionState
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     debugPrint('build');
     return RoundedContainer(
-      width: context.width,
+      boxConstraints: const BoxConstraints(maxWidth: 1200),
+      width: MediaQuery.of(context).size.width,
       borderColor: Colors.white,
       radius: 5.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Employees & Attendance',
-                  style: CustomTextStyle.textLargeSemiBold,
-                ),
-                RoundedContainer(
-                  width: 175.0,
-                  radius: 5.0,
-                  containerColor: AppColors.whiteColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.download,
-                          color: AppColors.greyColor,
-                          size: 15.0,
-                        ),
-                        const SizedBox(width: 5.0),
-                        Text(
-                          'Export Reports',
-                          style: CustomTextStyle.textMediumRegular.copyWith(
-                            color: AppColors.greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text(
+            //       'Employees & Attendance',
+            //       style: CustomTextStyle.textLargeSemiBold,
+            //     ),
+            //     Row(
+            //       mainAxisAlignment: MainAxisAlignment.end,
+            //       children: [
+            //         AddEmployeeButton(
+            //           nameController: widget.nameController,
+            //           emailController: widget.emailController,
+            //           addCompanyFormKey: widget.addCompanyFormKey,
+            //           company: widget.company,
+            //         ),
+            //         const SizedBox(width: 10.0),
+            //         RoundedContainer(
+            //           width: 160.0,
+            //           radius: 5.0,
+            //           containerColor: AppColors.whiteColor,
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               children: [
+            //                 const Icon(
+            //                   Icons.calendar_month_outlined,
+            //                   color: AppColors.greyColor,
+            //                   size: 15.0,
+            //                 ),
+            //                 const SizedBox(width: 5.0),
+            //                 Text(
+            //                   'Holiday Calendar',
+            //                   style: CustomTextStyle.textMediumRegular.copyWith(
+            //                     color: AppColors.greyColor,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         const SizedBox(width: 10.0),
+            //         RoundedContainer(
+            //           width: 160.0,
+            //           radius: 5.0,
+            //           containerColor: AppColors.whiteColor,
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               children: [
+            //                 const Icon(
+            //                   Icons.area_chart,
+            //                   color: AppColors.greyColor,
+            //                   size: 15.0,
+            //                 ),
+            //                 const SizedBox(width: 5.0),
+            //                 Text(
+            //                   'Team Reports',
+            //                   style: CustomTextStyle.textMediumRegular.copyWith(
+            //                     color: AppColors.greyColor,
+            //                   ),
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //         const SizedBox(width: 10.0),
+            //         RoundedContainer(
+            //           width: 175.0,
+            //           radius: 5.0,
+            //           containerColor: AppColors.whiteColor,
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               children: [
+            //                 const Icon(
+            //                   Icons.download,
+            //                   color: AppColors.greyColor,
+            //                   size: 15.0,
+            //                 ),
+            //                 const SizedBox(width: 5.0),
+            //                 Text(
+            //                   'Export Reports',
+            //                   style: CustomTextStyle.textMediumRegular.copyWith(
+            //                     color: AppColors.greyColor,
+            //                   ),
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             const SizedBox(height: 10.0),
             const Divider(
               color: AppColors.buttonGreyColor,
@@ -108,51 +185,84 @@ class _EmployeesAndAttendanceSectionState
             const SizedBox(height: 7.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: resume.keys.map((key) {
-                    final count = resume[key]!['count'].toString();
-                    final title = resume[key]!['title'];
+                Expanded(
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 15.0,
+                    runSpacing: 15.0,
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: resume.keys.map((key) {
+                      final count = resume[key]!['count'].toString();
+                      final title = resume[key]!['title'];
+                      return RoundedContainer(
+                        height: (size.width > 1245) ? 100.0 : 50.0,
+                        width: (size.width > 1320) ? 160 : (size.width > 1300) ? size.width * 0.12 : 200,
+                        radius: 5.0,
+                        containerColor: AppColors.secondaryColor,
+                        borderColor: AppColors.secondaryColor,
+                        child: (size.width > 1320)
+                            ? Column(
 
-                    return Row(
-                      children: [
-                        RoundedContainer(
-                          height: 100.0,
-                          width: 200.0,
-                          radius: 5.0,
-                          containerColor: AppColors.secondaryColor,
-                          borderColor: AppColors.secondaryColor,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                count,
-                                style: CustomTextStyle.headingBold,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    count,
+                                    style: CustomTextStyle.headingBold,
+                                  ),
+                                  const SizedBox(height: 2.0),
+                                  Text(
+                                    title,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: CustomTextStyle.textBigSemiBold
+                                        .copyWith(
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        count,
+                                        style: CustomTextStyle.headingBold.copyWith(fontSize: 22.0),
+                                      ),
+                                      const SizedBox(width: 10.0),
+                                      Expanded(
+                                        child: Text(
+                                          title,
+                                          maxLines: 3,
+                                          textAlign: TextAlign.start,
+                                          style: CustomTextStyle.textBigSemiBold.copyWith(fontSize: 12.0)
+                                              .copyWith(
+                                            color: AppColors.greyColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                               ),
-                              const SizedBox(height: 2.0),
-                              Text(
-                                title,
-                                style: CustomTextStyle.textBigSemiBold.copyWith(
-                                  color: AppColors.greyColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 15.0),
-                      ],
-                    );
-                  }).toList(),
+                            ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(width: 17.0),
+                if (size.width > 825)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RoundedContainer(
-                      width: 280.0,
+                      width: 240.0,
                       radius: 5.0,
                       containerColor: AppColors.whiteColor,
                       child: Padding(
@@ -209,7 +319,7 @@ class _EmployeesAndAttendanceSectionState
                     ),
                     const SizedBox(height: 10.0),
                     RoundedContainer(
-                      width: 280.0,
+                      width: 240.0,
                       radius: 5.0,
                       containerColor: AppColors.whiteColor,
                       child: Padding(
@@ -228,7 +338,7 @@ class _EmployeesAndAttendanceSectionState
                                 ),
                                 const SizedBox(width: 5.0),
                                 Text(
-                                  'Today - 27 Dec 2023',
+                                  '27 Dec 2023',
                                   style:
                                       CustomTextStyle.textBigRegular.copyWith(
                                     color: AppColors.greyColor,
@@ -245,7 +355,113 @@ class _EmployeesAndAttendanceSectionState
                       ),
                     ),
                   ],
-                )
+                ),
+
+
+              ],
+            ),
+            if (size.width < 825)
+            Column(
+              children: [
+                const SizedBox(height: 15.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RoundedContainer(
+                      width: 220.0,
+                      radius: 5.0,
+                      containerColor: AppColors.whiteColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: SizedBox(
+                          width: 250.0,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              padding: EdgeInsets.zero,
+                              isDense: true,
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: AppColors.lightGreyColor,
+                              ),
+                              items: roleList.map((val) {
+                                return DropdownMenuItem<String>(
+                                  value: val['value'],
+                                  child: Text(val['value']!),
+                                );
+                              }).toList(),
+                              hint: Row(
+                                children: <Widget>[
+                                  const Icon(
+                                    IconlyBold.user_2,
+                                    color: AppColors.greyColor,
+                                    size: 20.0,
+                                  ),
+                                  const SizedBox(width: 5.0),
+                                  Text(
+                                    selectedRole,
+                                    style:
+                                    CustomTextStyle.textBigRegular.copyWith(
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onChanged: (String? val) {
+                                setState(
+                                      () {
+                                    selectedRole = val!;
+                                  },
+                                );
+                                context.read<EmployeeBloc>().add(
+                                  GetFilteredEmployeeEvent(
+                                    role: selectedRole,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10.0),
+                    RoundedContainer(
+                      width: 210.0,
+                      radius: 5.0,
+                      containerColor: AppColors.whiteColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: AppColors.greyColor,
+                                  size: 20.0,
+                                ),
+                                const SizedBox(width: 5.0),
+                                Text(
+                                  '27 Dec 2023',
+                                  style:
+                                  CustomTextStyle.textBigRegular.copyWith(
+                                    color: AppColors.greyColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const Icon(
+                              Icons.keyboard_arrow_down,
+                              color: AppColors.lightGreyColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 30.0),
@@ -284,7 +500,7 @@ class _EmployeesAndAttendanceSectionState
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SizedBox(
-                                  width: 300.0,
+                                  width: (Responsive.isMobile(context)) ? 200.0 : 300.0,
                                   child: Row(
                                     children: [
                                       ClipRRect(
@@ -329,7 +545,6 @@ class _EmployeesAndAttendanceSectionState
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 200.0,
                                   child: Row(
                                     children: [
                                       const Icon(
@@ -442,7 +657,6 @@ class _EmployeesAndAttendanceSectionState
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 200.0,
                                   child: Row(
                                     children: [
                                       const Icon(

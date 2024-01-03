@@ -36,25 +36,33 @@ class _CompanyScreenState extends State<CompanyScreen> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(
-              left: Responsive.isDesktop(context) ? 50.0 : 16.0,
-              right: Responsive.isDesktop(context) ? 50.0 : 16.0,
+              left: Responsive.isDesktop(context) ? 40.0 : 16.0,
+              right: Responsive.isDesktop(context) ? 40.0 : 16.0,
               bottom: Responsive.isDesktop(context) ? 24.0 : 8.0,
             ),
             child: Consumer<UserProvider>(
               builder: (_, provider, __) {
                 final company = provider.user!;
-                return Column(
-                  children: [
-                    SizedBox(
-                        height: Responsive.isDesktop(context) ? 20.0 : 8.0),
-                    CompanySection(
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          height: Responsive.isDesktop(context) ? 20.0 : 8.0),
+                      CompanySection(
                         company: company,
                         nameController: nameController,
                         emailController: emailController,
-                        addCompanyFormKey: addCompanyFormKey),
-                    const SizedBox(height: 20.0),
-                    EmployeesAndAttendanceSection(company: company),
-                  ],
+                        addCompanyFormKey: addCompanyFormKey,
+                      ),
+                      const SizedBox(height: 20.0),
+                      EmployeesAndAttendanceSection(
+                        company: company,
+                        nameController: nameController,
+                        emailController: emailController,
+                        addCompanyFormKey: addCompanyFormKey,
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

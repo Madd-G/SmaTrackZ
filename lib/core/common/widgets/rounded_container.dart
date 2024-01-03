@@ -10,9 +10,11 @@ class RoundedContainer extends StatelessWidget {
     this.radius,
     this.height,
     this.width,
+    this.boxConstraints,
   });
 
   final Widget child;
+  final BoxConstraints? boxConstraints;
   final Color? containerColor;
   final Color? borderColor;
   final double? borderWidth;
@@ -23,6 +25,7 @@ class RoundedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: boxConstraints,
       height: height,
       width: width,
       decoration: BoxDecoration(

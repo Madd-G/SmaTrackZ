@@ -21,6 +21,7 @@ class SideMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: press,
       child: Padding(
@@ -33,7 +34,7 @@ class SideMenuItem extends StatelessWidget {
                   ? AppColors.primaryColor
                   : AppColors.greyColor,
             ),
-            if (isExpanded)
+            if (isExpanded || size.width > 1200)
               Padding(
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Text(
@@ -44,7 +45,7 @@ class SideMenuItem extends StatelessWidget {
                         : AppColors.greyColor,
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),

@@ -1,7 +1,10 @@
 export 'add_employee_button.dart';
+export 'button_company_section.dart';
 export 'location_picker.dart';
 export 'company_info_tile.dart';
 export 'company_profile_photo.dart';
 export 'company_app_bar.dart';
+export 'company_info.dart';
+export 'company_info2.dart';
 export 'edit_company_form_field.dart';
 export 'show_map.dart';

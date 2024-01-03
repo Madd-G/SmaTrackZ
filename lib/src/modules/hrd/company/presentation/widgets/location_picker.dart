@@ -76,8 +76,8 @@ class LocationPickerState extends State<LocationPicker> {
             child: Column(
               children: [
                 SizedBox(
-                  width: context.width * 0.8,
-                  height: context.width * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * 0.8,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
                       Radius.circular(12.0),
@@ -178,7 +178,7 @@ class LocationPickerState extends State<LocationPicker> {
                     child: RoundedContainer(
                       containerColor: AppColors.blackColor,
                       radius: 10.0,
-                      width: context.width * 0.45,
+                      width: MediaQuery.of(context).size.width * 0.45,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 6.0),
                         child: Center(

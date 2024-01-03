@@ -273,7 +273,7 @@ class _MapScreenState extends State<MapScreen> {
                           },
                           child: RoundedContainer(
                             radius: 10.0,
-                            width: context.width * 0.65,
+                            width: MediaQuery.of(context).size.width * 0.65,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),

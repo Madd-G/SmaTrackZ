@@ -140,7 +140,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
         );
       },
       child: RoundedContainer(
-        width: 175.0,
+        width: 160.0,
         radius: 5.0,
         containerColor: AppColors.primaryColor,
         child: Padding(

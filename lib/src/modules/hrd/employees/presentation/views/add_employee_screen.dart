@@ -138,7 +138,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                               : RoundedContainer(
                                   radius: 10.0,
                                   containerColor: AppColors.primaryColor,
-                                  width: context.width,
+                                  width: MediaQuery.of(context).size.width,
                                   child: const Padding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 10.0),

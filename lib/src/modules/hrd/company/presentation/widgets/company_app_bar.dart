@@ -5,8 +5,25 @@ class CompanyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return AppBar(
       backgroundColor: AppColors.whiteColor,
+      title: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(Responsive.isMobile(context)
+                ? 'Mobile'
+                : Responsive.isTablet(context)
+                ? 'Tablet'
+                : Responsive.isDesktop(context)
+                ? 'Desktop'
+                : 'Else'),
+            const SizedBox(width: 10.0),
+            Text(size.width.toString()),
+          ],
+        ),
+      ),
       actions: [
         const Icon(
           Icons.notifications,

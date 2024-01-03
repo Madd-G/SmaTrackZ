@@ -12,17 +12,17 @@ class CompanyInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 600.0, minWidth: 0.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            icon,
-            color: AppColors.greyColor,
-            size: 20.0,
-          ),
-          const SizedBox(width: 10.0),
+    Size size = MediaQuery.of(context).size;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          icon,
+          color: AppColors.greyColor,
+          size: 20.0,
+        ),
+        if (size.width > 600) const SizedBox(width: 10.0),
+        if (size.width > 600)
           Expanded(
             child: Text(
               info,
@@ -33,9 +33,8 @@ class CompanyInfoTile extends StatelessWidget {
                 color: AppColors.greyColor,
               ),
             ),
-          ),
-        ],
-      ),
+          )
+      ],
     );
   }
 }

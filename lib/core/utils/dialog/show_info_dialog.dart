@@ -10,7 +10,7 @@ Future showInfoDialog(String message) async {
         child: Center(
           child: Card(
             child: SizedBox(
-              width: context.width * 0.6,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: Wrap(
                 children: [
                   Container(

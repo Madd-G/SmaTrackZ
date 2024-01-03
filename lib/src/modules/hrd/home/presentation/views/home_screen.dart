@@ -10,13 +10,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: BackgroundImage(
         child: Center(
-            child: Text(Responsive.isMobile(context)
-                ? 'Mobile'
-                : Responsive.isTablet(context)
-                    ? 'Tablet'
-                    : Responsive.isDesktop(context)
-                        ? 'Desktop'
-                        : 'Else')),
+          child: Text(Responsive.isMobile(context)
+              ? 'Mobile'
+              : Responsive.isTablet(context)
+                  ? 'Tablet'
+                  : Responsive.isDesktop(context)
+                      ? 'Desktop'
+                      : 'Else'),
+        ),
         // child: Column(
         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //   children: [

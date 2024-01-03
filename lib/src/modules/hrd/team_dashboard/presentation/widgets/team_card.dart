@@ -20,8 +20,8 @@ class TeamCard extends StatelessWidget {
       onTap: onTap,
       child: RoundedContainer(
         radius: 30.0,
-        height: context.width * 0.44,
-        width: context.width * 0.44,
+        height: MediaQuery.of(context).size.width * 0.44,
+        width: MediaQuery.of(context).size.width * 0.44,
         containerColor: AppColors.whiteColor,
         child: Padding(
           padding: const EdgeInsets.only(

@@ -10,10 +10,11 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  bool isExpanded = true;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       height: double.infinity,
       padding: const EdgeInsets.only(top: kIsWeb ? 20.0 : 0),
@@ -24,19 +25,21 @@ class _SideMenuState extends State<SideMenu> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SideMenuItem(
-                press: () {
-                  pressExpand(isExpanded);
-                  setState(() {});
-                },
-                title: "",
-                icon: isExpanded
-                    ? Icons.keyboard_double_arrow_left_rounded
-                    : Icons.keyboard_double_arrow_right_rounded,
-                isActive: true,
-                isExpanded: isExpanded,
-                // itemCount: 3,
-              ),
+              (size.width < 1200)
+                  ? const SizedBox.shrink()
+                  : SideMenuItem(
+                      press: () {
+                        pressExpand(isExpanded);
+                        setState(() {});
+                      },
+                      title: "",
+                      icon: isExpanded
+                          ? Icons.keyboard_double_arrow_left_rounded
+                          : Icons.keyboard_double_arrow_right_rounded,
+                      isActive: true,
+                      isExpanded: isExpanded,
+                      // itemCount: 3,
+                    ),
               SideMenuItem(
                 press: () {
                   widget.controller.changeIndex(0);
