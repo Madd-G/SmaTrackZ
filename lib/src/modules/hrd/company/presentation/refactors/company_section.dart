@@ -1,18 +1,9 @@
 import 'package:smatrackz/core.dart';
 
 class CompanySection extends StatelessWidget {
-  const CompanySection({
-    super.key,
-    required this.company,
-    required this.nameController,
-    required this.emailController,
-    required this.addCompanyFormKey,
-  });
+  const CompanySection({super.key, required this.company});
 
   final UserModel company;
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final GlobalKey<FormState> addCompanyFormKey;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +22,10 @@ class CompanySection extends StatelessWidget {
                   maxLines: 2,
                   textAlign: TextAlign.justify,
                   overflow: TextOverflow.ellipsis,
-                  style: Responsive.isMobile(context) ? CustomTextStyle.textLargeSemiBold.copyWith(fontSize: 18.0) : CustomTextStyle.headingSemiBold,
+                  style: Responsive.isMobile(context)
+                      ? CustomTextStyle.textLargeSemiBold
+                          .copyWith(fontSize: 17.0)
+                      : CustomTextStyle.headingSemiBold,
                 ),
               ),
               const SizedBox(width: 70.0),
@@ -78,7 +72,7 @@ class CompanySection extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: size.width < 600 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -86,9 +80,11 @@ class CompanySection extends StatelessWidget {
                     if (size.width > 1300) const CompanyProfilePhoto(),
                     if (size.width > 600) const SizedBox(width: 10.0),
                     CompanyInfo(company: company),
-                    if (size.width > 600) const SizedBox(width: 20.0),
+                    if (size.width > 600)
+                      Container(color: Colors.red, width: 20.0),
                   ],
                 ),
+                const SizedBox(width: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

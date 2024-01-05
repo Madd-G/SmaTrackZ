@@ -1,6 +1,7 @@
 export 'dialog/show_info_dialog.dart';
 export 'show_loading/show_loading.dart';
 export 'app_colors.dart';
+export 'app_platform.dart';
 export 'bottom_nav_util_utils.dart';
 export 'constants.dart';
 export 'core_utils.dart';

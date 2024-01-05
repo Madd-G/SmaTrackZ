@@ -1,25 +1,24 @@
 import 'package:smatrackz/core.dart';
 
 class AddEmployeeButton extends StatefulWidget {
-  const AddEmployeeButton({
-    super.key,
-    required this.nameController,
-    required this.emailController,
-    required this.addCompanyFormKey,
-    required this.company,
-  });
-
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final GlobalKey<FormState> addCompanyFormKey;
-  final UserModel company;
+  const AddEmployeeButton({super.key});
 
   @override
   State<AddEmployeeButton> createState() => _AddEmployeeButtonState();
 }
 
 class _AddEmployeeButtonState extends State<AddEmployeeButton> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final addCompanyFormKey = GlobalKey<FormState>();
   String? position;
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +32,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
               surfaceTintColor: Colors.transparent,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    5.0,
-                  ),
+                  Radius.circular(5.0),
                 ),
               ),
               title: const Text(
@@ -45,7 +42,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
               content: SizedBox(
                 height: 500.0,
                 child: Form(
-                  key: widget.addCompanyFormKey,
+                  key: addCompanyFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -59,7 +56,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                       SizedBox(
                         width: 700,
                         child: CustomTextField(
-                          controller: widget.nameController,
+                          controller: nameController,
                           hintText: 'Enter Your Username',
                           keyboardType: TextInputType.name,
                         ),
@@ -74,7 +71,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                       SizedBox(
                         width: 700,
                         child: CustomTextField(
-                          controller: widget.emailController,
+                          controller: emailController,
                           hintText: 'Enter Your Email',
                           keyboardType: TextInputType.emailAddress,
                         ),
@@ -99,40 +96,45 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                     Navigator.of(dialogContext).pop();
                   },
                 ),
-                GestureDetector(
-                  onTap: () async {},
-                  child: RoundedContainer(
-                    radius: 10.0,
-                    containerColor: AppColors.primaryColor,
-                    child: TextButton(
-                      child: Text(
-                        'Add',
-                        style: CustomTextStyle.textRegular
-                            .copyWith(color: AppColors.whiteColor),
+                Consumer<UserProvider>(
+                  builder: (_, provider, __) {
+                    final company = provider.user!;
+                    return GestureDetector(
+                      onTap: () async {},
+                      child: RoundedContainer(
+                        radius: 10.0,
+                        containerColor: AppColors.primaryColor,
+                        child: TextButton(
+                          child: Text(
+                            'Add',
+                            style: CustomTextStyle.textRegular
+                                .copyWith(color: AppColors.whiteColor),
+                          ),
+                          onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (addCompanyFormKey.currentState!.validate()) {
+                              context.read<EmployeeBloc>().add(
+                                    AddEmployeeEvent(
+                                      email: emailController.text.trim(),
+                                      password: emailController.text.trim(),
+                                      employee: EmployeeModel(
+                                        // uid: 'uid',
+                                        email: emailController.text.trim(),
+                                        username: nameController.text.trim(),
+                                        role: position,
+                                        // role: 'Ada',
+                                        createdAt: DateTime.now().toString(),
+                                      ),
+                                      companyId: company.companyId,
+                                    ),
+                                  );
+                            }
+                            Navigator.of(dialogContext).pop();
+                          },
+                        ),
                       ),
-                      onPressed: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        if (widget.addCompanyFormKey.currentState!.validate()) {
-                          context.read<EmployeeBloc>().add(
-                                AddEmployeeEvent(
-                                  email: widget.emailController.text.trim(),
-                                  password: widget.emailController.text.trim(),
-                                  employee: EmployeeModel(
-                                    // uid: 'uid',
-                                    email: widget.emailController.text.trim(),
-                                    username: widget.nameController.text.trim(),
-                                    role: position,
-                                    // role: 'Ada',
-                                    createdAt: DateTime.now().toString(),
-                                  ),
-                                  companyId: widget.company.companyId,
-                                ),
-                              );
-                        }
-                        Navigator.of(dialogContext).pop();
-                      },
-                    ),
-                  ),
+                    );
+                  },
                 )
               ],
             );
@@ -140,7 +142,6 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
         );
       },
       child: RoundedContainer(
-        width: 160.0,
         radius: 5.0,
         containerColor: AppColors.primaryColor,
         child: Padding(
@@ -154,13 +155,18 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                 color: AppColors.whiteColor,
                 size: 15.0,
               ),
-              const SizedBox(width: 5.0),
-              Text(
-                'Add Employee',
-                style: CustomTextStyle.textMediumRegular.copyWith(
-                  color: AppColors.whiteColor,
+              if (context.width > 1300)
+                Row(
+                  children: [
+                    const SizedBox(width: 5.0),
+                    Text(
+                      'Add Employee',
+                      style: CustomTextStyle.textMediumRegular.copyWith(
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
             ],
           ),
         ),

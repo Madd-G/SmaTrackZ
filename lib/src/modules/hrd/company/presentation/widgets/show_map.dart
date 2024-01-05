@@ -15,19 +15,32 @@ class ShowMap extends StatelessWidget {
               return AlertDialog(
                 content: BlocProvider(
                   create: (context) => sl<AuthBloc>(),
-                  child: MapScreen(company, mapContext: mapDialogContext,),
+                  child: MapScreen(
+                    company,
+                    mapContext: mapDialogContext,
+                  ),
                 ),
-
               );
             });
       },
       child: Text(
         'Show Map',
-        style: CustomTextStyle.textBigRegular.copyWith(
-          color: AppColors.primaryColor,
-          decoration: TextDecoration.underline,
-          decorationColor: AppColors.primaryColor,
-        ),
+        // style: CustomTextStyle.textBigRegular.copyWith(
+        //   color: AppColors.primaryColor,
+        //   decoration: TextDecoration.underline,
+        //   decorationColor: AppColors.primaryColor,
+        // ),
+        style: Responsive.isMobile(context)
+            ? CustomTextStyle.textRegular.copyWith(
+                color: AppColors.greyColor,
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.primaryColor,
+              )
+            : CustomTextStyle.textBigRegular.copyWith(
+                color: AppColors.greyColor,
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.primaryColor,
+              ),
       ),
     );
   }

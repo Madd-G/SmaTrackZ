@@ -9,7 +9,8 @@ class CompanyInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      constraints: (size.width > 600)? BoxConstraints( minWidth: 0.0, maxWidth: size.width * 0.25) : null,
+      // color: Colors.red,
+      constraints: (size.width > 600)? BoxConstraints(minWidth: 0.0, maxWidth: size.width * 0.25) : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -5,25 +5,8 @@ class CompanyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return AppBar(
       backgroundColor: AppColors.whiteColor,
-      title: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(Responsive.isMobile(context)
-                ? 'Mobile'
-                : Responsive.isTablet(context)
-                ? 'Tablet'
-                : Responsive.isDesktop(context)
-                ? 'Desktop'
-                : 'Else'),
-            const SizedBox(width: 10.0),
-            Text(size.width.toString()),
-          ],
-        ),
-      ),
       actions: [
         const Icon(
           Icons.notifications,
@@ -36,12 +19,17 @@ class CompanyAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: AppColors.lightGreyColor,
         ),
         const SizedBox(width: 10.0),
-        Text(
-          context.currentUser!.email,
-          style: CustomTextStyle.textMediumRegular
-              .copyWith(color: AppColors.lightGreyColor),
+        if (! Responsive.isMobile(context))
+        Row(
+          children: [
+            Text(
+              context.currentUser!.email,
+              style: CustomTextStyle.textMediumRegular
+                  .copyWith(color: AppColors.lightGreyColor),
+            ),
+            const SizedBox(width: 15.0),
+          ],
         ),
-        const SizedBox(width: 15.0),
         Padding(
           padding: EdgeInsets.only(
             right: Responsive.isDesktop(context) ? 50.0 : 16.0,

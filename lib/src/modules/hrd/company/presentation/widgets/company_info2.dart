@@ -26,28 +26,54 @@ class CompanyInfo2 extends StatelessWidget {
       children: [
         ShowMap(company: company),
         const SizedBox(height: 20.0),
-        Text(company.website ?? '', style: CustomTextStyle.textBigRegular),
+        Text(
+          company.website ?? '',
+          style: Responsive.isMobile(context)
+              ? CustomTextStyle.textRegular.copyWith(
+                  color: AppColors.greyColor,
+                )
+              : CustomTextStyle.textBigRegular.copyWith(
+                  color: AppColors.greyColor,
+                ),
+        ),
         const SizedBox(height: 20.0),
-        Text('${company.workStart} - ${company.workEnd}',
-            style: CustomTextStyle.textBigRegular),
-        const SizedBox(height: 20.0),
+        Text(
+          '${company.workStart} - ${company.workEnd}',
+          style: Responsive.isMobile(context)
+              ? CustomTextStyle.textRegular.copyWith(
+                  color: AppColors.greyColor,
+                )
+              : CustomTextStyle.textBigRegular.copyWith(
+                  color: AppColors.greyColor,
+                ),
+        ),
+        const SizedBox(height: 27.0),
         SizedBox(
-          height: 30.0,
+          height: Responsive.isMobile(context) ? 22.0 : 25.0,
           child: ListView(
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             children: days
-                .map((e) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                .map((day) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 3.0),
                       child: Container(
-                          constraints: const BoxConstraints(
-                              minWidth: 40.0, minHeight: 35.0),
-                          color: AppColors.greenColor,
+                        constraints: const BoxConstraints(
+                            minWidth: 30.0, minHeight: 30.0),
+                        decoration: const BoxDecoration(
+                            color: AppColors.greenColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: Center(
-                              child: Text(
-                            e,
-                            style: const TextStyle(color: AppColors.whiteColor),
-                          ))),
+                            child: Text(
+                              day,
+                              style: CustomTextStyle.textRegular
+                                  .copyWith(color: AppColors.whiteColor),
+                            ),
+                          ),
+                        ),
+                      ),
                     ))
                 .toList(),
           ),
