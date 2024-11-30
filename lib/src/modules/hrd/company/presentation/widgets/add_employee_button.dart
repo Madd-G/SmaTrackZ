@@ -57,7 +57,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                         width: 700,
                         child: CustomTextField(
                           controller: nameController,
-                          hintText: 'Enter Your Username',
+                          hintText: 'Enter the Username',
                           keyboardType: TextInputType.name,
                         ),
                       ),
@@ -72,7 +72,7 @@ class _AddEmployeeButtonState extends State<AddEmployeeButton> {
                         width: 700,
                         child: CustomTextField(
                           controller: emailController,
-                          hintText: 'Enter Your Email',
+                          hintText: 'Enter the Email',
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),

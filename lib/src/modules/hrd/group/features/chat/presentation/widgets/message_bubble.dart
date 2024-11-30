@@ -26,6 +26,7 @@ class _MessageBubbleState extends State<MessageBubble> {
         }
       },
       child: Container(
+        constraints: const BoxConstraints(maxWidth: 10.0),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           mainAxisAlignment:

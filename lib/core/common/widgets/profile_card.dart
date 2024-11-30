@@ -37,7 +37,7 @@ class ProfileCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        user.companyName,
+                        user.email,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: const TextStyle(
@@ -52,9 +52,7 @@ class ProfileCard extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 12.0),
                           child: Text(
-                            'Mobile Developer',
-                            // 'Head Human Resource Development',
-                            // 'Data Analytics',
+                            'Admin',
                             style: TextStyle(
                               color: AppColors.primaryColor,
                               fontWeight: FontWeight.w700,

@@ -1,4 +1,5 @@
 import 'package:smatrackz/core.dart';
+import 'package:smatrackz/core/constants/constants.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen(this.company, {super.key, this.mapContext});
@@ -19,7 +20,7 @@ class _MapScreenState extends State<MapScreen> {
   GlobalKey googleMapContainerKey = GlobalKey();
   MapType _mapType = MapType.normal;
   GoogleMapController? googleMapController;
-  String googleApikey = "AIzaSyCdrEFiuZccbqDqVcHndteT_RkypJLZCDs";
+  String googleApikey = apiKey;
   String location = "Search Location";
   double _radiusValue = 20;
   bool visible = false;

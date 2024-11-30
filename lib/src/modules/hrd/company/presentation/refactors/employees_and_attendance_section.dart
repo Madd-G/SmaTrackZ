@@ -10,23 +10,22 @@ class EmployeesAndAttendanceSection extends StatefulWidget {
       _EmployeesAndAttendanceSectionState();
 }
 
-class _EmployeesAndAttendanceSectionState
-    extends State<EmployeesAndAttendanceSection> {
+class _EmployeesAndAttendanceSectionState extends State<EmployeesAndAttendanceSection> {
   final Map<String, Map<String, dynamic>> resume = {
     'present-employee': {
-      "count": 25,
+      "count": 3,
       "title": "Present Employees",
     },
     'absent-employee': {
-      "count": 05,
+      "count": 0,
       "title": "Absent Employees",
     },
     'on-leave': {
-      "count": 01,
+      "count": 0,
       "title": "On Leave",
     },
     'active-employee': {
-      "count": 31,
+      "count": 3,
       "title": "Active Employees",
     },
   };

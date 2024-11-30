@@ -63,43 +63,57 @@ class EmployeeAttendanceList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        CupertinoIcons.arrow_down_right,
-                        size: 15.0,
-                        color: AppColors.primaryColor,
-                      ),
-                      Text(
-                        // '${employee.workStart}',
-                        '08:30',
-                        style: Responsive.isDesktop(context)
-                            ? CustomTextStyle.textBigSemiBold.copyWith(
-                          color: AppColors.redColor,
-                        )
-                            : CustomTextStyle.textSemiBold.copyWith(
-                          color: AppColors.redColor,
+                  // Row(
+                  //   children: [
+                  //     const Icon(
+                  //       CupertinoIcons.arrow_down_right,
+                  //       size: 15.0,
+                  //       color: AppColors.primaryColor,
+                  //     ),
+                  //     Text(
+                  //       // '${employee.workStart}',
+                  //       '08:30',
+                  //       style: Responsive.isDesktop(context)
+                  //           ? CustomTextStyle.textBigSemiBold.copyWith(
+                  //         color: AppColors.redColor,
+                  //       )
+                  //           : CustomTextStyle.textSemiBold.copyWith(
+                  //         color: AppColors.redColor,
+                  //       ),
+                  //     ),
+                  //     SizedBox(width: Responsive.isMobile(context) ? 10.0 : 30.0),
+                  //     const Icon(
+                  //       CupertinoIcons.arrow_up_right,
+                  //       size: 15.0,
+                  //       color: AppColors.primaryColor,
+                  //     ),
+                  //     Text(
+                  //       // '${employee.workEnd}',
+                  //       '16:43',
+                  //       style: Responsive.isDesktop(context)
+                  //           ? CustomTextStyle.textBigSemiBold.copyWith(
+                  //               color: AppColors.redColor,
+                  //             )
+                  //           : CustomTextStyle.textSemiBold.copyWith(
+                  //               color: AppColors.redColor,
+                  //             ),
+                  //     ),
+                  //   ],
+                  // )
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          // '${employee.workEnd}',
+                          'Active',
+                          style: Responsive.isDesktop(context)
+                              ? CustomTextStyle.textBigSemiBold.copyWith(
+                                  color: AppColors.greenColor,
+                                )
+                              : CustomTextStyle.textSemiBold.copyWith(
+                                  color: AppColors.greenColor,
+                                ),
                         ),
                       ),
-                      SizedBox(width: Responsive.isMobile(context) ? 10.0 : 30.0),
-                      const Icon(
-                        CupertinoIcons.arrow_up_right,
-                        size: 15.0,
-                        color: AppColors.primaryColor,
-                      ),
-                      Text(
-                        // '${employee.workEnd}',
-                        '16:43',
-                        style: Responsive.isDesktop(context)
-                            ? CustomTextStyle.textBigSemiBold.copyWith(
-                                color: AppColors.redColor,
-                              )
-                            : CustomTextStyle.textSemiBold.copyWith(
-                                color: AppColors.redColor,
-                              ),
-                      ),
-                    ],
-                  )
                 ],
               ),
               const SizedBox(height: 15.0),

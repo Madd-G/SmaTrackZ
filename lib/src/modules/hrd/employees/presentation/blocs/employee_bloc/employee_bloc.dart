@@ -18,8 +18,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     on<EmployeeEvent>((event, emit) {
       emit(EmployeeLoadingState());
     });
-    // on<AddEmployeeEvent>((event, emit) => _addEmployeeHandler(event, emit)); // Corrected this line
-    // on<AddEmployeeEvent>((event, emit) => _addEmployeeHandler);
+
     on<GetEmployeeEvent>(_getEmployeesHandler);
     on<GetFilteredEmployeeEvent>(_getFilteredEmployeesHandler);
     on<AddEmployeeEvent>(_addEmployeeHandler);

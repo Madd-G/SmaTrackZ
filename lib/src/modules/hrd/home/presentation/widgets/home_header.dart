@@ -26,7 +26,7 @@ class HomeHeader extends StatelessWidget {
                 children: [
                   const Icon(IconlyBold.user_2, color: Colors.white),
                   Text(
-                    'Friday, 10 February 2023',
+                    DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now()),
                     style: CustomTextStyle.textLargeMedium
                         .copyWith(color: AppColors.whiteColor),
                   ),
