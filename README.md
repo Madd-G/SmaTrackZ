@@ -58,7 +58,5 @@ To get started with SmaTrackX, follow these simple steps:
 ## Support and Feedback
 
 As I continue to enhance and refine SmaTrackX, your feedback is invaluable.  
-If you encounter any issues or have suggestions for improvement, please reach out to me at  
-[akhmadnuralamsyah@gmail.com](mailto:akhmadnuralamsyah@gmail.com) or connect with me on  
-[LinkedIn](https://www.linkedin.com/in/akhmad-nur-alamsyah/).
+If you encounter any issues or have suggestions for improvement, please reach out to me at [akhmadnuralamsyah@gmail.com](mailto:akhmadnuralamsyah@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/akhmad-nur-alamsyah/).
 
